@@ -5,6 +5,7 @@
   gather_facts: yes
   vars_files:
     - files/vars.yml
+    - files/secrets.yml
   tasks:
     - name: Setup | Scripts folder
       file:
@@ -24,17 +25,24 @@
         - language
         - java
 
-    - import_tasks: tasks/code.yml
-      tags:
-        - application
-        - vscode
-
     - import_tasks: tasks/node.yml
       tags:
         - language
         - node
 
     - import_tasks: tasks/applications.yml
+      tags: applications
+
+    - import_tasks: tasks/ruby.yml
+      tags:
+        - language
+        - ruby
+
+    - import_tasks: tasks/git.yml
+      tags: git
+
+    - import_tasks: tasks/gpg.yml
+      tags: gpg
 
   handlers:
     - import_tasks: handlers/handlers.yml

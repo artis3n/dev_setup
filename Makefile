@@ -17,8 +17,12 @@ clean:
 
 .PHONY: test
 test:
-	ansible-lint *.yml
+	ansible-lint *.yml --exclude=files/secrets.yml
 
 .PHONY: run
 run: test
-	ansible-playbook -i inventory main.yml --ask-become-pass
+	ansible-playbook --vault-id .vault_pass -i inventory main.yml --ask-become-pass
+
+.PHONY: secret
+secret:
+	if [ -f ./files/secrets.yml ]; then ansible-vault edit ./files/secrets.yml; else ansible-vault create ./files/secrets.yml; fi;

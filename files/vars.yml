@@ -2,6 +2,9 @@
 
 install_dir: "{{ lookup('env', 'HOME') }}/.install_deps"
 
+email: dev@quantummadness.com
+name: Artis3n
+
 apt_repos:
   - ansible/ansible
   - nextcloud-devs/client
@@ -28,6 +31,8 @@ apt_packages:
   - deja-dup
   - vagrant
   - gnome-shell-extension-appindicator
+  - rng-tools5
+  - shellcheck
 
 spaceship_theme_version: v3.11.0
 
@@ -41,3 +46,5 @@ node_version: 12.1.0
 
 bitwarden_appimage: Bitwarden.AppImage
 jetbrains_toolbox: jetbrains-toolbox.tar.gz
+
+ruby_version: 2.6.0

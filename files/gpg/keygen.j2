@@ -1,0 +1,11 @@
+Key-Type: RSA
+Key-Length: 4096
+Subkey-Type: RSA
+Subkey-Length: 4096
+Name-Real: {{ name }}
+Name-Email: {{ email }}
+Expire-Date: 0
+Passphrase: {{ gpg_pass }}
+%pubring {{ keyname }}.pub
+%secring {{ keyname }}.sec
+%commit

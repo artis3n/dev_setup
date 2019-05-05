@@ -1,0 +1,13 @@
+---
+
+- name: Apt | Add Repositories
+  apt_repository:
+    repo: ppa:{{ item }}
+    state: present
+  with_items: "{{ apt_repos }}"
+
+- name: Apt | Install packages
+  apt:
+    name: "{{ item }}"
+    state: latest
+    upgrade: full

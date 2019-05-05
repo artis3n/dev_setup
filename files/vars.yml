@@ -1,1 +1,28 @@
 ---
+
+apt_repos:
+  - ansible/ansible
+  - nextcloud-devs/client
+
+apt_packages:
+  - curl
+  - vim
+  - gnome-tweak-tool
+  - firefox
+  - golang
+  - git
+  - postgresql
+  - postgresql-contrib
+  - pgadmin3
+  - apt-transport-https
+  - ca-certificates
+  - software-properties-common
+  - texlive-full
+  - gnupg2
+  - openvpn
+  - zsh
+  - nextcloud-client
+  - virtualbox
+  - deja-dup
+  - vagrant
+  - gnome-shell-extension-appindicator

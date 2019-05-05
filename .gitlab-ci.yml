@@ -27,6 +27,7 @@ before_script:
 
 stages:
   - lint
+  - staging
 
 ansible_linting:
   stage: lint
@@ -34,3 +35,8 @@ ansible_linting:
     GIT_SSL_NO_VERIFY: "True"
   script:
     - ansible-lint *.yml
+
+verify_ansible:
+  stage: staging
+  script:
+    - ansible-playbook -i inventory.yml main.yml

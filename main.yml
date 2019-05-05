@@ -8,3 +8,6 @@
   tasks:
     - import_tasks: tasks/import_secrets.yml
       tags: secrets
+
+    - import_tasks: tasks/apt.yml
+      tags: apt

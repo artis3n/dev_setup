@@ -1,0 +1,10 @@
+---
+- name: All
+  hosts: all
+  connection: local
+  gather_facts: yes
+  vars_files:
+    - files/vars.yml
+  tasks:
+    - import_tasks: tasks/import_secrets.yml
+      tags: secrets

@@ -25,29 +25,12 @@ before_script:
   - source venv/bin/activate
   - pip install -r requirements.txt
 
-test:
+stages:
+  - lint
+
+ansible_linting:
+  stage: lint
   variables:
     GIT_SSL_NO_VERIFY: "True"
   script:
-  - ansible-lint *.yml
-
-# run:
-#   script:
-#   - python setup.py bdist_wheel
-#   # an alternative approach is to install and run:
-#   - pip install dist/*
-#   # run the command here
-#   artifacts:
-#     paths:
-#     - dist/*.whl
-
-# pages:
-#   script:
-#   - pip install sphinx sphinx-rtd-theme
-#   - cd doc ; make html
-#   - mv build/html/ ../public/
-#   artifacts:
-#     paths:
-#     - public
-#   only:
-#   - master
+    - ansible-lint *.yml

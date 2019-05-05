@@ -1,6 +1,6 @@
 ---
 
-install_dir: "{{ lookup('env', 'HOME') }}/.intall_deps"
+install_dir: "{{ lookup('env', 'HOME') }}/.install_deps"
 
 apt_repos:
   - ansible/ansible
@@ -38,4 +38,6 @@ vscode_deb: vscode.deb
 
 nvm_install_script: nvm.install.sh
 node_version: 12.1.0
+
 bitwarden_appimage: Bitwarden.AppImage
+jetbrains_toolbox: jetbrains-toolbox.tar.gz

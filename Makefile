@@ -21,4 +21,4 @@ test:
 
 .PHONY: run
 run:
-	ansible-playbook --vault-id .vault -i inventory main.yml --ask-become-pass
+	ansible-playbook -i inventory main.yml --ask-become-pass

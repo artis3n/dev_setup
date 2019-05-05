@@ -39,4 +39,4 @@ ansible_linting:
 verify_ansible:
   stage: staging
   script:
-    - ansible-playbook -i inventory.yml main.yml
+    - ansible-playbook -i inventory main.yml

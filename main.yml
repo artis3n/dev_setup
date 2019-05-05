@@ -6,5 +6,18 @@
   vars_files:
     - files/vars.yml
   tasks:
+    - name: Setup | Scripts folder
+      file:
+        path: "{{ install_dir }}"
+        state: directory
+        mode: 0755
+
     - import_tasks: tasks/apt.yml
+      become: yes
       tags: apt
+
+    - import_tasks: tasks/terminal.yml
+      tags: terminal
+
+    - import_tasks: tasks/java.yml
+      tags: java

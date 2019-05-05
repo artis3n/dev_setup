@@ -1,0 +1,18 @@
+---
+
+- name: Java | Get Jabba install script
+  get_url:
+    url: https://github.com/shyiko/jabba/raw/master/install.sh
+    dest: "{{ install_dir }}/{{ jabba_install_script }}"
+    mode: 0764
+  register: jabba_script
+
+- name: Java | Install Jabba
+  command: bash {{ jabba_script.dest }}
+  args:
+    creates: "{{ lookup('env', 'HOME') }}/.jabba/bin/jabba"
+
+- name: Java | Install JDK
+  command: jabba install openjdk@{{ java_version }}
+  args:
+    creates: "{{ lookup('env', 'HOME') }}/.jabba/jdk/openjdk@{{ java_version }}"

@@ -1,0 +1,18 @@
+---
+
+- name: Terminal | Install Oh My ZSH
+  shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  args:
+    creates: "{{ lookup('env', 'HOME') }}/.zshrc"
+
+- name: Terminal | ZSH Spaceship theme
+  git:
+   repo: https://github.com/denysdovhan/spaceship-prompt.git
+   version: "{{ spaceship_theme_version }}"
+   dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/themes/spaceship-prompt"
+
+- name: Terminal | ZSH Spaceship symbolic link
+  file:
+    src: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme"
+    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+    state: link

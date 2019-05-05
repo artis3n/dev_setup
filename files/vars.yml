@@ -1,5 +1,7 @@
 ---
 
+install_dir: "{{ lookup('env', 'HOME') }}/.intall_deps"
+
 apt_repos:
   - ansible/ansible
   - nextcloud-devs/client
@@ -26,3 +28,8 @@ apt_packages:
   - deja-dup
   - vagrant
   - gnome-shell-extension-appindicator
+
+spaceship_theme_version: v3.11.0
+
+jabba_install_script: jabba.install.sh
+java_version: 1.12

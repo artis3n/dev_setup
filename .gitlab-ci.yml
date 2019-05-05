@@ -1,0 +1,9 @@
+stages:
+  - lint
+
+ansible_linting:
+  variables:
+    GIT_SSL_NO_VERIFY: "True"
+  stage: lint
+  script:
+    - ansible-lint *.yml

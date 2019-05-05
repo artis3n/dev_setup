@@ -1,7 +1,7 @@
 # This file is a template, and might need editing before it works on your project.
 # Official language image. Look for the different tagged releases at:
 # https://hub.docker.com/r/library/python/tags/
-image: python:latest
+image: williamyeh/ansible:ubuntu18.04
 
 # Change pip's cache directory to be inside the project directory since we can
 # only cache local items.
@@ -27,16 +27,14 @@ before_script:
 
 stages:
   - lint
-  - staging
+  # - run
 
 ansible_linting:
   stage: lint
-  variables:
-    GIT_SSL_NO_VERIFY: "True"
   script:
     - ansible-lint *.yml
 
-verify_ansible:
-  stage: staging
-  script:
-    - ansible-playbook -i inventory main.yml
+# verify_ansible:
+#   stage: run
+#   script:
+#     - ansible-playbook -i inventory main.yml

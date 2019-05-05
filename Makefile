@@ -20,5 +20,5 @@ test:
 	ansible-lint *.yml
 
 .PHONY: run
-run:
+run: test
 	ansible-playbook -i inventory main.yml --ask-become-pass

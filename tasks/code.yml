@@ -1,0 +1,12 @@
+---
+
+- name: Code | Download deb
+  get_url:
+    url: https://go.microsoft.com/fwlink/?LinkID=760868
+    dest: "{{ install_dir }}/{{ vscode_deb }}"
+    mode: 0644
+
+- name: Code | Install deb
+  become: yes
+  apt:
+    deb: "{{ install_dir }}/{{ vscode_deb }}"

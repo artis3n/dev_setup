@@ -1,0 +1,17 @@
+---
+
+- name: Node | Download nvm
+  get_url:
+    url: https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh
+    dest: "{{ install_dir }}/{{ nvm_install_script }}"
+    mode: 0764
+
+- name: Node | Install nvm
+  command: bash "{{ install_dir }}/{{ nvm_install_script }}"
+  args:
+    creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+
+- name: Node | Install Node
+  command: nvm install {{ node_version }}
+  args:
+    creates: "{{ ansible_env.HOME }}/.nvm/versions/node/v{{ node_version }}/bin/node"

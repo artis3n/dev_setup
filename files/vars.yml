@@ -33,3 +33,8 @@ spaceship_theme_version: v3.11.0
 
 jabba_install_script: jabba.install.sh
 java_version: 1.12
+
+vscode_deb: vscode.deb
+
+nvm_install_script: nvm.install.sh
+node_version: 12.1.0

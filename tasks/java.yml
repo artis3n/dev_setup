@@ -10,9 +10,9 @@
 - name: Java | Install Jabba
   command: bash {{ jabba_script.dest }}
   args:
-    creates: "{{ lookup('env', 'HOME') }}/.jabba/bin/jabba"
+    creates: "{{ ansible_env.HOME }}/.jabba/bin/jabba"
 
 - name: Java | Install JDK
   command: jabba install openjdk@{{ java_version }}
   args:
-    creates: "{{ lookup('env', 'HOME') }}/.jabba/jdk/openjdk@{{ java_version }}"
+    creates: "{{ ansible_env.HOME }}/.jabba/jdk/openjdk@{{ java_version }}"

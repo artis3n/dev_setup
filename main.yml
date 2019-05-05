@@ -20,4 +20,16 @@
       tags: terminal
 
     - import_tasks: tasks/java.yml
-      tags: java
+      tags:
+        - language
+        - java
+
+    - import_tasks: tasks/code.yml
+      tags:
+        - application
+        - vscode
+
+    - import_tasks: tasks/node.yml
+      tags:
+        - language
+        - node

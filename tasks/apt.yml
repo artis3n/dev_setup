@@ -1,13 +1,24 @@
 ---
 
 - name: Apt | Add Repositories
+  become: yes
   apt_repository:
     repo: ppa:{{ item }}
     state: present
   with_items: "{{ apt_repos }}"
 
 - name: Apt | Install packages
+  become: yes
   apt:
-    name: "{{ item }}"
+    name: "{{ apt_packages }}"
     state: present
+
+- name: Apt | Upgrade packages
+  become: yes
+  apt:
     upgrade: full
+
+- name: Apt | Clean up
+  become: yes
+  apt:
+    autoremove: yes

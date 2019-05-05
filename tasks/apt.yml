@@ -9,5 +9,5 @@
 - name: Apt | Install packages
   apt:
     name: "{{ item }}"
-    state: latest
+    state: present
     upgrade: full

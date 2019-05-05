@@ -1,5 +1,5 @@
 ---
-- name: All
+- name: All Tasks
   hosts: all
   connection: local
   gather_facts: yes
@@ -33,3 +33,8 @@
       tags:
         - language
         - node
+
+    - import_tasks: tasks/applications.yml
+
+  handlers:
+    - import_tasks: handlers/handlers.yml

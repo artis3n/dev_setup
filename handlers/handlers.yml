@@ -1,0 +1,5 @@
+---
+
+- name: Bitwarden added
+  debug:
+    msg: "A Bitwarden AppImage has been added to your Documents directory."

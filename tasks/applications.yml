@@ -1,0 +1,8 @@
+---
+
+- name: Applications | Bitwarden | Download
+  get_url:
+    url: https://vault.bitwarden.com/download/?app=desktop&platform=linux&variant=appimage
+    dest: "{{ ansible_env.HOME }}/Documents/{{ bitwarden_appimage }}"
+    mode: 0764
+  notify: Bitwarden added

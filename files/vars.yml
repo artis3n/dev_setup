@@ -38,3 +38,4 @@ vscode_deb: vscode.deb
 
 nvm_install_script: nvm.install.sh
 node_version: 12.1.0
+bitwarden_appimage: Bitwarden.AppImage

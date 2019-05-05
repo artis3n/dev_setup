@@ -1,0 +1,27 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.2.1
+    hooks:
+    - id: check-executables-have-shebangs
+    - id: check-json
+    - id: check-merge-conflict
+    - id: trailing-whitespace
+    - id: check-yaml
+    - id: end-of-file-fixer
+    - id: requirements-txt-fixer
+    - id: sort-simple-yaml
+
+-   repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: 1.11.0
+    hooks:
+    - id: markdownlint
+    - id: shellcheck
+    - id: script-must-have-extension
+
+-   repo: https://github.com/ansible/ansible-lint
+    rev: v4.1.0
+    hooks:
+    - id: ansible-lint
+    stages:
+    - prepare-commit-msg
+    - push

@@ -18,3 +18,7 @@ clean:
 .PHONY: test
 test:
 	ansible-lint *.yml
+
+.PHONY: run
+run:
+	ansible-playbook --vault-id .vault -i inventory main.yml --ask-become-pass

@@ -1,12 +1,23 @@
 ---
 
-# - name: GPG | Generate key
+# - name: GPG | Create config
+#   template:
+#     src: files/gpg/keygen.j2
+#     dest: "{{ install_dir }}/keygen"
+#   register: gpg_config
 
-- name: GPG | Add to git config
-  git_config:
-    name: "{{ item.name }}"
-    value: "{{ item.value }}"
-    scope: global
-  with_items:
-    - { name: commit.gpgsign, value: true }
-    - { name: user.signingkey, value: "{{ gpg_keyid.stdout }}" }
+# - name: GPG | Generate key
+#   command: gpg -gen-key {{ gpg_config.dest }} && touch {{ install_dir }}/gpg-created
+#   args:
+#     creates: "{{ install_dir }}/gpg-created"
+
+# TODO: Get the key id of the created gpg key
+
+# - name: GPG | Add to git config
+#   git_config:
+#     name: "{{ item.name }}"
+#     value: "{{ item.value }}"
+#     scope: global
+#   with_items:
+#     - { name: commit.gpgsign, value: true }
+#     - { name: user.signingkey, value: "{{ gpg_keyid.stdout }}" }

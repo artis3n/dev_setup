@@ -1,0 +1,30 @@
+---
+
+- name: Applications | Jetbrains Toolbox | Download
+  get_url:
+    url: "{{ jetbrains_toolbox_url }}"
+    dest: "{{ install_dir }}/{{ jetbrains_toolbox }}"
+    mode: 0644
+  register: toolbox_app
+
+- name: Applications | Jetbrains Toolbox | Un-package
+  unarchive:
+    src: "{{ toolbox_app.dest }}"
+    dest: "{{ install_dir }}/"
+    remote_src: yes
+  when: toolbox_app.changed # noqa 503
+
+- name: Applications | Jetbrains Toolbox | Locate installer
+  shell: |
+    set -o pipefail
+    find . -maxdepth 1 -type d -name "jetbrains-toolbox-\*" -print | head -n1
+  args:
+    executable: /bin/bash
+    chdir: "{{ install_dir }}"
+  changed_when: false
+  register: toolbox_installer
+
+- name: Applications | Jetbrains Toolbox | Install
+  command: bash {{ toolbox_installer.stdout }}/jetbrains-toolbox
+  args:
+    creates: "{{ ansible_env.HOME }}/.local/share/applications/jetbrains-toolbox.desktop"

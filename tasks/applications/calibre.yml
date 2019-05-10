@@ -1,0 +1,14 @@
+---
+
+- name: Applications | Calibre | Download
+  get_url:
+    url: "{{ calibre_url }}"
+    dest: "{{ install_dir }}/calibre_installer.sh"
+    mode: 0764
+  register: calibre_installer
+
+- name: Applications | Calibre | Install
+  become: yes
+  command: sh {{ calibre_installer.dest }}
+  args:
+    creates: /usr/bin/calibre

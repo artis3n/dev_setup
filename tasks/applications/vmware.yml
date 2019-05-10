@@ -1,0 +1,13 @@
+---
+
+- name: Applications | VMWare | Download
+  get_url:
+    url: "{{ vmware_url }}"
+    dest: "{{ install_dir }}/vmware.bundle"
+    mode: 0764
+  register: vmware_installer
+
+- name: Applications | VMWare | Install
+  command: bash {{ vmware_installer.dest }}
+  args:
+    creates: /usr/bin/vmware

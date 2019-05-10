@@ -1,0 +1,13 @@
+---
+
+- name: Applications | Keybase | Download
+  get_url:
+    url: "{{ keybase_url }}"
+    dest: "{{ install_dir }}/{{ keybase_deb }}"
+    mode: 0644
+
+- name: Applications | Keybase | Install
+  become: yes
+  apt:
+    deb: "{{ install_dir }}/{{ keybase_deb }}"
+  notify: Keybase Install

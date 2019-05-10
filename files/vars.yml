@@ -3,7 +3,7 @@
 install_dir: "{{ lookup('env', 'HOME') }}/.install_deps"
 
 email: dev@quantummadness.com
-name: Artis3n
+handle: Artis3n
 
 apt_repos:
   - ansible/ansible
@@ -39,12 +39,28 @@ spaceship_theme_version: v3.11.0
 jabba_install_script: jabba.install.sh
 java_version: 1.12
 
+vscode_url: https://go.microsoft.com/fwlink/?LinkID=760868
 vscode_deb: vscode.deb
+
+keybase_url: https://prerelease.keybase.io/keybase_amd64.deb
+keybase_deb: keybase_amd64.deb
 
 nvm_install_script: nvm.install.sh
 node_version: 12.1.0
 
+bitwarden_url: https://vault.bitwarden.com/download/?app=desktop&platform=linux&variant=appimage
 bitwarden_appimage: Bitwarden.AppImage
+
+calibre_url: https://download.calibre-ebook.com/linux-installer.sh
+
 jetbrains_toolbox: jetbrains-toolbox.tar.gz
+jetbrains_toolbox_url: https://data.services.jetbrains.com/products/download?platform=linux&code=TBA
+
+vmware_url: https://www.vmware.com/go/getworkstation-linux
 
 ruby_version: 2.6.0
+
+ssh_keypair:
+  filename: id_ed25519
+  type: ed25519
+  comment: dev@quantummadness.com

@@ -1,0 +1,12 @@
+---
+
+- name: Applications | VS Code | Download deb
+  get_url:
+    url: "{{ vscode_url }}"
+    dest: "{{ install_dir }}/{{ vscode_deb }}"
+    mode: 0644
+
+- name: Applications | VS Code | Install deb
+  become: yes
+  apt:
+    deb: "{{ install_dir }}/{{ vscode_deb }}"

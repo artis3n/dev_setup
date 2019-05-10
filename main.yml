@@ -30,9 +30,6 @@
         - language
         - node
 
-    - import_tasks: tasks/applications.yml
-      tags: applications
-
     - import_tasks: tasks/ruby.yml
       tags:
         - language
@@ -40,6 +37,36 @@
 
     - import_tasks: tasks/git.yml
       tags: git
+
+    - import_tasks: tasks/applications/vscode.yml
+      tags:
+        - applications
+        - vscode
+
+    - import_tasks: tasks/applications/bitwarden.yml
+      tags:
+        - applications
+        - bitwarden
+
+    - import_tasks: tasks/applications/jetbrains.yml
+      tags:
+        - applications
+        - jetbrains
+
+    - import_tasks: tasks/applications/vmware.yml
+      tags:
+        - applications
+        - vmware
+
+    - import_tasks: tasks/applications/calibre.yml
+      tags:
+        - applications
+        - calibre
+
+    - import_tasks: tasks/applications/keybase.yml
+      tags:
+        - applications
+        - keybase
 
     - import_tasks: tasks/gpg.yml
       tags: gpg

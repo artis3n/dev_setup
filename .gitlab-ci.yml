@@ -1,4 +1,4 @@
-image: williamyeh/ansible:ubuntu18.04
+image: python:3.6
 
 # Change pip's cache directory to be inside the project directory since we can
 # only cache local items.
@@ -15,10 +15,10 @@ cache:
     - .cache/pip
 
 before_script:
-  - apt install python3
   - python3 -V # Print out python version for debugging
   - pip3 install pipenv
   - pipenv install
+  - pipenv run ansible-galaxy install gantsign.visual-studio-code
 
 stages:
   - lint

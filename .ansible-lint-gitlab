@@ -1,0 +1,6 @@
+exclude_paths:
+  - files/secrets.yml
+  - /root/.ansible/roles/gantsign.visual-studio-code/tasks/install-apt.yml
+  - /root/.ansible/roles/gantsign.visual-studio-code/tasks/install-dnf.yml
+  - /root/.ansible/roles/gantsign.visual-studio-code/tasks/install-yum.yml
+  - /root/.ansible/roles/gantsign.visual-studio-code/tasks/install-zypper.yml

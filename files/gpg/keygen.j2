@@ -4,8 +4,8 @@ Subkey-Type: RSA
 Subkey-Length: 4096
 Name-Real: {{ handle }}
 Name-Email: {{ email }}
+Name-Comment: {{ gpg_comment }}
 Expire-Date: 0
 Passphrase: {{ gpg_pass }}
 %pubring {{ keyname }}.pub
-%secring {{ keyname }}.priv
 %commit

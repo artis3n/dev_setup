@@ -5,6 +5,8 @@ install_dir: "{{ lookup('env', 'HOME') }}/.install_deps"
 email: dev@quantummadness.com
 handle: Artis3n
 
+gpg_comment: Dev Key
+
 apt_repos:
   - ansible/ansible
   - nextcloud-devs/client

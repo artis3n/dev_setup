@@ -6,29 +6,39 @@
     name: "{{ gpg_packages }}"
     state: present
 
+- name: GPG | Format parameter file
+  template:
+    src: files/gpg/keygen.j2
+    dest: "{{ install_dir }}/keygen"
+  register: gpgconfig
+
 - name: GPG | Check for existing key
-  become: yes
   shell: gpg2 --list-secret-keys | grep '{{ handle }}'
   changed_when: false
   ignore_errors: true
   register: gpgkey
 
 - name: GPG | Generate key
-  become: yes
-  command: gpg2 --gen-key {{ lookup('template', ./files/gpg/keygen.j2) }}
+  command: gpg2 --batch --full-generate-key {{ gpgconfig.dest }}
   args:
     chdir: "{{ install_dir }}"
   when: not gpgkey.stdout
   register: gpggen
 
 - name: GPG | Import key
-  become: yes
   command: gpg2 --import {{ keyname }}.pub
   args:
     chdir: "{{ install_dir }}"
   when: not gpgkey.stdout
 
-# TODO: Get the key id of the created gpg key
+- name: GPG | Retrieve GPG Key ID
+  shell: |
+    set -o pipefail
+    gpg2 --list-secret-keys --keyid-format LONG | grep -B 2 'Artis3n' | head -n 1 | tr -d ' ' | cut -c12- | rev | cut -c15- | rev
+  args:
+    executable: /bin/bash
+  changed_when: false
+  register: gpg_keyid
 
 - name: GPG | Add to git config
   git_config:
@@ -36,6 +46,6 @@
     value: "{{ item.value }}"
     scope: global
   with_items:
-    - { name: commit.gpgsign, value: true }
+    - { name: commit.gpgsign, value: 'true' }
     - { name: user.signingkey, value: "{{ gpg_keyid.stdout }}" }
     - { name: gpg.program, value: gpg2 }

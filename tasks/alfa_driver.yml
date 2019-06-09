@@ -1,0 +1,27 @@
+---
+
+- name: Install dependencies
+  become: yes
+  apt:
+    name: "{{ alfa_driver_dependencies }}"
+    state: present
+
+- name: Clone repository
+  git:
+    repo: https://github.com/gnab/rtl8812au.git
+    dest: "{{ install_dir }}/rtl8812au/"
+    # Latest commit from 2-year old repo
+    version: 2807a0a2b71cc47c7483f2a9638c66438c83c5da
+  register: alfa_dir
+
+# TODO: Run 'make' inside the rtl8812au repo
+
+# TODO: sudo insmod 8812au.ko && sudo cp 8812au.ko /lib/modules/$(uname -r)/kernel/drivers/net/wireless && sudo depmod;
+
+# TODO: sudo cp 8812au.ko /lib/modules/$(uname -r)/kernel/drivers/net/wireless && sudo depmod;
+
+# sudo mkdir /usr/src/8812au-4.2.2 && sudo cp -r ~/alfa_driver/rtl8812au/* /usr/src/8812au-4.2.2;
+
+# sudo dkms add -m 8812au -v 4.2.2 && sudo dkms build -m 8812au -v 4.2.2 && sudo dkms install -m 8812au -v 4.2.2;
+
+# echo 8812au | sudo tee -a /etc/modules;

@@ -1,23 +1,41 @@
 ---
 
-# - name: GPG | Create config
-#   template:
-#     src: files/gpg/keygen.j2
-#     dest: "{{ install_dir }}/keygen"
-#   register: gpg_config
+- name: GPG | Ensure Dependencies
+  become: yes
+  apt:
+    name: "{{ gpg_packages }}"
+    state: present
 
-# - name: GPG | Generate key
-#   command: gpg -gen-key {{ gpg_config.dest }} && touch {{ install_dir }}/gpg-created
-#   args:
-#     creates: "{{ install_dir }}/gpg-created"
+- name: GPG | Check for existing key
+  become: yes
+  shell: gpg2 --list-secret-keys | grep '{{ handle }}'
+  changed_when: false
+  ignore_errors: true
+  register: gpgkey
+
+- name: GPG | Generate key
+  become: yes
+  command: gpg2 --gen-key {{ lookup('template', ./files/gpg/keygen.j2) }}
+  args:
+    chdir: "{{ install_dir }}"
+  when: not gpgkey.stdout
+  register: gpggen
+
+- name: GPG | Import key
+  become: yes
+  command: gpg2 --import {{ keyname }}.pub
+  args:
+    chdir: "{{ install_dir }}"
+  when: not gpgkey.stdout
 
 # TODO: Get the key id of the created gpg key
 
-# - name: GPG | Add to git config
-#   git_config:
-#     name: "{{ item.name }}"
-#     value: "{{ item.value }}"
-#     scope: global
-#   with_items:
-#     - { name: commit.gpgsign, value: true }
-#     - { name: user.signingkey, value: "{{ gpg_keyid.stdout }}" }
+- name: GPG | Add to git config
+  git_config:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
+  with_items:
+    - { name: commit.gpgsign, value: true }
+    - { name: user.signingkey, value: "{{ gpg_keyid.stdout }}" }
+    - { name: gpg.program, value: gpg2 }

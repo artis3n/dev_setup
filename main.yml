@@ -6,6 +6,7 @@
   vars_files:
     - files/vars.yml
     - files/secrets.yml
+
   tasks:
     - name: Setup | Scripts folder
       file:
@@ -38,11 +39,6 @@
     - import_tasks: tasks/git.yml
       tags: git
 
-    - import_tasks: tasks/applications/vscode.yml
-      tags:
-        - applications
-        - vscode
-
     - import_tasks: tasks/applications/bitwarden.yml
       tags:
         - applications
@@ -70,6 +66,22 @@
 
     - import_tasks: tasks/gpg.yml
       tags: gpg
+
+    # - import_tasks: tasks/ssh.yml
+    #   tags: ssh
+
+    - import_tasks: tasks/wine.yml
+      tags: wine
+
+    - import_tasks: tasks/alfa_driver.yml
+      tags: wifi-driver
+
+  roles:
+    - role: gantsign.visual-studio-code
+      users:
+        - username: "{{ lookup('env', 'USER') }}"
+          visual_studio_code_extensions:
+            - Shan.code-settings-sync
 
   handlers:
     - import_tasks: handlers/handlers.yml

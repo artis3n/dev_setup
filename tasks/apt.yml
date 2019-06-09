@@ -10,12 +10,14 @@
   apt:
     name: "{{ apt_packages }}"
     state: present
-  async: 1800
+  async: 3600
   poll: 60
 
 - name: Apt | Upgrade packages
   apt:
     upgrade: full
+  async: 3600
+  poll: 60
 
 - name: Apt | Clean up
   apt:

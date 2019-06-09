@@ -7,9 +7,9 @@
 
 - name: Terminal | ZSH Spaceship theme
   git:
-   repo: https://github.com/denysdovhan/spaceship-prompt.git
-   version: "{{ spaceship_theme_version }}"
-   dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/spaceship-prompt"
+    repo: https://github.com/denysdovhan/spaceship-prompt.git
+    version: "{{ spaceship_theme_version }}"
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/spaceship-prompt"
 
 - name: Terminal | ZSH Spaceship symbolic link
   file:

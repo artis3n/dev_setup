@@ -27,7 +27,7 @@ stages:
 ansible_linting:
   stage: lint
   script:
-    - pipenv run ansible-lint -c ./.ansible-lint *.ym
+    - pipenv run ansible-lint -c ./.ansible-lint *.yml
 
 # verify_ansible:
 #   stage: run

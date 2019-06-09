@@ -19,7 +19,7 @@ clean:
 
 .PHONY: test
 test:
-	pipenv run ansible-lint -c ./.ansible-lint *.yml
+	pipenv run ansible-lint -c .ansible-lint *.yml
 
 .PHONY: run
 run: test

@@ -21,7 +21,9 @@
     creates: "{{ install_dir }}/alfa-maked"
 
 - name: Alfa driver | Get kernel release
-  shell: uname -r | sed 's/-generic//''
+  shell: |
+    set -o pipefail
+    uname -r | sed 's/-generic//'
   changed_when: false
   register: kernel_version
 
@@ -50,7 +52,9 @@
 
 - name: Alfa driver | Build kernel module
   become: yes
-  command: dkms add -m 8812au -v {{ kernel_version.stdout }} && dkms build -m 8812au -v {{ kernel_version.stdout }} && dkms install -m 8812au -v {{ kernel_version.stdout }} && touch {{ install_dir }}/alfa-installed
+  command: |
+    dkms add -m 8812au -v {{ kernel_version.stdout }} && dkms build -m 8812au -v {{ kernel_version.stdout }} && \
+    dkms install -m 8812au -v {{ kernel_version.stdout }} && touch {{ install_dir }}/alfa-installed
   args:
     chdir: "{{ alfa_dir.dest }}"
     creates: "{{ install_dir }}/alfa-installed"

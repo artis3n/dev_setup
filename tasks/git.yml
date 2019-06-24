@@ -16,3 +16,29 @@
     - { name: alias.get, value: "pull --prune" }
     - { name: alias.list, value: "config --get-regexp alias" }
     - { name: alias.save, value: "stash save" }
+
+- name: Git | Get Hub version
+  shell: |
+    set -o pipefail
+    curl https://api.github.com/repos/github/hub/releases/latest | jq .tag_name | cut -c 3- | rev | cut -c 2- | rev
+  args:
+    executable: /bin/bash
+  register: hub_version
+  changed_when: false
+
+- name: Git | Download Hub
+  get_url:
+    url: https://github.com/github/hub/releases/download/v{{ hub_version.stdout }}/hub-linux-amd64-{{ hub_version.stdout }}.tgz
+    dest: "{{ install_dir }}/hub.tgz"
+
+- name: Git | Unarchive Hub
+  unarchive:
+    src: "{{ install_dir }}/hub.tgz"
+    dest: "{{ install_dir }}/"
+    creates: "{{ install_dir }}/hub-linux-amd64-{{ hub_version.stdout }}/bin/hub"
+
+- name: Git | Add to local bin
+  copy:
+    src: "{{ install_dir }}/hub-linux-amd64-{{ hub_version.stdout }}/bin/hub"
+    dest: "{{ ansible_env.HOME }}/.local/bin/hub"
+    mode: 0751

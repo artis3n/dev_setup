@@ -33,6 +33,7 @@ apt_packages:
   - vagrant
   - gnome-shell-extension-appindicator
   - shellcheck
+  - jq
 
 pentest_packages:
   - sqlmap

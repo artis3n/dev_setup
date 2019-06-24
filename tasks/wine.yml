@@ -1,6 +1,6 @@
 ---
 
-- name: Check if i386 is enabled
+- name: Wine | Check if i386 is enabled
   become: yes
   shell: |
     set -o pipefail
@@ -11,27 +11,24 @@
   changed_when: result_i386_check.rc == 1
   failed_when: result_i386_check.rc > 1
 
-- debug:
-    var: result_i386_check
-
-- name: Add DPKG architecture
+- name: Wine | Add DPKG architecture
   become: yes
   command: dpkg --add-architecture ie386
   when: result_i386_check.rc == 1
 
-- name: Add Wine key
+- name: Wine | Add public key
   become: yes
   apt_key:
     url: https://dl.winehq.org/wine-builds/winehq.key
     state: present
 
-- name: Add Wine repo
+- name: Wine | Add repo
   become: yes
   apt_repository:
     repo: deb https://dl.winehq.org/wine-builds/ubuntu/ {{ ansible_distribution_release }} main
     state: present
 
-- name: Install Wine
+- name: Wine | Install
   become: yes
   apt:
     name: winehq-stable

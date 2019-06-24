@@ -67,8 +67,11 @@
     - import_tasks: tasks/gpg.yml
       tags: gpg
 
-    # - import_tasks: tasks/ssh.yml
-    #   tags: ssh
+    - import_tasks: tasks/ssh.yml
+      tags: ssh
+
+    - import_tasks: tasks/pentest.yml
+      tags: pentest
 
     - import_tasks: tasks/wine.yml
       tags: wine

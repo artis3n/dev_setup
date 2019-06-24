@@ -6,3 +6,10 @@
     comment: "{{ ssh_keypair.comment }}"
     state: present
     type: "{{ ssh_keypair.type }}"
+  register: gen_ssh_key
+
+- name: SSH | Set default key
+  template:
+    src: files/ssh/config.j2
+    dest: "{{ ansible_env.HOME }}/.ssh/config"
+    backup: yes

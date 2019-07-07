@@ -29,6 +29,7 @@ apt_packages:
   - zsh
   - nextcloud-client
   - virtualbox
+  - virtualbox-ext-pack
   - deja-dup
   - vagrant
   - gnome-shell-extension-appindicator

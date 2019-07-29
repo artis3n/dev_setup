@@ -1,0 +1,14 @@
+[Unit]
+Description=System76 keyboard backlight
+
+[Service]
+Type=Simple
+ExecStartPre=/bin/sh -c "echo {{ keyboard_color.left }} > /sys/class/leds/system76::kbd_backlight/color_left"
+ExecStart=/bin/sh -c "echo {{ keyboard_color.center }} > /sys/class/leds/system76::kbd_backlight/color_center"
+ExecStartPost=/bin/sh -c "echo {{ keyboard_color.right }} > /sys/class/leds/system76::kbd_backlight/color_right"
+
+[Install]
+WantedBy=multi-user.target
+
+# FIXME: remove
+# /etc/systemd/system/kbd-color.service

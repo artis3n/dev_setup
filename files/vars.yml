@@ -77,3 +77,9 @@ alfa_driver_dependencies:
 gpg_packages:
   - gnupg2
   - rng-tools5
+
+# https://www.color-hex.com/color-palettes/
+keyboard_color:
+  left: a8383b
+  center: aaa939
+  right: 2e4372

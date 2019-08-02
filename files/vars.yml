@@ -52,8 +52,6 @@ keybase_deb: keybase_amd64.deb
 nvm_install_script: nvm.install.sh
 node_version: 12.1.0
 
-bitwarden_url: https://vault.bitwarden.com/download/?app=desktop&platform=linux&variant=deb
-
 calibre_url: https://download.calibre-ebook.com/linux-installer.sh
 
 jetbrains_toolbox: jetbrains-toolbox.tar.gz

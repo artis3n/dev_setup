@@ -1,7 +1,0 @@
----
-
-- name: Applications | Bitwarden | Install
-  become: yes
-  apt:
-    deb: "{{ bitwarden_url }}"
-    state: present

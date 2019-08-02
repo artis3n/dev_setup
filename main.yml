@@ -39,11 +39,6 @@
     - import_tasks: tasks/git.yml
       tags: git
 
-    - import_tasks: tasks/applications/bitwarden.yml
-      tags:
-        - applications
-        - bitwarden
-
     - import_tasks: tasks/applications/jetbrains.yml
       tags:
         - applications
@@ -85,6 +80,7 @@
         - username: "{{ lookup('env', 'USER') }}"
           visual_studio_code_extensions:
             - Shan.code-settings-sync
+    - role: artis3n.bitwarden_app
 
   handlers:
     - import_tasks: handlers/handlers.yml

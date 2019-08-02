@@ -1,8 +1,7 @@
 ---
 
-- name: Applications | Bitwarden | Download
-  get_url:
-    url: "{{ bitwarden_url }}"
-    dest: "{{ ansible_env.HOME }}/Documents/{{ bitwarden_appimage }}"
-    mode: 0771
-  notify: Bitwarden added
+- name: Applications | Bitwarden | Install
+  become: yes
+  apt:
+    deb: "{{ bitwarden_url }}"
+    state: present

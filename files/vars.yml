@@ -1,6 +1,6 @@
 ---
 
-install_dir: "{{ lookup('env', 'HOME') }}/.install_deps"
+install_dir: "{{ ansible_env.HOME }}/.install_deps"
 
 email: dev@quantummadness.com
 handle: Artis3n
@@ -52,8 +52,7 @@ keybase_deb: keybase_amd64.deb
 nvm_install_script: nvm.install.sh
 node_version: 12.1.0
 
-bitwarden_url: https://vault.bitwarden.com/download/?app=desktop&platform=linux&variant=appimage
-bitwarden_appimage: Bitwarden.AppImage
+bitwarden_url: https://vault.bitwarden.com/download/?app=desktop&platform=linux&variant=deb
 
 calibre_url: https://download.calibre-ebook.com/linux-installer.sh
 

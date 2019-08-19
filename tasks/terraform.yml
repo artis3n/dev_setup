@@ -1,0 +1,51 @@
+---
+
+- name: Terraform | Get latest release
+  uri:
+    url: https://api.github.com/repos/hashicorp/terraform/releases/latest
+    headers:
+      Accept: application/vnd.github.v3+json
+    body_format: json
+    return_content: yes
+  register: terraform_release
+
+- name: Terraform | Set version
+  set_fact:
+    terraform_version: "{{ terraform_release.json.tag_name[1:] }}"
+
+- name: Terraform | Ensure directory
+  file:
+    path: "{{ install_dir }}/terraform_{{ terraform_version }}"
+    state: directory
+  register: terraform_directory
+
+- name: Terraform | Get hashes
+  get_url:
+    url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_SHA256SUMS
+    dest: "{{ terraform_directory.path }}/SHA256SUMS"
+  register: terraform_shas_file
+  changed_when: false
+
+- name: Extract sha hash
+  set_fact:
+    # https://regex101.com/r/RS94Us/1
+    terraform_sha_string: "{{ lookup('file', terraform_shas_file.dest) | regex_findall('.*\\s\\sterraform_0\\.12\\.6_linux_amd64\\.zip') | first }}"
+
+- name: Terraform | Download
+  get_url:
+    url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_{{ os_short }}.zip
+    dest: "{{ install_dir }}/terraform_{{ terraform_version }}.zip"
+    checksum: sha256:{{ terraform_sha_string.split(' ')[0] }}
+  register: terraform_download
+
+- name: Terraform | Unarchive
+  unarchive:
+    src: "{{ terraform_download.dest }}"
+    dest: "{{ terraform_directory.path }}"
+    remote_src: yes
+
+- name: Terraform | Add to local bin
+  copy:
+    src: "{{ terraform_directory.path }}/terraform"
+    dest: /usr/local/bin/terraform
+    mode: 0755

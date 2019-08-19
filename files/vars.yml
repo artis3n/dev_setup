@@ -1,5 +1,7 @@
 ---
 
+os_short: linux_amd64
+
 install_dir: "{{ ansible_env.HOME }}/.install_deps"
 
 email: dev@quantummadness.com
@@ -35,6 +37,7 @@ apt_packages:
   - gnome-shell-extension-appindicator
   - shellcheck
   - jq
+  - awscli
 
 pentest_packages:
   - sqlmap

@@ -4,6 +4,12 @@ os_short: linux_amd64
 
 install_dir: "{{ ansible_env.HOME }}/.install_deps"
 
+terminal_profiles:
+  - "{{ ansible_env.HOME }}/.zshrc"
+  - "{{ ansible_env.HOME }}/.zprofile"
+  - "{{ ansible_env.HOME }}/.bashrc"
+  - "{{ ansible_env.HOME }}/.bash_profile"
+
 email: dev@quantummadness.com
 handle: Artis3n
 

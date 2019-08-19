@@ -1,0 +1,47 @@
+---
+
+- name: Cloudgoat | Ensure repo
+  file:
+    path: "{{ install_dir }}/cloudgoat"
+    state: directory
+  register: cloudgoat_repo
+
+- name: Cloudgoat | Download
+  command: git clone https://github.com/RhinoSecurityLabs/cloudgoat.git {{ cloudgoat_repo.path }}
+  args:
+    warn: False
+    creates: "{{ cloudgoat_repo.path }}/cloudgoat.py"
+
+- name: Cloudgoat | Install dependencies
+  command: pipenv install --three -r ./core/python/requirements.txt
+  args:
+    chdir: "{{ install_dir }}/cloudgoat"
+    creates: "{{ install_dir }}/cloudgoat/Pipfile.lock"
+
+- name: Cloudgoat | Make executable
+  file:
+    path: "{{ install_dir }}/cloudgoat/cloudgoat.py"
+    mode: u+x
+
+- name: Cloudgoat | Get python path
+  command: pipenv --py
+  args:
+    chdir: "{{ install_dir }}/cloudgoat"
+  register: cloudgoat_python_exec
+  changed_when: false
+
+- name: Cloudgoat | Get venv path
+  command: pipenv --venv
+  args:
+    chdir: "{{ install_dir }}/cloudgoat"
+  register: cloudgoat_venv
+  changed_when: false
+
+- name: Cloudgoat | Add to profile
+  lineinfile:
+    path: "{{ item }}"
+    regexp: alias cloudgoat
+    line: alias cloudgoat="{{ cloudgoat_venv.stdout }}/bin/python {{ install_dir }}/cloudgoat/cloudgoat.py"
+    state: present
+    backup: yes
+  with_first_found: "{{ terminal_profiles }}"

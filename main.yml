@@ -42,6 +42,9 @@
     - import_tasks: tasks/terraform.yml
       tags: terraform
 
+    - import_tasks: tasks/cloudgoat.yml
+      tags: cloudgoat
+
     - import_tasks: tasks/applications/jetbrains.yml
       tags:
         - applications

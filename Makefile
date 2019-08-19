@@ -28,3 +28,6 @@ run: test
 .PHONY: secret
 secret:
 	if [ -f ./files/secrets.yml ]; then pipenv run ansible-vault edit ./files/secrets.yml; else pipenv run ansible-vault create ./files/secrets.yml; fi;
+
+.PHONY: reset-run
+reset-run: clean install run

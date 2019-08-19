@@ -89,3 +89,11 @@ keyboard_color:
   left: a8383b
   center: aaa939
   right: 2e4372
+
+docker_apt_dependencies:
+  - apt-transport-https
+  - ca-certificates
+  - software-properties-common
+docker_apt_arch: amd64
+docker_apt_repo: deb [arch={{ docker_apt_arch }}] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable
+docker_apt: docker-ce

@@ -2,3 +2,13 @@
 
 - name: Keybase Install
   command: /usr/bin/run_keybase
+
+- name: Restart Docker
+  become: yes
+  service:
+    name: docker
+    state: restarted
+
+- name: Docker user added
+  debug:
+    msg: "A new user has been added to the Docker group. Please log out and log back in for this change to apply to the existing user."

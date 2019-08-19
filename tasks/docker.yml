@@ -1,0 +1,51 @@
+---
+
+- name: Docker | Install apt dependencies
+  become: yes
+  apt:
+    name: "{{ docker_apt_dependencies }}"
+    state: present
+
+- name: Docker | Add apt-key
+  become: yes
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+    state: present
+
+- name: Docker | Add repository
+  become: yes
+  apt_repository:
+    repo: "{{ docker_apt_repo }}"
+    state: present
+    update_cache: true
+
+- name: Docker | Install
+  become: yes
+  apt:
+    name: "{{ docker_apt }}"
+    state: present
+  notify: Restart Docker
+
+- name: Docker | Run at boot
+  become: yes
+  service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Docker | Check if in group
+  shell: |
+         set -o pipefail
+         id -nG | grep docker
+  args:
+    executable: /bin/bash
+  changed_when: false
+  register: in_docker_group
+  failed_when: in_docker_group.rc > 1
+
+- name: Docker | Add user to Docker group
+  become: yes
+  command: gpasswd -a {{ ansible_env.USER }} docker
+  when: in_docker_group.rc != 0
+  notify: Docker user added

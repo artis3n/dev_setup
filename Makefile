@@ -14,8 +14,7 @@ install:
 .PHONY: clean
 clean:
 	rm -rf $$(find ~/.local/share/virtualenvs/ -name "dev_setup*")
-	rm -rf ~/.ansible/roles/gantsign.visual-studio-code
-	rm -rf ~/.ansible/roles/artis3n.bitwarden_app
+	rm -rf ~/.ansible/roles/
 
 .PHONY: test
 test:

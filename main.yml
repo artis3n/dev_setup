@@ -45,6 +45,9 @@
     - import_tasks: tasks/cloudgoat.yml
       tags: cloudgoat
 
+    - import_tasks: tasks/docker.yml
+      tags: docker
+
     - import_tasks: tasks/applications/jetbrains.yml
       tags:
         - applications

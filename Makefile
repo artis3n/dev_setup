@@ -6,8 +6,6 @@ all: install
 .PHONY: install
 install:
 	if [ ! -f /usr/bin/python3 ]; then sudo apt install python3; fi;
-	# Installing through pip instead of brew upon advice of
-	# https://docs.ansible.com/ansible/latest/reference_appendices/python_3_support.html
 	if [ ! -f ~/.local/bin/pipenv ]; then pip3 install pipenv; fi;
 	if [ ! $$(find ~/.local/share/virtualenvs/ -name "dev_setup*") ]; then pipenv --three install; fi;
 	if [ ! -d ~/.ansible/roles/gantsign.visual-studio-code ]; then pipenv run ansible-galaxy install gantsign.visual-studio-code; fi;

@@ -19,6 +19,7 @@ before_script:
   - pip3 install pipenv
   - pipenv install
   - pipenv run ansible-galaxy install gantsign.visual-studio-code
+  - pipenv run ansible-galaxy install artis3n.bitwarden_app
 
 stages:
   - lint

@@ -22,3 +22,4 @@
 - name: Apt | Clean up
   apt:
     autoremove: yes
+    autoclean: yes

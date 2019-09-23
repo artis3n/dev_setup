@@ -49,6 +49,19 @@ pentest_packages:
   - sqlmap
   - nmap
   - nikto
+  - steghide
+  - exiftool
+  - foremost
+  - binwalk
+  - volatility
+  - p7zip
+  - hexedit
+  - hashcat
+  - gdb
+  - wireshark
+  - tshark
+  - radare2
+  - remmina
 
 spaceship_theme_version: v3.11.0
 

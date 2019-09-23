@@ -26,10 +26,14 @@
   register: terraform_shas_file
   changed_when: false
 
-- name: Extract sha hash
+- name: Terraform | Construct regex
+  set_fact:
+    terraform_sha_hash: "{{ '.*\\s\\sterraform_' + (terraform_version | regex_escape()) + '_linux_amd64\\.zip' }}"
+
+- name: Terraform | Extract sha hash
   set_fact:
     # https://regex101.com/r/RS94Us/1
-    terraform_sha_string: "{{ lookup('file', terraform_shas_file.dest) | regex_findall('.*\\s\\sterraform_0\\.12\\.6_linux_amd64\\.zip') | first }}"
+    terraform_sha_string: "{{ lookup('file', terraform_shas_file.dest) | regex_findall(terraform_sha_hash) | first }}"
 
 - name: Terraform | Download
   get_url:

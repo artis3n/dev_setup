@@ -1,3 +1,3 @@
 # dev_setup
 
-[![pipeline status](https://gitlab.com/Artis3n/dev_setup/badges/master/pipeline.svg)](https://gitlab.com/Artis3n/dev_setup/commits/master)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fartis3n%2Fdev-setup%2Fbadge&style=flat)](https://actions-badge.atrox.dev/artis3n/dev-setup/goto)

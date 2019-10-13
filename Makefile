@@ -1,7 +1,7 @@
 #!/usr/bin/make
 
 .PHONY: all
-all: install
+all: install provision
 
 .PHONY: install
 install:

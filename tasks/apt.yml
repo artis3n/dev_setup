@@ -1,5 +1,10 @@
 ---
 
+- name: Apt | Install dependencies
+  apt:
+    name: "{{ apt_dependencies }}"
+    state: present
+
 - name: Apt | Add Repositories
   apt_repository:
     repo: ppa:{{ item }}

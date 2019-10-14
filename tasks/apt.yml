@@ -11,14 +11,14 @@
     state: present
   with_items: "{{ apt_repos }}"
 
-- name: Apt | Install packages
+- name: Apt | Install packages - This will take a long time
   apt:
     name: "{{ apt_packages }}"
     state: present
   async: 3600
   poll: 60
 
-- name: Apt | Upgrade packages
+- name: Apt | Upgrade packages - This will take a long time
   apt:
     upgrade: full
   async: 3600

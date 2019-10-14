@@ -15,6 +15,9 @@ handle: Artis3n
 
 gpg_comment: Dev Key
 
+apt_dependencies:
+  - python3-apt
+
 apt_repos:
   - ansible/ansible
   - nextcloud-devs/client

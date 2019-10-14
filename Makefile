@@ -5,8 +5,8 @@ all: install provision
 
 .PHONY: install
 install:
-	if [ ! -f /usr/bin/python3 ]; then sudo apt install python3; fi;
-	if [ ! -f /usr/local/bin/pip3 ]; then sudo apt install python3-pip; fi;
+	if [ ! -f /usr/bin/python3 ]; then sudo apt install -y python3; fi;
+	if [ ! -f /usr/local/bin/pip3 ]; then sudo apt install -y python3-pip; fi;
 	if [ ! -f ~/.local/bin/pipenv ]; then pip3 install pipenv; fi;
 	if [ ! $$(find ~/.local/share/virtualenvs/ -name "dev_setup*") ]; then pipenv install; fi;
 	if [ ! -d ~/.ansible/roles/gantsign.visual-studio-code ]; then pipenv run ansible-galaxy install gantsign.visual-studio-code; fi;

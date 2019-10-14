@@ -4,3 +4,4 @@ venv/
 .idea
 roles/
 .vagrant/
+files/secrets.yml

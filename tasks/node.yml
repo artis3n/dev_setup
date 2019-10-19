@@ -12,6 +12,6 @@
     creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
 
 - name: Node | Install Node
-  command: nvm install {{ node_version }}
+  command: "{{ ansible_env.HOME }}/.nvm/nvm.sh install {{ node_version }}"
   args:
     creates: "{{ ansible_env.HOME }}/.nvm/versions/node/v{{ node_version }}/bin/node"

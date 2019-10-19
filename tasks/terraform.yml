@@ -48,6 +48,14 @@
     dest: "{{ terraform_directory.path }}"
     remote_src: yes
 
+- name: Terraform | Ensure local bin permissions
+  file:
+    path: /usr/local
+    state: directory
+    owner: "{{ lookup('env', 'USER') }}"
+    group: "{{ lookup('env', 'USER') }}"
+    recurse: yes
+
 - name: Terraform | Add to local bin
   copy:
     src: "{{ terraform_directory.path }}/terraform"

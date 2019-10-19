@@ -17,7 +17,7 @@
 - name: Applications | Jetbrains Toolbox | Locate installer
   shell: |
     set -o pipefail
-    find . -maxdepth 1 -type d -name "jetbrains-toolbox-\*" -print | head -n1
+    find . -maxdepth 1 -type d -name "jetbrains-toolbox-*" -print | head -n1
   args:
     executable: /bin/bash
     chdir: "{{ install_dir }}"

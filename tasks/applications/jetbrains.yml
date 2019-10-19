@@ -25,7 +25,8 @@
   register: toolbox_installer
 
 - name: Applications | Jetbrains Toolbox | Install
-  command: bash {{ toolbox_installer.stdout }}/jetbrains-toolbox
+  command: ./{{ toolbox_installer.stdout }}/jetbrains-toolbox
   args:
     chdir: "{{ install_dir }}"
+    executable: /bin/bash
     creates: "{{ ansible_env.HOME }}/.local/share/applications/jetbrains-toolbox.desktop"

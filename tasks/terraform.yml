@@ -49,6 +49,7 @@
     remote_src: yes
 
 - name: Terraform | Ensure local bin permissions
+  become: yes
   file:
     path: /usr/local
     state: directory

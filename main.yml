@@ -39,6 +39,9 @@
     - import_tasks: tasks/git.yml
       tags: git
 
+    - import_tasks: tasks/vagrant.yml
+      tags: vagrant
+
     - import_tasks: tasks/terraform.yml
       tags: terraform
 

@@ -12,6 +12,13 @@
   args:
     creates: "{{ lookup('env', 'HOME') }}/.jabba/bin/jabba"
 
+- name: Java | Add to profile
+  lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.zshrc"
+    line: |
+      [ -s "/home/{{ lookup('env', 'USER') }}/.jabba/jabba.sh" ] && source "/home/{{ lookup('env', 'USER') }}/.jabba/jabba.sh"
+    state: present
+
 - name: Java | Install JDK
   command: "{{ lookup('env', 'HOME') }}/.jabba/bin/jabba install openjdk@{{ java_version }}"
   args:

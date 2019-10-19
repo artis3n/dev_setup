@@ -9,7 +9,7 @@
 - name: Node | Install nvm
   command: bash "{{ install_dir }}/{{ nvm_install_script }}"
   args:
-    creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+    creates: "{{ lookup('env', 'HOME') }}/.nvm/nvm.sh"
 
 - name: Node | Source nvm
   lineinfile:
@@ -23,16 +23,7 @@
     - "{{ lookup('env', 'HOME') }}/bashrc"
     - "{{ lookup('env', 'HOME') }}/zshrc"
 
-# - name: Node | Ensure permissions on /usr/bin
-#   become: yes
-#   file:
-#     path: /usr/bin
-#     state: directory
-#     owner: "{{ lookup('env', 'USER') }}"
-#     group: "{{ lookup('env', 'USER') }}"
-#     recurse: true
-
 - name: Node | Install Node
-  shell: \. $HOME/.nvm/nvm.sh && nvm install {{ node_version }}
+  shell: source {{ lookup('env', 'HOME') }} && nvm install {{ node_version }}
   args:
-    creates: "{{ ansible_env.HOME }}/.nvm/versions/node/v{{ node_version }}/bin/node"
+    creates: "{{ lookup('env', 'HOME') }}/.nvm/versions/node/v{{ node_version }}/bin/node"

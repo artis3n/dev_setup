@@ -9,9 +9,22 @@
 - name: Node | Install nvm
   command: bash "{{ install_dir }}/{{ nvm_install_script }}"
   args:
-    creates: "{{ ansible_env.HOME }}/.nvm/nvm-exec"
+    creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+
+- name: Node | Source nvm
+  lineinfile:
+    path: "{{ item }}"
+    line: |
+      export NVM_DIR="$HOME/.nvm"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    state: present
+    create: yes
+  with_items:
+    - "{{ lookup('env', 'HOME') }}/bashrc"
+    - "{{ lookup('env', 'HOME') }}/zshrc"
+
 
 - name: Node | Install Node
-  command: "{{ ansible_env.HOME }}/.nvm/nvm-exec install {{ node_version }}"
+  shell: nvm install {{ node_version }}
   args:
     creates: "{{ ansible_env.HOME }}/.nvm/versions/node/v{{ node_version }}/bin/node"

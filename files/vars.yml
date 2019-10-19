@@ -21,7 +21,6 @@ apt_dependencies:
 apt_repos:
   - ansible/ansible
   - nextcloud-devs/client
-  - deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
 
 apt_primary_packages:
   - curl
@@ -32,7 +31,7 @@ apt_primary_packages:
   - git
   - postgresql
   - postgresql-contrib
-  - pgadmin4
+  - pgadmin3
   - apt-transport-https
   - ca-certificates
   - software-properties-common

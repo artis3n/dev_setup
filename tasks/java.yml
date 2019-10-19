@@ -13,6 +13,6 @@
     creates: "{{ ansible_env.HOME }}/.jabba/bin/jabba"
 
 - name: Java | Install JDK
-  command: jabba install openjdk@{{ java_version }}
+  command: "{{ ansible_env.HOME }}/.jabba/bin/jabba install openjdk@{{ java_version }}"
   args:
     creates: "{{ ansible_env.HOME }}/.jabba/jdk/openjdk@{{ java_version }}"

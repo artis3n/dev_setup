@@ -68,7 +68,7 @@ pentest_packages:
 spaceship_theme_version: v3.11.0
 
 jabba_install_script: jabba.install.sh
-java_version: 1.12
+java_version: 1.13
 
 keybase_url: https://prerelease.keybase.io/keybase_amd64.deb
 keybase_deb: keybase_amd64.deb

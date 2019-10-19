@@ -74,7 +74,7 @@ keybase_url: https://prerelease.keybase.io/keybase_amd64.deb
 keybase_deb: keybase_amd64.deb
 
 nvm_install_script: nvm.install.sh
-node_version: 12.12.0
+node_version: node
 
 calibre_url: https://download.calibre-ebook.com/linux-installer.sh
 

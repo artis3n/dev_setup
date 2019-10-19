@@ -1,8 +1,21 @@
 ---
 
+- name: Node | Get latest nvm release
+  uri:
+    url: https://api.github.com/repos/nvm-sh/nvm/releases/latest
+    headers:
+      Accept: application/vnd.github.v3+json
+    body_format: json
+    return_content: yes
+  register: nvm_release
+
+- name: Node | Set nvm version
+  set_fact:
+    nvm_version: "{{ nvm_release.json.tag_name[1:] }}"
+
 - name: Node | Download nvm
   get_url:
-    url: https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh
+    url: https://raw.githubusercontent.com/nvm-sh/nvm/v{{ nvm_version }}/install.sh
     dest: "{{ install_dir }}/{{ nvm_install_script }}"
     mode: 0764
 
@@ -11,7 +24,7 @@
   args:
     creates: "{{ lookup('env', 'HOME') }}/.nvm/nvm.sh"
 
-- name: Node | Source nvm
+- name: Node | Add nvm to profiles
   lineinfile:
     path: "{{ item }}"
     line: |

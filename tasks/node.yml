@@ -27,3 +27,4 @@
   shell: source "{{ lookup('env', 'HOME') }}/.bashrc" && nvm install {{ node_version }}
   args:
     creates: "{{ lookup('env', 'HOME') }}/.nvm/versions/node/v{{ node_version }}/bin/node"
+    executable: "/bin/bash"

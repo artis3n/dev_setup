@@ -11,6 +11,12 @@
   args:
     creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
 
+- name: Node | Make nvm executable
+  file:
+    path: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+    mode: 0755
+    state: file
+
 - name: Node | Install Node
   command: "{{ ansible_env.HOME }}/.nvm/nvm.sh install {{ node_version }}"
   args:

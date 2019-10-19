@@ -22,7 +22,7 @@ apt_repos:
   - ansible/ansible
   - nextcloud-devs/client
 
-apt_primary_packages:
+apt_packages:
   - curl
   - vim
   - gnome-tweak-tool
@@ -46,9 +46,6 @@ apt_primary_packages:
   - shellcheck
   - jq
   - awscli
-
-apt_secondary_packages:
-  - - virtualbox-ext-pack
 
 pentest_packages:
   - sqlmap

@@ -13,7 +13,7 @@
     creates: "{{ cloudgoat_repo.path }}/cloudgoat.py"
 
 - name: Cloudgoat | Install dependencies
-  command: pipenv install --three -r ./core/python/requirements.txt
+  command: "{{ lookup('env', 'HOME') }}/.local/bin/pipenv install --three -r ./core/python/requirements.txt"
   args:
     chdir: "{{ install_dir }}/cloudgoat"
     creates: "{{ install_dir }}/cloudgoat/Pipfile.lock"

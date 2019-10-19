@@ -21,8 +21,9 @@ apt_dependencies:
 apt_repos:
   - ansible/ansible
   - nextcloud-devs/client
+  - deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
 
-apt_packages:
+apt_primary_packages:
   - curl
   - vim
   - gnome-tweak-tool
@@ -31,7 +32,7 @@ apt_packages:
   - git
   - postgresql
   - postgresql-contrib
-  - pgadmin3
+  - pgadmin4
   - apt-transport-https
   - ca-certificates
   - software-properties-common
@@ -40,13 +41,15 @@ apt_packages:
   - zsh
   - nextcloud-client
   - virtualbox
-  - virtualbox-ext-pack
   - deja-dup
   - vagrant
   - gnome-shell-extension-appindicator
   - shellcheck
   - jq
   - awscli
+
+apt_secondary_packages:
+  - - virtualbox-ext-pack
 
 pentest_packages:
   - sqlmap

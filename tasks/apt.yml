@@ -19,9 +19,16 @@
   async: 3600
   poll: 60
 
-- name: Apt | Install packages - This will take a long time
+- name: Apt | Install primary packages - This will take a long time
   apt:
-    name: "{{ apt_packages }}"
+    name: "{{ apt_primary_packages }}"
+    state: present
+  async: 3600
+  poll: 60
+
+- name: Apt | Install secondary packages - This will take a long time
+  apt:
+    name: "{{ apt_secondary_packages }}"
     state: present
   async: 3600
   poll: 60

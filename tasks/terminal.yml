@@ -3,16 +3,34 @@
 - name: Terminal | Install Oh My ZSH
   shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
   args:
-    creates: "{{ ansible_env.HOME }}/.zshrc"
+    creates: "{{ lookup('env', 'HOME') }}/.zshrc"
+
+- name: Terminal | Set Spaceship version
+  set_fact:
+    spaceship_version: "{{ lookup('github_version', 'denysdovhan/spaceship-prompt') }}"
 
 - name: Terminal | ZSH Spaceship theme
   git:
     repo: https://github.com/denysdovhan/spaceship-prompt.git
-    version: "{{ spaceship_theme_version }}"
-    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/spaceship-prompt"
+    version: "{{ spaceship_version }}"
+    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/themes/spaceship-prompt"
 
 - name: Terminal | ZSH Spaceship symbolic link
   file:
-    src: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme"
-    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+    src: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme"
+    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
     state: link
+
+- name: Terminal | Set Spaceship as the terminal theme
+  lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.zshrc"
+    regexp: "^ZSH_THEME="
+    line: ZSH_THEME="spaceship"
+    state: present
+
+- name: Terminal | Add plugins
+  lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.zshrc"
+    regexp: "^plugins="
+    line: "plugins=({{ zsh_plugins | join(' ') }})"
+    state: present

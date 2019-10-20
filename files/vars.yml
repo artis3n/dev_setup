@@ -4,16 +4,32 @@ os_short: linux_amd64
 
 install_dir: "{{ ansible_env.HOME }}/.install_deps"
 
-terminal_profiles:
-  - "{{ ansible_env.HOME }}/.zshrc"
-  - "{{ ansible_env.HOME }}/.zprofile"
-  - "{{ ansible_env.HOME }}/.bashrc"
-  - "{{ ansible_env.HOME }}/.bash_profile"
-
 email: dev@quantummadness.com
 handle: Artis3n
 
+zsh_plugins:
+  - git
+  - docker
+  - gem
+  - git-extras
+  - npm
+  - pip
+  - python
+  - rvm
+  - sudo
+  - systemd
+  - vagrant
+  - vscode
+  - web-search
+  - wd
+  - zsh-syntax-highlighting
+  - zsh-autosuggestions
+  - poetry
+
 gpg_comment: Dev Key
+
+apt_dependencies:
+  - python3-apt
 
 apt_repos:
   - ansible/ansible
@@ -34,16 +50,18 @@ apt_packages:
   - software-properties-common
   - texlive-full
   - openvpn
+  - openssl
+  - libssl-dev
   - zsh
   - nextcloud-client
   - virtualbox
-  - virtualbox-ext-pack
   - deja-dup
   - vagrant
   - gnome-shell-extension-appindicator
   - shellcheck
   - jq
   - awscli
+  - rvm
 
 pentest_packages:
   - sqlmap
@@ -63,16 +81,14 @@ pentest_packages:
   - radare2
   - remmina
 
-spaceship_theme_version: v3.11.0
-
 jabba_install_script: jabba.install.sh
-java_version: 1.12
+java_version: 1.13
 
 keybase_url: https://prerelease.keybase.io/keybase_amd64.deb
 keybase_deb: keybase_amd64.deb
 
 nvm_install_script: nvm.install.sh
-node_version: 12.1.0
+node_version: 12.12.0
 
 calibre_url: https://download.calibre-ebook.com/linux-installer.sh
 
@@ -82,6 +98,7 @@ jetbrains_toolbox_url: https://data.services.jetbrains.com/products/download?pla
 vmware_url: https://www.vmware.com/go/getworkstation-linux
 
 ruby_version: 2.6.0
+rvm_repo: rael-gc/rvm
 
 ssh_keypair:
   filename: id_ed25519

@@ -1,0 +1,8 @@
+---
+
+- name: Vagrant | Add to profile
+  lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.zshrc"
+    regexp: alias vagrant
+    line: alias vagrant="env -u GEM_HOME -u GEM_PATH vagrant"
+    state: present

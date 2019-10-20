@@ -7,6 +7,25 @@ install_dir: "{{ ansible_env.HOME }}/.install_deps"
 email: dev@quantummadness.com
 handle: Artis3n
 
+zsh_plugins:
+  - git
+  - docker
+  - gem
+  - git-extras
+  - npm
+  - pip
+  - python
+  - rvm
+  - sudo
+  - systemd
+  - vagrant
+  - vscode
+  - web-search
+  - wd
+  - zsh-syntax-highlighting
+  - zsh-autosuggestions
+  - poetry
+
 gpg_comment: Dev Key
 
 apt_dependencies:
@@ -15,6 +34,7 @@ apt_dependencies:
 apt_repos:
   - ansible/ansible
   - nextcloud-devs/client
+  - rael-gc/rvm
 
 apt_packages:
   - curl
@@ -42,6 +62,7 @@ apt_packages:
   - shellcheck
   - jq
   - awscli
+  - rvm
 
 pentest_packages:
   - sqlmap

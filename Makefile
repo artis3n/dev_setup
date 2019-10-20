@@ -24,7 +24,7 @@ lint:
 
 .PHONY: provision
 provision:
-	~/.local/bin/pipenv run ansible-playbook --vault-id .vault_pass -i inventory main.yml --ask-become-pass --skip-tags ruby
+	~/.local/bin/pipenv run ansible-playbook --vault-id .vault_pass -i inventory main.yml --ask-become-pass
 
 .PHONY: secret
 secret:

@@ -2,21 +2,24 @@
 from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
-DOCUMENTATION = """
-      lookup: github_version
-        author: Artis3n <artis3n@quantummadness.com>
-        version_added: "1.0"
-        short_description: Get latest release version from a public Github repository
-        description:
-            - This lookup returns the latest release tag of a public Github repository.
-        options:
-          _repos:
-            description: Github repositories from which to get versions
-            required: True
-        notes:
-          - The version tag is returned however it is defined by the Github repository.
-          - this lookup does not understand globing
+DOCUMENTATION = r"""
+lookup: github_version
+author:
+  - Artis3n <artis3n@quantummadness.com>
+version_added: "1.0"
+requirements:
+  - requests
+short_description: Get latest release version from a public Github repository
+description:
+  - This lookup returns the latest release tag of a public Github repository.
+options:
+  _repos:
+    description: Github repositories from which to get versions
+    required: True
+notes:
+  - The version tag is returned however it is defined by the Github repository.
 """
+
 from ansible.errors import AnsibleError, AnsibleParserError
 from ansible.plugins.lookup import LookupBase
 from ansible.utils.display import Display

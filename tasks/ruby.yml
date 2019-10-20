@@ -1,5 +1,18 @@
 ---
 
+- name: Ruby | Add repository
+  become: yes
+  apt_repository:
+    repo: ppa:{{ rvm_repo }}
+    state: present
+
+- name: Ruby | Install RVM
+  become: yes
+  apt:
+    name: rvm
+    state: present
+    update_cache: yes
+
 - name: Ruby | Check for existing Ruby version
   stat:
     path: "{{ ansible_env.HOME }}/.rvm/rubies/ruby-{{ ruby_version }}"

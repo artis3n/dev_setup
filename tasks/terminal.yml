@@ -5,10 +5,23 @@
   args:
     creates: "{{ lookup('env', 'HOME') }}/.zshrc"
 
+- name: Terminal | Get latest Spaceship release
+  uri:
+    url: https://api.github.com/repos/denysdovhan/spaceship-prompt/releases/latest
+    headers:
+      Accept: application/vnd.github.v3+json
+    body_format: json
+    return_content: yes
+  register: spaceship_release
+
+- name: Terminal | Set Spaceship version
+  set_fact:
+    spaceship_version: "{{ spaceship_release.json.tag_name }}"
+
 - name: Terminal | ZSH Spaceship theme
   git:
     repo: https://github.com/denysdovhan/spaceship-prompt.git
-    version: "{{ spaceship_theme_version }}"
+    version: "{{ spaceship_version }}"
     dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/themes/spaceship-prompt"
 
 - name: Terminal | ZSH Spaceship symbolic link

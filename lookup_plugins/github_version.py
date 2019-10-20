@@ -38,28 +38,28 @@ class LookupModule(LookupBase):
 
         for repo in repos:
 
-                # TODO: Sanitize and validate repo
-                if not repo:
-                    # The Parser error indicates invalid options passed
-                    raise AnsibleParserError()
+            # TODO: Sanitize and validate repo
+            if not repo:
+                # The Parser error indicates invalid options passed
+                raise AnsibleParserError()
 
-                display.debug("Github version lookup term: %s" % repo)
+            display.debug("Github version lookup term: %s" % repo)
 
-                # Retrieve the Github API Releases JSON
-                try:
-                    github_request = requests.get('https://api.github.com/repos/%s/releases/latest' % repo,
-                    headers={ 'Accept': 'application/vnd.github.v3+json' }
-                    )
-                    content = github_request.json()
-                    version = content[0].tag_name
-                    if version != None and len(version) != 0:
-                        versions.append(version)
-                    else:
-                        raise AnsibleError("Error extracting version from Github API response: %s" % github_request.text)
-                except requests.exceptions.RequestException as e:
-                    raise AnsibleError("Error communicating with the Github API: %s" % to_native(e))
+            # Retrieve the Github API Releases JSON
+            try:
+                github_request = requests.get('https://api.github.com/repos/%s/releases/latest' % repo,
+                headers={ 'Accept': 'application/vnd.github.v3+json' }
+                )
+                content = github_request.json()
+                version = content.get('tag_name')
+                if version != None and len(version) != 0:
+                    versions.append(version)
+                else:
+                    raise AnsibleError("Error extracting version from Github API response: %s" % github_request.text)
+            except requests.exceptions.RequestException as e:
+                raise AnsibleError("Error communicating with the Github API: %s" % to_native(e))
 
-                display.vvvv(u"Github version lookup using %s as repo" % repo)
+            display.vvvv(u"Github version lookup using %s as repo" % repo)
 
 
         return versions

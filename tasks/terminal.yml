@@ -5,18 +5,9 @@
   args:
     creates: "{{ lookup('env', 'HOME') }}/.zshrc"
 
-- name: Terminal | Get latest Spaceship release
-  uri:
-    url: https://api.github.com/repos/denysdovhan/spaceship-prompt/releases/latest
-    headers:
-      Accept: application/vnd.github.v3+json
-    body_format: json
-    return_content: yes
-  register: spaceship_release
-
 - name: Terminal | Set Spaceship version
   set_fact:
-    spaceship_version: "{{ spaceship_release.json.tag_name }}"
+    spaceship_version: "{{ lookup('github_version', 'denysdovhan/spaceship-prompt') }}"
 
 - name: Terminal | ZSH Spaceship theme
   git:

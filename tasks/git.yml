@@ -18,27 +18,22 @@
     - { name: alias.save, value: "stash save" }
 
 - name: Git | Hub | Get latest version
-  shell: |
-    set -o pipefail
-    curl https://api.github.com/repos/github/hub/releases/latest | jq .tag_name | cut -c 3- | rev | cut -c 2- | rev
-  args:
-    executable: /bin/bash
-  register: hub_version
-  changed_when: false
+  set_fact:
+    hub_version: "{{ lookup('github_version', 'gtihub/hub') }}"
 
 - name: Git | Hub | Download
   get_url:
-    url: https://github.com/github/hub/releases/download/v{{ hub_version.stdout }}/hub-linux-amd64-{{ hub_version.stdout }}.tgz
-    dest: "{{ install_dir }}/hub-linux-amd64-{{ hub_version.stdout }}.tgz"
+    url: https://github.com/github/hub/releases/download/{{ hub_version }}/hub-linux-amd64-{{ hub_version[1:] }}.tgz
+    dest: "{{ install_dir }}/hub-linux-amd64-{{ hub_version[1:] }}.tgz"
 
 - name: Git | Hub | Unarchive
   unarchive:
-    src: "{{ install_dir }}/hub-linux-amd64-{{ hub_version.stdout }}.tgz"
+    src: "{{ install_dir }}/hub-linux-amd64-{{ hub_version[1:] }}.tgz"
     dest: "{{ install_dir }}/"
-    creates: "{{ install_dir }}/hub-linux-amd64-{{ hub_version.stdout }}/bin/hub"
+    creates: "{{ install_dir }}/hub-linux-amd64-{{ hub_version[1:] }}/bin/hub"
 
 - name: Git | Hub | Add to local bin
   copy:
-    src: "{{ install_dir }}/hub-linux-amd64-{{ hub_version.stdout }}/bin/hub"
-    dest: "{{ ansible_env.HOME }}/.local/bin/hub"
+    src: "{{ install_dir }}/hub-linux-amd64-{{ hub_version[1:] }}/bin/hub"
+    dest: "{{ lookup('env', 'HOME') }}/.local/bin/hub"
     mode: 0751

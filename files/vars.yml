@@ -31,7 +31,8 @@ apt_packages:
   - software-properties-common
   - texlive-full
   - openvpn
-  - openssl
+  - libssl
+  - libssl-dev
   - zsh
   - nextcloud-client
   - virtualbox
@@ -69,7 +70,7 @@ keybase_url: https://prerelease.keybase.io/keybase_amd64.deb
 keybase_deb: keybase_amd64.deb
 
 nvm_install_script: nvm.install.sh
-node_version: node
+node_version: 12.12.0
 
 calibre_url: https://download.calibre-ebook.com/linux-installer.sh
 

@@ -1,26 +1,17 @@
 ---
 
+- name: Ruby | Add repository
+  become: yes
+  apt_repository:
+    repo: ppa:{{ rvm_repo }}
+    state: present
 
-- name: Ruby | Check for binary
-  stat:
-    path: "{{ ansible_env.HOME }}/.rvm/bin/rvm"
-  register: rvm_binary
-
-- name: Ruby | Import GPG keys
-  command: gpg2 --keyserver hkp://keys.gnupg.net --keyserver-options auto-key-retrieve --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB # noqa 204
-  when: not rvm_binary.stat.exists
-
-- name: Ruby | Download installer
-  get_url:
-    url: https://get.rvm.io
-    dest: "{{ install_dir }}/rvm.sh"
-    mode: 0764
-  register: rvm_installer
-
-- name: Ruby | Install rvm
-  command: bash {{ rvm_installer.dest }} -s stable
-  args:
-    creates: "{{ ansible_env.HOME }}/.rvm/bin/rvm"
+- name: Ruby | Install RVM
+  become: yes
+  apt:
+    name: rvm
+    state: present
+    update_cache: yes
 
 - name: Ruby | Check for existing Ruby version
   stat:
@@ -29,7 +20,7 @@
 
 - name: Ruby | Install Ruby version
   command: "{{ ansible_env.HOME }}/.rvm/bin/rvm install ruby-{{ ruby_version }}"
-  async: 900
+  async: 1800
   poll: 30
   args:
     creates: "{{ ansible_env.HOME }}/.rvm/rubies/ruby-{{ ruby_version }}/bin/ruby"

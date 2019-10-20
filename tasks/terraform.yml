@@ -1,17 +1,8 @@
 ---
 
 - name: Terraform | Get latest release
-  uri:
-    url: https://api.github.com/repos/hashicorp/terraform/releases/latest
-    headers:
-      Accept: application/vnd.github.v3+json
-    body_format: json
-    return_content: yes
-  register: terraform_release
-
-- name: Terraform | Set version
   set_fact:
-    terraform_version: "{{ terraform_release.json.tag_name[1:] }}"
+    terraform_version: "{{ lookup('github_version', 'hashicorp/terraform')[1:] }}"
 
 - name: Terraform | Ensure directory
   file:
@@ -47,6 +38,15 @@
     src: "{{ terraform_download.dest }}"
     dest: "{{ terraform_directory.path }}"
     remote_src: yes
+
+- name: Terraform | Ensure local bin permissions
+  become: yes
+  file:
+    path: /usr/local
+    state: directory
+    owner: "{{ lookup('env', 'USER') }}"
+    group: "{{ lookup('env', 'USER') }}"
+    recurse: yes
 
 - name: Terraform | Add to local bin
   copy:

@@ -6,7 +6,7 @@ DOCUMENTATION = r"""
 lookup: github_version
 author:
   - Artis3n <artis3n@quantummadness.com>
-version_added: "1.0"
+version_added: "2.8"
 requirements:
   - requests
 short_description: Get latest release version from a public Github repository

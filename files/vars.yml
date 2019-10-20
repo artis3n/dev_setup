@@ -31,6 +31,7 @@ apt_packages:
   - software-properties-common
   - texlive-full
   - openvpn
+  - openssl
   - zsh
   - nextcloud-client
   - virtualbox

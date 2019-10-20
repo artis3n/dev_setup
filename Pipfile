@@ -6,7 +6,6 @@ verify_ssl = true
 [packages]
 ansible = "*"
 ansible-lint = "*"
-requests = "*"
 
 [dev-packages]
 pre-commit = "*"

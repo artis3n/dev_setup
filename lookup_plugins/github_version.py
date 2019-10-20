@@ -3,23 +3,23 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 DOCUMENTATION = """
-      lookup: github_version
+    lookup: github_version
         author: Artis3n <artis3n@quantummadness.com>
         version_added: "1.0"
         short_description: Get latest release version from a public Github repository
         description:
             - This lookup returns the latest release tag of a public Github repository.
         options:
-          _terms:
+            _terms:
             description: Github repositories from which to get versions
             required: True
         notes:
-          - The version tag is returned however it is defined by the Github repository. Usually projects tag either as "1.0.0" or "v1.0.0" but this plugin does not do any formatting after retrieval of the tag.
+            - The version tag is returned however it is defined by the Github repository. Usually projects tag either as "1.0.0" or "v1.0.0" but this plugin does not do any formatting after retrieval of the tag.
 """
 from ansible.errors import AnsibleError, AnsibleParserError
 from ansible.plugins.lookup import LookupBase
 from ansible.utils.display import Display
-from requests import HttpSession
+import requests
 from ansible.module_utils._text import to_native
 
 display = Display()
@@ -31,8 +31,8 @@ class LookupModule(LookupBase):
         # lookups in general are expected to both take a list as input and output a list
         # this is done so they work with the looping construct 'with_'.
         versions = []
-        try:
-            for repo in repos:
+
+        for repo in repos:
 
                 # TODO: Sanitize and validate repo
                 if not repo:
@@ -56,5 +56,6 @@ class LookupModule(LookupBase):
                     raise AnsibleError("Error communicating with the Github API: %s" % to_native(e))
 
                 display.vvvv(u"Github version lookup using %s as repo" % repo)
+
 
         return versions

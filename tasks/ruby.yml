@@ -9,7 +9,7 @@
 - name: Ruby | Install RVM
   become: yes
   apt:
-    name: rvm
+    name: "{{ rvm_package }}"
     state: present
     update_cache: yes
 

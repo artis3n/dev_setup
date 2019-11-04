@@ -61,7 +61,6 @@ apt_packages:
   - shellcheck
   - jq
   - awscli
-  - rvm
 
 pentest_packages:
   - sqlmap
@@ -99,6 +98,7 @@ vmware_url: https://www.vmware.com/go/getworkstation-linux
 
 ruby_version: 2.6.0
 rvm_repo: rael-gc/rvm
+rvm_package: rvm
 
 rvm_config_list:
   - { regexp: 'rvm_silence_path_mismatch_check_flag', line: 'rvm_silence_path_mismatch_check_flag=1' }

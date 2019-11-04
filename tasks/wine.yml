@@ -1,20 +1,10 @@
 ---
 
-- name: Wine | Check if i386 is enabled
-  become: yes
-  shell: |
-    set -o pipefail
-    dpkg --print-foreign-architectures | grep i386
-  args:
-    executable: /bin/bash
-  register: result_i386_check
-  changed_when: result_i386_check.rc == 1
-  failed_when: result_i386_check.rc > 1
-
 - name: Wine | Add DPKG architecture
   become: yes
-  command: dpkg --add-architecture ie386
-  when: result_i386_check.rc == 1
+  command: dpkg --add-architecture ie386 && touch {{ install_dir }}/.wine_arch_touched
+  args:
+    creates: "{{ install_dir }}/.wine_arch_touched"
 
 - name: Wine | Add public key
   become: yes
@@ -31,7 +21,7 @@
 - name: Wine | Install
   become: yes
   apt:
-    name: "{{ wine_packages }}"
+    name: winehq-stable
     update_cache: yes
     install_recommends: yes
     state: present

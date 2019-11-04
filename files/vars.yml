@@ -102,7 +102,7 @@ rvm_package: rvm
 
 rvm_config_list:
   - { regexp: 'rvm_silence_path_mismatch_check_flag', line: 'rvm_silence_path_mismatch_check_flag=1' }
-  - { regexp: 'rvm_autoupdate_flag', line: 'echo rvm_autoupdate_flag=2' }
+  - { regexp: 'rvm_autoupdate_flag', line: 'rvm_autoupdate_flag=2' }
 
 ssh_keypair:
   filename: id_ed25519

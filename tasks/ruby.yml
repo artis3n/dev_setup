@@ -23,12 +23,13 @@
 
 - name: Ruby | Check for existing Ruby version
   stat:
-    path: "{{ lookup('env', 'HOME') }}/.rvm/rubies/ruby-{{ ruby_version }}"
+    path: /usr/share/rvm/rubies/ruby-{{ ruby_version }}
   register: ruby_path
 
 - name: Ruby | Install Ruby version
-  command: /usr/share/rvm/bin/rvmsudo /usr/share/rvm/bin/rvm install ruby-{{ ruby_version }}
+  become: yes
+  command: /usr/share/rvm/bin/rvm install ruby-{{ ruby_version }}
   async: 1800
   poll: 30
   args:
-    creates: "{{ lookup('env', 'HOME') }}/.rvm/rubies/ruby-{{ ruby_version }}/bin/ruby"
+    creates: /usr/share/rvm/rubies/ruby-{{ ruby_version }}/bin/ruby

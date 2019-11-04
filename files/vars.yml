@@ -133,3 +133,7 @@ docker_apt_repo: deb [arch={{ docker_apt_arch }}] https://download.docker.com/li
 docker_apt: docker-ce
 
 john_jumbo_branch: bleeding-jumbo
+
+wine_packages:
+  - wine-stable
+  - winehq-stable

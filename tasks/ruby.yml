@@ -27,8 +27,7 @@
   register: ruby_path
 
 - name: Ruby | Install Ruby version
-  become: yes
-  command: /usr/share/rvm/bin/rvm install ruby-{{ ruby_version }}
+  command: /usr/share/rvm/bin/rvmsudo /usr/share/rvm/bin/rvm install ruby-{{ ruby_version }}
   async: 1800
   poll: 30
   args:

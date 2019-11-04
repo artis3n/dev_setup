@@ -5,10 +5,10 @@ verify_ssl = true
 
 [packages]
 ansible = "*"
-ansible-lint = "*"
 
 [dev-packages]
 pre-commit = "*"
+ansible-lint = "*"
 
 [requires]
 python_version = "3.6"

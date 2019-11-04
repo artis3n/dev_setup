@@ -100,6 +100,10 @@ vmware_url: https://www.vmware.com/go/getworkstation-linux
 ruby_version: 2.6.0
 rvm_repo: rael-gc/rvm
 
+rvm_config_list:
+  - { regexp: 'rvm_silence_path_mismatch_check_flag', line: 'rvm_silence_path_mismatch_check_flag=1' }
+  - { regexp: 'rvm_autoupdate_flag', line: 'echo rvm_autoupdate_flag=2' }
+
 ssh_keypair:
   filename: id_ed25519
   type: ed25519

@@ -5,3 +5,4 @@ venv/
 roles/
 .vagrant/
 files/secrets.yml
+collections/

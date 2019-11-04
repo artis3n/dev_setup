@@ -12,11 +12,17 @@ install:
 	if [ ! $$(find ~/.local/share/virtualenvs/ -name "dev-setup*") ]; then ~/.local/bin/pipenv install --python /usr/bin/python3; fi;
 	if [ ! -d ~/.ansible/roles/gantsign.visual-studio-code ]; then ~/.local/bin/pipenv run ansible-galaxy install gantsign.visual-studio-code; fi;
 	if [ ! -d ~/.ansible/roles/artis3n.bitwarden_app ]; then ~/.local/bin/pipenv run ansible-galaxy install artis3n.bitwarden_app; fi;
+	if [ ! -d ./collections/ansible_collections/artis3n/github_version ]; then ~/.local/bin/pipenv run ansible-galaxy collection install artis3n.github_version -p ./collections; fi;
+
+.PHONY: dev-install
+dev-install: install
+	pipenv install --dev;
 
 .PHONY: clean
 clean:
-	~/.local/bin/pipenv --rm
+	-~/.local/bin/pipenv --rm
 	rm -rf ~/.ansible/roles/
+	rm -rf ~/.ansible/collections/ansible_collections/artis3n/github_version
 
 .PHONY: lint
 lint:

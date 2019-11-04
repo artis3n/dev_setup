@@ -1,5 +1,10 @@
 ---
 
+- name: SSH | Ensure directory
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.ssh"
+    state: directory
+
 - name: SSH | Generate key
   openssh_keypair:
     path: "{{ ansible_env.HOME }}/.ssh/{{ ssh_keypair.filename }}"

@@ -17,6 +17,4 @@ repos:
     -   id: ansible-lint
         files: \.(yaml|yml)$
         exclude: '.*files/secrets.yml'
-        args:
-          - -c .ansible-lint
 default_stages: [prepare-commit-msg, commit, push]

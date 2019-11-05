@@ -96,7 +96,7 @@ jetbrains_toolbox_url: https://data.services.jetbrains.com/products/download?pla
 
 vmware_url: https://www.vmware.com/go/getworkstation-linux
 
-ruby_version: 2.6.0
+ruby_version: 2.6.5
 rvm_repo: rael-gc/rvm
 rvm_package: rvm
 
@@ -108,11 +108,6 @@ ssh_keypair:
   filename: id_ed25519
   type: ed25519
   comment: dev@quantummadness.com
-
-alfa_driver_dependencies:
-  - libelf-dev
-  - build-essential
-  - dkms
 
 gpg_packages:
   - gnupg2

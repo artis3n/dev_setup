@@ -20,3 +20,4 @@
   command: bash {{ vmware_installer.dest }}
   args:
     creates: /usr/bin/vmware
+  when: not vmware_app.stat.exists

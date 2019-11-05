@@ -2,7 +2,7 @@
 
 - name: Wine | Add DPKG architecture
   become: yes
-  command: dpkg --add-architecture ie386 && touch {{ install_dir }}/.wine_arch_touched
+  shell: dpkg --add-architecture ie386 && touch {{ install_dir }}/.wine_arch_touched
   args:
     creates: "{{ install_dir }}/.wine_arch_touched"
 

@@ -1,5 +1,10 @@
 ---
 
+- name: Applications | VMWare | Check for program
+  stat:
+    path: /usr/bin/vmware
+  register: vmware_app
+
 - name: Applications | VMWare | Download
   get_url:
     url: "{{ vmware_url }}"
@@ -7,6 +12,7 @@
     mode: 0764
   async: 1800
   poll: 30
+  when: not vmware_app.stat.exists
   register: vmware_installer
 
 - name: Applications | VMWare | Install
@@ -14,3 +20,4 @@
   command: bash {{ vmware_installer.dest }}
   args:
     creates: /usr/bin/vmware
+  when: not vmware_app.stat.exists

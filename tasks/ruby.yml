@@ -9,18 +9,27 @@
 - name: Ruby | Install RVM
   become: yes
   apt:
-    name: rvm
+    name: "{{ rvm_package }}"
     state: present
     update_cache: yes
 
+- name: Ruby | Configure rvmrc
+  lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.rvmrc"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items: "{{ rvm_config_list }}"
+
 - name: Ruby | Check for existing Ruby version
   stat:
-    path: "{{ ansible_env.HOME }}/.rvm/rubies/ruby-{{ ruby_version }}"
+    path: /usr/share/rvm/rubies/ruby-{{ ruby_version }}
   register: ruby_path
 
 - name: Ruby | Install Ruby version
-  command: "{{ ansible_env.HOME }}/.rvm/bin/rvm install ruby-{{ ruby_version }}"
+  become: yes
+  command: /usr/share/rvm/bin/rvm install ruby-{{ ruby_version }}
   async: 1800
   poll: 30
   args:
-    creates: "{{ ansible_env.HOME }}/.rvm/rubies/ruby-{{ ruby_version }}/bin/ruby"
+    creates: /usr/share/rvm/rubies/ruby-{{ ruby_version }}/bin/ruby

@@ -1,6 +1,6 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.3.0
+    rev: v2.4.0
     hooks:
     -   id: check-yaml
     -   id: end-of-file-fixer
@@ -12,10 +12,8 @@ repos:
     -   id: sort-simple-yaml
 
 - repo: https://github.com/ansible/ansible-lint
-  rev: v4.1.1a0
+  rev: v4.1.1a3
   hooks:
     -   id: ansible-lint
         files: \.(yaml|yml)$
-        exclude: '.*tasks/ssh.yml|.*files/secrets.yml'
-        args:
-          - -c .ansible-lint
+default_stages: [prepare-commit-msg, commit, push]

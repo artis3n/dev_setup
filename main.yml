@@ -80,12 +80,6 @@
     - import_tasks: tasks/pentest.yml
       tags: pentest
 
-    - import_tasks: tasks/wine.yml
-      tags: wine
-
-    # - import_tasks: tasks/alfa_driver.yml
-    #   tags: wifi-driver
-
   roles:
     - role: gantsign.visual-studio-code
       users:

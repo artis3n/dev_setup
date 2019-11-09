@@ -36,6 +36,7 @@ apt_repos:
   - nextcloud-devs/client
 
 apt_packages:
+  - aptitude
   - curl
   - vim
   - gnome-tweak-tool
@@ -131,3 +132,6 @@ john_jumbo_branch: bleeding-jumbo
 
 wine_packages:
   - winehq-stable
+  - wine-mono
+  - wine-gecko
+  - winetricks

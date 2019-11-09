@@ -80,6 +80,9 @@
     - import_tasks: tasks/pentest.yml
       tags: pentest
 
+    - import_tasks: tasks/wine.yml
+      tags: wine
+
   roles:
     - role: gantsign.visual-studio-code
       users:

@@ -36,6 +36,7 @@ apt_repos:
   - nextcloud-devs/client
 
 apt_packages:
+  - aptitude
   - curl
   - vim
   - gnome-tweak-tool
@@ -128,3 +129,7 @@ docker_apt_repo: deb [arch={{ docker_apt_arch }}] https://download.docker.com/li
 docker_apt: docker-ce
 
 john_jumbo_branch: bleeding-jumbo
+
+wine_packages:
+  - winehq-stable
+  - winetricks

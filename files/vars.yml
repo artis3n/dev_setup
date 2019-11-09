@@ -132,6 +132,4 @@ john_jumbo_branch: bleeding-jumbo
 
 wine_packages:
   - winehq-stable
-  - wine-mono
-  - wine-gecko
   - winetricks

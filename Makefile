@@ -1,15 +1,15 @@
 #!/usr/bin/make
 
 .PHONY: all
-all: install
+all: dev-install
 
 .PHONY: install
 install:
 	if [ ! -f /usr/bin/python3 ]; then sudo apt update && sudo apt install -y python3; fi;
 	if [ ! -f /usr/bin/pip3 ]; then sudo apt update && sudo apt install -y python3-pip; fi;
-	if [ ! -f ~/.local/bin/pipenv ]; then pip3 install pipenv; fi;
+	if [ ! -f ~/.local/bin/pipenv ]; then pip3 install --user pipenv; fi;
 	if [ ! -d ~/.local/share/virtualenvs ]; then mkdir -p ~/.local/share/virtualenvs/; fi;
-	if [ ! $$(find ~/.local/share/virtualenvs/ -name "dev-setup*") ]; then ~/.local/bin/pipenv install --python /usr/bin/python3; fi;
+	if [ ! $$(find ~/.local/share/virtualenvs/ -name "dev-setup*") ]; then ~/.local/bin/pipenv install; fi;
 	if [ ! -d ~/.ansible/roles/gantsign.visual-studio-code ]; then ~/.local/bin/pipenv run ansible-galaxy install gantsign.visual-studio-code; fi;
 	if [ ! -d ~/.ansible/roles/artis3n.bitwarden_app ]; then ~/.local/bin/pipenv run ansible-galaxy install artis3n.bitwarden_app; fi;
 	if [ ! -d ./collections/ansible_collections/artis3n/github_version ]; then ~/.local/bin/pipenv run ansible-galaxy collection install artis3n.github_version -p ./collections; fi;

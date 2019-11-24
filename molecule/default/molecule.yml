@@ -1,0 +1,27 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: instance
+    image: geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu1804}-ansible:latest
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    pre_build_image: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  options:
+    'vault-id': ../../.vault_pass
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

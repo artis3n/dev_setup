@@ -6,3 +6,4 @@ roles/
 .vagrant/
 files/secrets.yml
 collections/
+__pycache__

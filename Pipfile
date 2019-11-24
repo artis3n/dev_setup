@@ -9,6 +9,8 @@ ansible = "*"
 [dev-packages]
 pre-commit = "*"
 ansible-lint = "*"
+molecule = {extras = ["docker"],version = "*"}
+docker = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"

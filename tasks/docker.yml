@@ -18,7 +18,6 @@
   apt_repository:
     repo: "{{ docker_apt_repo }}"
     state: present
-    update_cache: true
 
 - name: Docker | Install
   become: yes

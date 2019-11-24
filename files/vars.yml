@@ -62,6 +62,7 @@ apt_packages:
   - shellcheck
   - jq
   - awscli
+  - flameshot
 
 pentest_packages:
   - sqlmap

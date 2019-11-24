@@ -32,4 +32,8 @@ jobs:
       run: pipenv run molecule lint
 
     - name: Test with Molecule
-      run: pipenv run molecule test
+      run: |
+        echo "ASecret" > .vault_pass
+        cat files/secrets-example.yml > files/secrets.yml
+        pipenv run ansible-vault encrypt --vault-id .vault_pass files/secrets.yml
+        pipenv run molecule test

@@ -15,6 +15,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
+        molecule-os: [ubuntu1804]
 
     steps:
     - uses: actions/checkout@v1
@@ -37,3 +38,5 @@ jobs:
         cat files/secrets-example.yml > files/secrets.yml
         pipenv run ansible-vault encrypt --vault-id .vault_pass files/secrets.yml
         pipenv run molecule test
+      env:
+        MOLECULE_DISTRO: ${{ matrix.molecule-os }}

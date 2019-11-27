@@ -21,10 +21,6 @@ provisioner:
     name: ansible-lint
   options:
     'vault-id': ../../.vault_pass
-#  inventory:
-#    host_vars:
-#      instance:
-#        ansible_user: ansible
 verifier:
   name: testinfra
   lint:

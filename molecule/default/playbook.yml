@@ -2,6 +2,8 @@
 - name: Converge
   hosts: all
   gather_facts: yes
+  vars:
+    ansible_user: ansible
   vars_files:
     - ../../files/vars.yml
     - ../../files/secrets.yml

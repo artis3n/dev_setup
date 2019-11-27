@@ -9,7 +9,7 @@ lint:
   name: yamllint
 platforms:
   - name: instance
-    image: geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu1804}-ansible:latest
+    image: artis3n/docker-${MOLECULE_DISTRO:-ubuntu1804}-ansible:latest
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     pre_build_image: true
     volumes:

@@ -36,5 +36,9 @@ provision:
 secret:
 	if [ -f ./files/secrets.yml ]; then ~/.local/bin/pipenv run ansible-vault edit ./files/secrets.yml; else ~/.local/bin/pipenv run ansible-vault create ./files/secrets.yml; fi;
 
+.PHONY: test
+test:
+	pipenv run molecule test
+
 .PHONY: reset-run
 reset-run: clean install run

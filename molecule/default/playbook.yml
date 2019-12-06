@@ -87,7 +87,7 @@
   roles:
     - role: gantsign.visual-studio-code
       users:
-        - username: "{{ lookup('env', 'USER') }}"
+        - username: "{{ ansible_user }}"
           visual_studio_code_extensions:
             - Shan.code-settings-sync
     - role: artis3n.bitwarden_app

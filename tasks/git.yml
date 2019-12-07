@@ -19,7 +19,7 @@
 
 - name: Git | Hub | Get latest version
   set_fact:
-    hub_version: "{{ lookup('artis3n.github_version.github_version', 'github/hub') }}"
+    hub_version: "{{ lookup('artis3n.github.latest_release', 'github/hub') }}"
 
 - name: Git | Hub | Download
   get_url:

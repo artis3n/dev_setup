@@ -7,7 +7,7 @@
 
 - name: Terminal | Set Spaceship version
   set_fact:
-    spaceship_version: "{{ lookup('artis3n.github_version.github_version', 'denysdovhan/spaceship-prompt') }}"
+    spaceship_version: "{{ lookup('artis3n.github.latest_release', 'denysdovhan/spaceship-prompt') }}"
 
 - name: Terminal | ZSH Spaceship theme
   git:

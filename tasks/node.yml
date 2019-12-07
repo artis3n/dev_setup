@@ -2,7 +2,7 @@
 
 - name: Node | Set nvm version
   set_fact:
-    nvm_version: "{{ lookup('artis3n.github_version.github_version', 'nvm-sh/nvm')[1:] }}"
+    nvm_version: "{{ lookup('artis3n.github.latest_release', 'nvm-sh/nvm')[1:] }}"
 
 - name: Node | Download nvm
   get_url:

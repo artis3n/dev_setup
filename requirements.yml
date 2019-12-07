@@ -1,7 +1,2 @@
 - src: gantsign.visual-studio-code
-  users:
-    - username: "{{ ansible_user }}"
-      visual_studio_code_extensions:
-        - Shan.code-settings-sync
-
 - src: artis3n.bitwarden_app

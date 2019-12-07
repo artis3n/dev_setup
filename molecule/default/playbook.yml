@@ -6,6 +6,17 @@
     - ../../files/vars.yml
     - ../../files/secrets.yml
 
+  collections:
+    - artis3n.github
+
+  roles:
+    - role: gantsign.visual-studio-code
+      users:
+        - username: "{{ ansible_user }}"
+          visual_studio_code_extensions:
+            - Shan.code-settings-sync
+    - role: artis3n.bitwarden_app
+
   tasks:
     - name: Setup | Scripts folder
       file:
@@ -81,14 +92,6 @@
 
     - import_tasks: ../../tasks/wine.yml
       tags: wine
-
-  roles:
-    - role: gantsign.visual-studio-code
-      users:
-        - username: "{{ ansible_user }}"
-          visual_studio_code_extensions:
-            - Shan.code-settings-sync
-    - role: artis3n.bitwarden_app
 
   handlers:
     - import_tasks: ../../handlers/handlers.yml

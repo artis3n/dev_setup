@@ -37,6 +37,8 @@ jobs:
         echo "ASecret" > .vault_pass
         cat files/secrets-example.yml > files/secrets.yml
         pipenv run ansible-vault encrypt --vault-id .vault_pass files/secrets.yml
+        # Molecule can't recognize a collection dependency, so install collection here.
+        ansible-galaxy collection install artis3n.github
         pipenv run molecule test
       env:
         MOLECULE_DISTRO: ${{ matrix.molecule-os }}

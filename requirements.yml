@@ -1,2 +1,8 @@
+---
+
+roles:
 - src: gantsign.visual-studio-code
 - src: artis3n.bitwarden_app
+
+collections:
+- name: artis3n.github

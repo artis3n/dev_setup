@@ -19,8 +19,6 @@ platforms:
     privileged: true
 provisioner:
   name: ansible
-  options:
-    vault-id: ../../.vault_pass
   inventory:
     host_vars:
       instance:

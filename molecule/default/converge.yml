@@ -16,44 +16,44 @@
       file:
         path: '{{ install_dir }}'
         state: directory
-        mode: 755
-  
+        mode: 0755
+
     - import_tasks: ../../tasks/apt.yml
       become: 'yes'
       tags: apt
-  
+
     - import_tasks: ../../tasks/terminal.yml
       tags: terminal
-  
+
     - import_tasks: ../../tasks/java.yml
       tags:
         - language
         - java
-  
+
     - import_tasks: ../../tasks/git.yml
       tags: git
-  
+
     - import_tasks: ../../tasks/terraform.yml
       tags: terraform
-  
+
     - import_tasks: ../../tasks/docker.yml
       tags: docker
-  
+
     - import_tasks: ../../tasks/applications/jetbrains.yml
       tags:
         - applications
         - jetbrains
-  
+
     - import_tasks: ../../tasks/applications/calibre.yml
       tags:
         - applications
         - calibre
-    
-    - import_tasks: tasks/applications/bitwarden.yml
+
+    - import_tasks: ../../tasks/applications/bitwarden.yml
       tags:
         - applications
         - bitwarden
-  
+
     - import_tasks: ../../tasks/ssh.yml
       tags: ssh
 

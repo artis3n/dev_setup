@@ -10,7 +10,7 @@
     spaceship_version: >-
       {{ lookup('artis3n.github.latest_release', 'denysdovhan/spaceship-prompt')
       }}
-  
+
 - name: Terminal | ZSH Spaceship theme
   become: 'yes'
   git:

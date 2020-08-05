@@ -15,30 +15,21 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        molecule-os: [ubuntu1804]
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Set up Python 3.7
-      uses: actions/setup-python@v1
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3
+      uses: actions/setup-python@v2
       with:
-        python-version: 3.7
+        python-version: '3.x'
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install pipenv
         pipenv install --dev
 
-    - name: Lint with Molecule
-      run: pipenv run molecule lint
-
-    - name: Test with Molecule
+    - name: Molecule
       run: |
-        echo "ASecret" > .vault_pass
-        cat files/secrets-example.yml > files/secrets.yml
-        pipenv run ansible-vault encrypt --vault-id .vault_pass files/secrets.yml
-        # Molecule can't recognize a collection dependency, so install collection here.
-        ansible-galaxy collection install artis3n.github
         pipenv run molecule test
-      env:
-        MOLECULE_DISTRO: ${{ matrix.molecule-os }}

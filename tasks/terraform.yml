@@ -1,55 +1,60 @@
----
-
 - name: Terraform | Get latest release
   set_fact:
-    terraform_version: "{{ lookup('artis3n.github.latest_release', 'hashicorp/terraform')[1:] }}"
+    terraform_version: '{{ lookup(''artis3n.github.latest_release'', ''hashicorp/terraform'')[1:] }}'
 
 - name: Terraform | Ensure directory
   file:
-    path: "{{ install_dir }}/terraform_{{ terraform_version }}"
+    path: '{{ install_dir }}/terraform_{{ terraform_version }}'
     state: directory
   register: terraform_directory
 
 - name: Terraform | Get hashes
   get_url:
-    url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_SHA256SUMS
-    dest: "{{ terraform_directory.path }}/SHA256SUMS"
+    url: >-
+      https://releases.hashicorp.com/terraform/{{ terraform_version
+      }}/terraform_{{ terraform_version }}_SHA256SUMS
+    dest: '{{ terraform_directory.path }}/SHA256SUMS'
   register: terraform_shas_file
   changed_when: false
 
 - name: Terraform | Construct regex
   set_fact:
-    terraform_sha_hash: "{{ '.*\\s\\sterraform_' + (terraform_version | regex_escape()) + '_linux_amd64\\.zip' }}"
+    terraform_sha_hash: >-
+      {{ '.*\s\sterraform_' + (terraform_version | regex_escape()) +
+      '_linux_amd64\.zip' }}
 
 - name: Terraform | Extract sha hash
   set_fact:
-    # https://regex101.com/r/RS94Us/1
-    terraform_sha_string: "{{ lookup('file', terraform_shas_file.dest) | regex_findall(terraform_sha_hash) | first }}"
+    terraform_sha_string: >-
+      {{ lookup('file', terraform_shas_file.dest) |
+      regex_findall(terraform_sha_hash) | first }}
 
 - name: Terraform | Download
   get_url:
-    url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_{{ os_short }}.zip
-    dest: "{{ install_dir }}/terraform_{{ terraform_version }}.zip"
-    checksum: sha256:{{ terraform_sha_string.split(' ')[0] }}
+    url: >-
+      https://releases.hashicorp.com/terraform/{{ terraform_version
+      }}/terraform_{{ terraform_version }}_{{ os_short }}.zip
+    dest: '{{ install_dir }}/terraform_{{ terraform_version }}.zip'
+    checksum: 'sha256:{{ terraform_sha_string.split('' '')[0] }}'
   register: terraform_download
 
 - name: Terraform | Unarchive
   unarchive:
-    src: "{{ terraform_download.dest }}"
-    dest: "{{ terraform_directory.path }}"
-    remote_src: yes
+    src: '{{ terraform_download.dest }}'
+    dest: '{{ terraform_directory.path }}'
+    remote_src: 'yes'
 
 - name: Terraform | Ensure local bin permissions
-  become: yes
+  become: 'yes'
   file:
     path: /usr/local
     state: directory
-    owner: "{{ lookup('env', 'USER') }}"
-    group: "{{ lookup('env', 'USER') }}"
-    recurse: yes
+    owner: '{{ lookup(''env'', ''USER'') }}'
+    group: '{{ lookup(''env'', ''USER'') }}'
+    recurse: 'yes'
 
 - name: Terraform | Add to local bin
-  copy:
-    src: "{{ terraform_directory.path }}/terraform"
+  file:
+    src: '{{ terraform_directory.path }}/terraform'
     dest: /usr/local/bin/terraform
-    mode: 0755
+    state: link

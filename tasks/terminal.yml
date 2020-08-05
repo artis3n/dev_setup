@@ -1,50 +1,54 @@
----
-
 - name: Terminal | Install Oh My ZSH
-  shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  shell: >-
+    sh -c "$(curl -fsSL
+    https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
   args:
-    creates: "{{ lookup('env', 'HOME') }}/.zshrc"
+    creates: '{{ lookup(''env'', ''HOME'') }}/.zshrc'
 
 - name: Terminal | Set Spaceship version
   set_fact:
-    spaceship_version: "{{ lookup('artis3n.github.latest_release', 'denysdovhan/spaceship-prompt') }}"
-
+    spaceship_version: >-
+      {{ lookup('artis3n.github.latest_release', 'denysdovhan/spaceship-prompt')
+      }}
+  
 - name: Terminal | ZSH Spaceship theme
-  become: yes
+  become: 'yes'
   git:
-    repo: https://github.com/denysdovhan/spaceship-prompt.git
-    version: "{{ spaceship_version }}"
-    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/themes/spaceship-prompt"
+    repo: 'https://github.com/denysdovhan/spaceship-prompt.git'
+    version: '{{ spaceship_version }}'
+    dest: '{{ lookup(''env'', ''HOME'') }}/.oh-my-zsh/custom/themes/spaceship-prompt'
 
 - name: Terminal | Set file permissions
-  become: yes
+  become: 'yes'
   file:
-    path: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/themes/spaceship-prompt"
+    path: '{{ lookup(''env'', ''HOME'') }}/.oh-my-zsh/custom/themes/spaceship-prompt'
     state: directory
-    owner: "{{ lookup('env', 'USER') }}"
-    group: "{{ lookup('env', 'USER') }}"
-    recurse: yes
+    owner: '{{ lookup(''env'', ''USER'') }}'
+    group: '{{ lookup(''env'', ''USER'') }}'
+    recurse: 'yes'
 
 - name: Terminal | ZSH Spaceship symbolic link
-  become: yes
+  become: 'yes'
   file:
-    src: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme"
-    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+    src: >-
+      {{ lookup('env', 'HOME')
+      }}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme
+    dest: '{{ lookup(''env'', ''HOME'') }}/.oh-my-zsh/custom/themes/spaceship.zsh-theme'
     state: link
-    owner: "{{ lookup('env', 'USER') }}"
-    group: "{{ lookup('env', 'USER') }}"
+    owner: '{{ lookup(''env'', ''USER'') }}'
+    group: '{{ lookup(''env'', ''USER'') }}'
 
 - name: Terminal | Set Spaceship as the terminal theme
-  become: yes
+  become: 'yes'
   lineinfile:
-    path: "{{ lookup('env', 'HOME') }}/.zshrc"
-    regexp: "^ZSH_THEME="
+    path: '{{ lookup(''env'', ''HOME'') }}/.zshrc'
+    regexp: ^ZSH_THEME=
     line: ZSH_THEME="spaceship"
     state: present
 
 - name: Terminal | Add plugins
   lineinfile:
-    path: "{{ lookup('env', 'HOME') }}/.zshrc"
-    regexp: "^plugins="
-    line: "plugins=({{ zsh_plugins | join(' ') }})"
+    path: '{{ lookup(''env'', ''HOME'') }}/.zshrc'
+    regexp: ^plugins=
+    line: 'plugins=({{ zsh_plugins | join('' '') }})'
     state: present

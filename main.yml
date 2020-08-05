@@ -1,98 +1,62 @@
----
 - name: All Tasks
   hosts: all
   connection: local
-  gather_facts: yes
+  gather_facts: 'yes'
   vars_files:
     - files/vars.yml
-    - files/secrets.yml
-
   collections:
     - artis3n.github
-
   roles:
     - role: gantsign.visual-studio-code
       users:
-        - username: "{{ lookup('env', 'USER') }}"
+        - username: '{{ ansible_user }}'
           visual_studio_code_extensions:
             - Shan.code-settings-sync
-    - role: artis3n.bitwarden_app
-
   tasks:
     - name: Setup | Scripts folder
       file:
-        path: "{{ install_dir }}"
+        path: '{{ install_dir }}'
         state: directory
-        mode: 0755
-
+        mode: 755
+  
     - import_tasks: tasks/apt.yml
-      become: yes
+      become: 'yes'
       tags: apt
-
+  
     - import_tasks: tasks/terminal.yml
       tags: terminal
-
+  
     - import_tasks: tasks/java.yml
       tags:
         - language
         - java
-
-    - import_tasks: tasks/node.yml
-      tags:
-        - language
-        - node
-
-    - import_tasks: tasks/ruby.yml
-      tags:
-        - language
-        - ruby
-
+  
     - import_tasks: tasks/git.yml
       tags: git
-
-    - import_tasks: tasks/vagrant.yml
-      tags: vagrant
-
+  
     - import_tasks: tasks/terraform.yml
       tags: terraform
-
-    - import_tasks: tasks/cloudgoat.yml
-      tags: cloudgoat
-
+  
     - import_tasks: tasks/docker.yml
       tags: docker
-
+  
     - import_tasks: tasks/applications/jetbrains.yml
       tags:
         - applications
         - jetbrains
-
-    - import_tasks: tasks/applications/vmware.yml
-      tags:
-        - applications
-        - vmware
-
+  
     - import_tasks: tasks/applications/calibre.yml
       tags:
         - applications
         - calibre
-
-    - import_tasks: tasks/applications/keybase.yml
+    
+    - import_tasks: tasks/applications/bitwarden.yml
       tags:
         - applications
-        - keybase
-
-    - import_tasks: tasks/gpg.yml
-      tags: gpg
-
+        - bitwarden
+  
     - import_tasks: tasks/ssh.yml
       tags: ssh
-
-    - import_tasks: tasks/pentest.yml
-      tags: pentest
-
-    - import_tasks: tasks/wine.yml
-      tags: wine
-
+  
   handlers:
     - import_tasks: handlers/handlers.yml

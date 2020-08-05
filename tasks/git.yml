@@ -1,39 +1,45 @@
----
-
 - name: Git | Set config
   git_config:
-    name: "{{ item.name }}"
-    value: "{{ item.value }}"
+    name: '{{ item.name }}'
+    value: '{{ item.value }}'
     scope: global
-  with_items:
-    - { name: user.email, value: "{{ email }}" }
-    - { name: user.name, value: "{{ handle }}" }
-    - { name: push.default, value: simple }
-    - { name: alias.ci, value: commit }
-    - { name: alias.s, value: status }
-    - { name: alias.br, value: branch }
-    - { name: alias.co, value: checkout }
-    - { name: alias.get, value: "pull --prune" }
-    - { name: alias.list, value: "config --get-regexp alias" }
-    - { name: alias.save, value: "stash save" }
-
+  loop:
+    - name: user.email
+      value: '{{ email }}'
+    - name: user.name
+      value: '{{ handle }}'
+    - name: push.default
+      value: simple
+    - name: alias.ci
+      value: commit
+    - name: alias.s
+      value: status
+    - name: alias.br
+      value: branch
+    - name: alias.co
+      value: checkout
+    - name: alias.get
+      value: pull --prune
+    - name: alias.list
+      value: config --get-regexp alias
+    - name: alias.save
+      value: stash save
 - name: Git | Hub | Get latest version
   set_fact:
-    hub_version: "{{ lookup('artis3n.github.latest_release', 'github/hub') }}"
-
+    hub_version: '{{ lookup(''artis3n.github.latest_release'', ''github/hub'') }}'
 - name: Git | Hub | Download
   get_url:
-    url: https://github.com/github/hub/releases/download/{{ hub_version }}/hub-linux-amd64-{{ hub_version[1:] }}.tgz
-    dest: "{{ install_dir }}/hub-linux-amd64-{{ hub_version[1:] }}.tgz"
-
+    url: >-
+      https://github.com/github/hub/releases/download/{{ hub_version
+      }}/hub-linux-amd64-{{ hub_version[1:] }}.tgz
+    dest: '{{ install_dir }}/hub-linux-amd64-{{ hub_version[1:] }}.tgz'
 - name: Git | Hub | Unarchive
   unarchive:
-    src: "{{ install_dir }}/hub-linux-amd64-{{ hub_version[1:] }}.tgz"
-    dest: "{{ install_dir }}/"
-    creates: "{{ install_dir }}/hub-linux-amd64-{{ hub_version[1:] }}/bin/hub"
-
+    src: '{{ install_dir }}/hub-linux-amd64-{{ hub_version[1:] }}.tgz'
+    dest: '{{ install_dir }}/'
+    creates: '{{ install_dir }}/hub-linux-amd64-{{ hub_version[1:] }}/bin/hub'
 - name: Git | Hub | Add to local bin
-  copy:
-    src: "{{ install_dir }}/hub-linux-amd64-{{ hub_version[1:] }}/bin/hub"
-    dest: "{{ lookup('env', 'HOME') }}/.local/bin/hub"
-    mode: 0751
+  file:
+    src: '{{ install_dir }}/hub-linux-amd64-{{ hub_version[1:] }}/bin/hub'
+    dest: '{{ lookup(''env'', ''HOME'') }}/.local/bin/hub'
+    state: link

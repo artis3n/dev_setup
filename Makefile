@@ -11,7 +11,6 @@ install:
 	if [ ! -d ~/.local/share/virtualenvs ]; then mkdir -p ~/.local/share/virtualenvs/; fi;
 	if [ ! $$(find ~/.local/share/virtualenvs/ -name "dev-setup*") ]; then ~/.local/bin/pipenv install; fi;
 	if [ ! -d ~/.ansible/roles/gantsign.visual-studio-code ]; then ~/.local/bin/pipenv run ansible-galaxy install gantsign.visual-studio-code; fi;
-	if [ ! -d ~/.ansible/roles/artis3n.bitwarden_app ]; then ~/.local/bin/pipenv run ansible-galaxy install artis3n.bitwarden_app; fi;
 	if [ ! -d ~/.ansible/collections/ansible_collections/artis3n/github ]; then ~/.local/bin/pipenv run ansible-galaxy collection install artis3n.github; fi;
 
 .PHONY: dev-install
@@ -30,11 +29,7 @@ lint:
 
 .PHONY: provision
 provision:
-	~/.local/bin/pipenv run ansible-playbook --vault-id .vault_pass -i inventory main.yml --ask-become-pass
-
-.PHONY: secret
-secret:
-	if [ -f ./files/secrets.yml ]; then ~/.local/bin/pipenv run ansible-vault edit ./files/secrets.yml; else ~/.local/bin/pipenv run ansible-vault create ./files/secrets.yml; fi;
+	~/.local/bin/pipenv run ansible-playbook -i inventory main.yml --ask-become-pass
 
 .PHONY: test
 test:

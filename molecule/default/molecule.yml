@@ -1,24 +1,24 @@
----
 dependency:
   name: galaxy
   options:
     role-file: requirements.yml
+    requirements-file: requirements.yml
 driver:
   name: docker
-lint:
-  name: yamllint
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
 platforms:
   - name: instance
-    image: artis3n/docker-${MOLECULE_DISTRO:-ubuntu1804}-ansible:latest
-    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    image: 'geerlingguy/docker-ubuntu2004-ansible:latest'
+    command: '${MOLECULE_DOCKER_COMMAND:-""}'
     pre_build_image: true
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
     privileged: true
 provisioner:
   name: ansible
-  lint:
-    name: ansible-lint
   options:
     vault-id: ../../.vault_pass
   inventory:
@@ -26,6 +26,15 @@ provisioner:
       instance:
         ansible_user: ansible
 verifier:
-  name: testinfra
-  lint:
-    name: flake8
+  name: ansible
+scenario:
+  name: default
+  test_sequence:
+    - lint
+    - destroy
+    - syntax
+    - create
+    - converge
+    - idempotence
+    - verify
+    - destroy

@@ -28,4 +28,4 @@
   command: ./{{ toolbox_installer.stdout }}/jetbrains-toolbox
   args:
     chdir: "{{ install_dir }}"
-    creates: "{{ ansible_env.HOME }}/.local/share/applications/jetbrains-toolbox.desktop"
+    creates: "{{ lookup('env', 'HOME') }}/.local/share/applications/jetbrains-toolbox.desktop"

@@ -13,4 +13,4 @@ molecule = {extras = ["docker"],version = "*"}
 docker = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"

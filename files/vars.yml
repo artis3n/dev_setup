@@ -1,10 +1,8 @@
----
-
 os_short: linux_amd64
 
-install_dir: "{{ ansible_env.HOME }}/.install_deps"
+install_dir: '{{ ansible_env.HOME }}/.install_deps'
 
-email: dev@quantummadness.com
+email: dev@artis3nal.com
 handle: Artis3n
 
 zsh_plugins:
@@ -18,119 +16,75 @@ zsh_plugins:
   - rvm
   - sudo
   - systemd
-  - vagrant
   - vscode
   - web-search
   - wd
   - zsh-syntax-highlighting
   - zsh-autosuggestions
-  - poetry
-
-gpg_comment: Dev Key
 
 apt_dependencies:
   - python3-apt
-
-apt_repos:
-  - ansible/ansible
-  - nextcloud-devs/client
-
+apt_repos: []
 apt_packages:
   - aptitude
-  - curl
-  - vim
-  - gnome-tweak-tool
-  - firefox
-  - golang
-  - git
-  - postgresql
-  - postgresql-contrib
-  - pgadmin3
   - apt-transport-https
   - ca-certificates
+  - curl
+  - firefox
+  - flameshot
+  - git
+  - golang
+  - jq
+  - libssl-dev
+  - nodejs
+  - openssl
+  - openvpn
+  - postgresql
+  - postgresql-contrib
+  - ruby-full
   - software-properties-common
   - texlive-full
-  - openvpn
-  - openssl
-  - libssl-dev
+  - vim
+  - wget
   - zsh
-  - nextcloud-client
-  - virtualbox
-  - deja-dup
-  - vagrant
-  - gnome-shell-extension-appindicator
-  - shellcheck
-  - jq
-  - awscli
-  - flameshot
 
-pentest_packages:
-  - sqlmap
-  - nmap
-  - nikto
-  - steghide
-  - exiftool
-  - foremost
-  - binwalk
-  - volatility
-  - p7zip
-  - hexedit
-  - hashcat
-  - gdb
-  - wireshark
-  - tshark
-  - radare2
-  - remmina
-
-jabba_install_script: jabba.install.sh
-java_version: 1.13
-
-keybase_url: https://prerelease.keybase.io/keybase_amd64.deb
-keybase_deb: keybase_amd64.deb
-
-nvm_install_script: nvm.install.sh
-node_version: 12.12.0
-
-calibre_url: https://download.calibre-ebook.com/linux-installer.sh
+calibre_url: 'https://download.calibre-ebook.com/linux-installer.sh'
 
 jetbrains_toolbox: jetbrains-toolbox.tar.gz
-jetbrains_toolbox_url: https://data.services.jetbrains.com/products/download?platform=linux&code=TBA
+jetbrains_toolbox_url: 'https://data.services.jetbrains.com/products/download?platform=linux&code=TBA'
 
-vmware_url: https://www.vmware.com/go/getworkstation-linux
-
-ruby_version: 2.6.5
-rvm_repo: rael-gc/rvm
-rvm_package: rvm
-
-rvm_config_list:
-  - { regexp: 'rvm_silence_path_mismatch_check_flag', line: 'rvm_silence_path_mismatch_check_flag=1' }
-  - { regexp: 'rvm_autoupdate_flag', line: 'rvm_autoupdate_flag=2' }
+sdkman_install_script: sdkman.sh
+sdkman_java_version: '14.0.2.hs-adpt'
 
 ssh_keypair:
   filename: id_ed25519
   type: ed25519
-  comment: dev@quantummadness.com
+  comment: dev@artis3nal.com
 
 gpg_packages:
   - gnupg2
   - rng-tools5
 
-# https://www.color-hex.com/color-palettes/
 keyboard_color:
   left: a8383b
   center: aaa939
-  right: 2e4372
+  right: .inf
 
 docker_apt_dependencies:
   - apt-transport-https
   - ca-certificates
   - software-properties-common
+  - gnupg-agent
+  - curl
+docker_gpgkey_url: https://download.docker.com/linux/ubuntu/gpg
+docker_gpgkey_fingerprint: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
 docker_apt_arch: amd64
-docker_apt_repo: deb [arch={{ docker_apt_arch }}] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable
-docker_apt: docker-ce
+docker_apt_repo: >-
+  deb [arch={{ docker_apt_arch }}] https://download.docker.com/linux/{{
+  ansible_distribution|lower }} {{ ansible_distribution_release }} stable
+docker_apt:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
 
-john_jumbo_branch: bleeding-jumbo
-
-wine_packages:
-  - winehq-stable
-  - winetricks
+bitwarden_snap_package: bitwarden

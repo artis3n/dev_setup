@@ -1,20 +1,18 @@
----
-
 - name: SSH | Ensure directory
   file:
-    path: "{{ lookup('env', 'HOME') }}/.ssh"
+    path: '{{ lookup(''env'', ''HOME'') }}/.ssh'
     state: directory
 
 - name: SSH | Generate key
   openssh_keypair:
-    path: "{{ lookup('env', 'HOME') }}/.ssh/{{ ssh_keypair.filename }}"
-    comment: "{{ ssh_keypair.comment }}"
+    path: '{{ lookup(''env'', ''HOME'') }}/.ssh/{{ ssh_keypair.filename }}'
+    comment: '{{ ssh_keypair.comment }}'
     state: present
-    type: "{{ ssh_keypair.type }}"
+    type: '{{ ssh_keypair.type }}'
   register: gen_ssh_key
 
 - name: SSH | Set default key
   template:
     src: files/ssh/config.j2
-    dest: "{{ lookup('env', 'HOME') }}/.ssh/config"
-    backup: yes
+    dest: '{{ lookup(''env'', ''HOME'') }}/.ssh/config'
+    backup: 'yes'

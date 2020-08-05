@@ -1,7 +1,10 @@
 ---
 
-- name: Keybase Install
-  command: /usr/bin/run_keybase
+- name: Clean up apt
+  become: yes
+  apt:
+    autoremove: yes
+    autoclean: yes
 
 - name: Restart Docker
   become: yes

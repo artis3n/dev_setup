@@ -24,5 +24,7 @@ provisioner:
     host_vars:
       instance:
         ansible_user: root
+  env:
+    ANSIBLE_HOME_DIR: /root
 verifier:
   name: ansible

@@ -8,19 +8,19 @@
 - name: Java | Install SDKMan
   command: 'bash {{ sdkman_script.dest }}'
   args:
-    creates: '/home/{{ ansible_user }}/.sdkman/bin/sdkman-init.sh'
+    creates: '{{ home_dir }}/.sdkman/bin/sdkman-init.sh'
 
 - name: Java | Add to profile
   lineinfile:
-    path: '/home/{{ ansible_user }}/.zshrc'
+    path: '{{ home_dir }}/.zshrc'
     line: "{{ item }}"
     state: present
   loop:
-    - 'export SDKMAN_DIR="/home/{{ ansible_user }}/.sdkman"'
-    - '[[ -s "/home/{{ ansible_user }}/.sdkman/bin/sdkman-init.sh" ]] && source "/home/{{ ansible_user }}/.sdkman/bin/sdkman-init.sh"'
+    - 'export SDKMAN_DIR="{{ home_dir }}/.sdkman"'
+    - '[[ -s "{{ home_dir }}/.sdkman/bin/sdkman-init.sh" ]] && source "{{ home_dir }}/.sdkman/bin/sdkman-init.sh"'
 
 - name: Java | Install JDK
-  shell: "source /home/{{ ansible_user }}/.zshrc; sdk install java {{ sdkman_java_version | quote }}"
+  shell: "source {{ home_dir }}/.zshrc; sdk install java {{ sdkman_java_version | quote }}"
   args:
     executable: /bin/zsh
-    creates: /home/{{ ansible_user }}/.sdkman/candidates/java/{{ sdkman_java_version }}/bin/java
+    creates: '{{ home_dir }}/.sdkman/candidates/java/{{ sdkman_java_version }}/bin/java'

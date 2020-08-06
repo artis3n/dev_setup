@@ -1,10 +1,7 @@
 - name: Terminal | Install Oh My ZSH
-  expect:
-    command: bash -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    responses:
-      'Do you want to change your default shell to zsh\? \[Y\/n]': 'Y'
+  command: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
   args:
-    creates: /home/{{ ansible_user }}/.zshrc
+    creates: '{{ home_dir }}/.zshrc'
 
 - name: Terminal | Set Spaceship version
   set_fact:
@@ -17,13 +14,13 @@
   git:
     repo: 'https://github.com/denysdovhan/spaceship-prompt.git'
     version: '{{ spaceship_version }}'
-    dest: /home/{{ ansible_user }}/.oh-my-zsh/custom/themes/spaceship-prompt
+    dest: '{{ home_dir }}/.oh-my-zsh/custom/themes/spaceship-prompt'
   register: spaceship_repo
 
 - name: Terminal | Set file permissions
   become: 'yes'
   file:
-    path: /home/{{ ansible_user }}/.oh-my-zsh/custom/themes/spaceship-prompt
+    path: '{{ home_dir }}/.oh-my-zsh/custom/themes/spaceship-prompt'
     state: directory
     owner: '{{ ansible_user }}'
     group: '{{ ansible_user }}'
@@ -33,8 +30,8 @@
 - name: Terminal | ZSH Spaceship symbolic link
   become: 'yes'
   file:
-    src: /home/{{ ansible_user }}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme
-    dest: /home/{{ ansible_user }}/.oh-my-zsh/custom/themes/spaceship.zsh-theme
+    src: '{{ home_dir }}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme'
+    dest: '{{ home_dir }}/.oh-my-zsh/custom/themes/spaceship.zsh-theme'
     state: link
     owner: '{{ ansible_user }}'
     group: '{{ ansible_user }}'
@@ -42,17 +39,29 @@
 - name: Terminal | Set Spaceship as the terminal theme
   become: 'yes'
   lineinfile:
-    path: /home/{{ ansible_user }}/.zshrc
+    path: '{{ home_dir }}/.zshrc'
     regexp: ^ZSH_THEME=
     line: ZSH_THEME="spaceship"
     state: present
 
 - name: Terminal | Add plugins
   lineinfile:
-    path: /home/{{ ansible_user }}/.zshrc
+    path: '{{ home_dir }}/.zshrc'
     regexp: ^plugins=
     line: 'plugins=({{ zsh_plugins | join('' '') }})'
     state: present
+
+- name: Terminal | Add Zsh properties
+  lineinfile:
+    path: '{{ home_dir }}/.zshrc'
+    regexp: ^{{ item.regex }}
+    line: '{{ item.line }}'
+    state: present
+  loop:
+    - regex: COMPLETION_WAITING_DOTS
+      line: COMPLETION_WAITING_DOTS='true'
+    - regex: DISABLE_UNTRACKED_FILES_DIRTY
+      line: DISABLE_UNTRACKED_FILES_DIRTY='true'
 
 - name: Terminal | Set default shell
   become: yes

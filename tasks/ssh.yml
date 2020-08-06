@@ -1,11 +1,11 @@
 - name: SSH | Ensure directory
   file:
-    path: /home/{{ ansible_user }}/.ssh
+    path: '{{ home_dir }}/.ssh'
     state: directory
 
 - name: SSH | Generate key
   openssh_keypair:
-    path: /home/{{ ansible_user }}/.ssh/{{ ssh_keypair.filename }}
+    path: '{{ home_dir }}/.ssh/{{ ssh_keypair.filename }}'
     comment: '{{ ssh_keypair.comment }}'
     state: present
     type: '{{ ssh_keypair.type }}'
@@ -14,5 +14,5 @@
 - name: SSH | Set default key
   template:
     src: files/ssh/config.j2
-    dest: /home/{{ ansible_user }}/.ssh/config
+    dest: '{{ home_dir }}/.ssh/config'
     backup: 'yes'

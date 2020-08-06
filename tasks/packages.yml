@@ -6,7 +6,7 @@
     state: present
   notify: Clean up apt
 
-- name: Packages | Apt | Add Repositories
+- name: Packages | Apt | Add repositories
   become: yes
   apt_repository:
     repo: 'ppa:{{ item }}'

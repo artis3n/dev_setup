@@ -1,6 +1,8 @@
 os_short: linux_amd64
 
-install_dir: /home/{{ ansible_user }}/.install_deps
+install_dir: '{{ home_dir }}/.install_deps'
+default_home_dir: '/home/{{ ansible_user }}'
+home_dir: "{{ lookup('env', 'ANSIBLE_HOME_DIR') | default(default_home_dir) }}"
 
 email: dev@artis3nal.com
 handle: Artis3n
@@ -34,6 +36,7 @@ apt_packages:
   - firefox
   - flameshot
   - flatpak
+  - fonts-powerline
   - git
   - gnupg2
   - golang

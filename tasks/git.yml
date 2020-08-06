@@ -45,5 +45,5 @@
 - name: Git | Hub | Add to local bin
   file:
     src: '{{ install_dir }}/hub-linux-amd64-{{ hub_version[1:] }}/bin/hub'
-    dest: /home/{{ ansible_user }}/.local/bin/hub
+    dest: '{{ home_dir }}/.local/bin/hub'
     state: link

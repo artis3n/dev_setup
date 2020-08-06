@@ -27,6 +27,20 @@
     state: present
   notify: Clean up apt
 
+- name: Packages | Flatpak | Check for flathub
+  shell: |
+    set -o pipefail
+    flatpak remotes | grep flathub
+  args:
+    executable: /bin/bash
+  changed_when: false
+  register: flathub_remote
+  failed_when: flathub_remote.rc > 1
+
+- name: Packages | Flatpak | Set up flathub
+  command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  when: flathub_remote.rc != 0
+
 - name: Packages | Flatpak | Install applications
   flatpak:
     name: "{{ item }}"

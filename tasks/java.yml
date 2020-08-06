@@ -2,7 +2,7 @@
   get_url:
     url: 'https://get.sdkman.io'
     dest: '{{ install_dir }}/{{ sdkman_install_script }}'
-    mode: 755
+    mode: 0755
   register: sdkman_script
 
 - name: Java | Install SDKMan
@@ -20,6 +20,7 @@
     - '[[ -s "{{ lookup(''env'', ''HOME'') }}/.sdkman/bin/sdkman-init.sh" ]] && source "{{ lookup(''env'', ''HOME'') }}/.sdkman/bin/sdkman-init.sh"'
 
 - name: Java | Install JDK
-  command: sdk install java {{ sdkman_java_version }}
+  shell: "source {{ lookup('env', 'HOME') }}/.zshrc; sdk install java {{ sdkman_java_version | quote }}"
   args:
+    executable: /bin/zsh
     creates: '{{ lookup(''env'', ''HOME'') }}/.sdkman/candidates/java/{{ sdkman_java_version }}/bin/java'

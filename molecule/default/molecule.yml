@@ -12,7 +12,6 @@ lint: |
 platforms:
   - name: instance
     image: 'geerlingguy/docker-ubuntu2004-ansible:latest'
-    command: '${MOLECULE_DOCKER_COMMAND:-""}'
     pre_build_image: true
     volumes:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
@@ -22,7 +21,7 @@ provisioner:
   inventory:
     host_vars:
       instance:
-        ansible_user: ansible
+        ansible_user: root
 verifier:
   name: ansible
 scenario:

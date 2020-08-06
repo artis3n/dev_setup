@@ -5,12 +5,6 @@
     - ../../files/vars.yml
   collections:
     - artis3n.github
-  roles:
-    - role: gantsign.visual-studio-code
-      users:
-        - username: '{{ ansible_user }}'
-          visual_studio_code_extensions:
-            - Shan.code-settings-sync
   tasks:
     - name: Setup | Scripts folder
       file:
@@ -18,7 +12,7 @@
         state: directory
         mode: 0755
 
-    - import_tasks: ../../tasks/apt.yml
+    - import_tasks: ../../tasks/packages.yml
       become: 'yes'
       tags: apt
 
@@ -39,20 +33,19 @@
     - import_tasks: ../../tasks/docker.yml
       tags: docker
 
+    - name: Role | Install Visual Studio Code
+      import_role:
+        name: gantsign.visual-studio-code
+      vars:
+        users:
+        - username: '{{ ansible_user }}'
+          visual_studio_code_extensions:
+            - Shan.code-settings-sync
+
     - import_tasks: ../../tasks/applications/jetbrains.yml
       tags:
         - applications
         - jetbrains
-
-    - import_tasks: ../../tasks/applications/calibre.yml
-      tags:
-        - applications
-        - calibre
-
-    - import_tasks: ../../tasks/applications/bitwarden.yml
-      tags:
-        - applications
-        - bitwarden
 
     - import_tasks: ../../tasks/ssh.yml
       tags: ssh

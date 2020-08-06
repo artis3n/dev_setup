@@ -19,9 +19,8 @@
         state: directory
         mode: 0755
 
-    - import_tasks: tasks/apt.yml
-      become: 'yes'
-      tags: apt
+    - import_tasks: tasks/packages.yml
+      tags: packages
 
     - import_tasks: tasks/terminal.yml
       tags: terminal
@@ -44,16 +43,6 @@
       tags:
         - applications
         - jetbrains
-
-    - import_tasks: tasks/applications/calibre.yml
-      tags:
-        - applications
-        - calibre
-
-    - import_tasks: tasks/applications/bitwarden.yml
-      tags:
-        - applications
-        - bitwarden
 
     - import_tasks: tasks/ssh.yml
       tags: ssh

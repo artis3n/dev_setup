@@ -17,15 +17,17 @@
     repo: 'https://github.com/denysdovhan/spaceship-prompt.git'
     version: '{{ spaceship_version }}'
     dest: '{{ lookup(''env'', ''HOME'') }}/.oh-my-zsh/custom/themes/spaceship-prompt'
+  register: spaceship_repo
 
 - name: Terminal | Set file permissions
   become: 'yes'
   file:
     path: '{{ lookup(''env'', ''HOME'') }}/.oh-my-zsh/custom/themes/spaceship-prompt'
     state: directory
-    owner: '{{ lookup(''env'', ''USER'') }}'
-    group: '{{ lookup(''env'', ''USER'') }}'
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
     recurse: 'yes'
+  when: spaceship_repo.changed  # noqa 503
 
 - name: Terminal | ZSH Spaceship symbolic link
   become: 'yes'
@@ -35,8 +37,8 @@
       }}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme
     dest: '{{ lookup(''env'', ''HOME'') }}/.oh-my-zsh/custom/themes/spaceship.zsh-theme'
     state: link
-    owner: '{{ lookup(''env'', ''USER'') }}'
-    group: '{{ lookup(''env'', ''USER'') }}'
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
 
 - name: Terminal | Set Spaceship as the terminal theme
   become: 'yes'
@@ -52,3 +54,9 @@
     regexp: ^plugins=
     line: 'plugins=({{ zsh_plugins | join('' '') }})'
     state: present
+
+- name: Terminal | Set default
+  become: yes
+  user:
+    name: "{{ ansible_user }}"
+    shell: /bin/zsh

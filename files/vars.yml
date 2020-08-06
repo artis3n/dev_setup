@@ -32,7 +32,9 @@ apt_packages:
   - curl
   - firefox
   - flameshot
+  - flatpak
   - git
+  - gnupg2
   - golang
   - jq
   - libssl-dev
@@ -41,6 +43,7 @@ apt_packages:
   - openvpn
   - postgresql
   - postgresql-contrib
+  - rng-tools5
   - ruby-full
   - software-properties-common
   - texlive-full
@@ -48,7 +51,16 @@ apt_packages:
   - wget
   - zsh
 
-calibre_url: 'https://download.calibre-ebook.com/linux-installer.sh'
+flatpak_applications:
+  - com.bitwarden.desktop
+  - com.dropbox.Client
+  - com.getpostman.Postman
+  - com.slack.Slack
+  - com.spotify.Client
+  - com.valvesoftware.Steam
+  - org.gnome.gedit
+  - org.signal.Signal
+  - com.calibre_ebook.calibre
 
 jetbrains_toolbox: jetbrains-toolbox.tar.gz
 jetbrains_toolbox_url: 'https://data.services.jetbrains.com/products/download?platform=linux&code=TBA'
@@ -60,10 +72,6 @@ ssh_keypair:
   filename: id_ed25519
   type: ed25519
   comment: dev@artis3nal.com
-
-gpg_packages:
-  - gnupg2
-  - rng-tools5
 
 keyboard_color:
   left: a8383b
@@ -80,11 +88,8 @@ docker_gpgkey_url: https://download.docker.com/linux/ubuntu/gpg
 docker_gpgkey_fingerprint: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
 docker_apt_arch: amd64
 docker_apt_repo: >-
-  deb [arch={{ docker_apt_arch }}] https://download.docker.com/linux/{{
-  ansible_distribution|lower }} {{ ansible_distribution_release }} stable
+  deb [arch={{ docker_apt_arch }}] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
 docker_apt:
   - docker-ce
   - docker-ce-cli
   - containerd.io
-
-bitwarden_snap_package: bitwarden

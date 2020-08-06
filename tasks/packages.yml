@@ -1,0 +1,35 @@
+- name: Packages | Apt | Install dependencies
+  become: yes
+  apt:
+    name: '{{ apt_dependencies }}'
+    update_cache: 'yes'
+    state: present
+  notify: Clean up apt
+
+- name: Packages | Apt | Add Repositories
+  become: yes
+  apt_repository:
+    repo: 'ppa:{{ item }}'
+    state: present
+  with_items: '{{ apt_repos }}'
+
+- name: Packages | Apt | Upgrade packages
+  become: yes
+  apt:
+    upgrade: full
+    update_cache: 'yes'
+  notify: Clean up apt
+
+- name: Packages | Apt | Install packages - This will take a long time
+  become: yes
+  apt:
+    name: '{{ apt_packages }}'
+    state: present
+  notify: Clean up apt
+
+- name: Packages | Flatpak | Install applications
+  flatpak:
+    name: "{{ item }}"
+    method: user
+    state: present
+  loop: "{{ flatpak_applications }}"

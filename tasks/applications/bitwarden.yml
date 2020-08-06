@@ -1,7 +1,0 @@
----
-
-- name: Applications | Bitwarden | Install
-  become: yes
-  snap:
-    name: '{{ bitwarden_snap_package }}'
-    state: present

@@ -43,6 +43,6 @@
 
 - name: Docker | Add user to Docker group
   become: 'yes'
-  command: 'usermod -aG docker ${{ ansible_user }}'
+  command: 'usermod -aG docker {{ ansible_user }}'
   when: in_docker_group.rc != 0
   notify: Docker user added

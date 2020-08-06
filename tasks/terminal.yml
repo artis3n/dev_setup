@@ -1,9 +1,10 @@
 - name: Terminal | Install Oh My ZSH
-  shell: >-
-    sh -c "$(curl -fsSL
-    https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  expect:
+    command: bash -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    responses:
+      'Do you want to change your default shell to zsh\? \[Y\/n]': 'Y'
   args:
-    creates: '{{ lookup(''env'', ''HOME'') }}/.zshrc'
+    creates: /home/{{ ansible_user }}/.zshrc
 
 - name: Terminal | Set Spaceship version
   set_fact:
@@ -16,13 +17,13 @@
   git:
     repo: 'https://github.com/denysdovhan/spaceship-prompt.git'
     version: '{{ spaceship_version }}'
-    dest: '{{ lookup(''env'', ''HOME'') }}/.oh-my-zsh/custom/themes/spaceship-prompt'
+    dest: /home/{{ ansible_user }}/.oh-my-zsh/custom/themes/spaceship-prompt
   register: spaceship_repo
 
 - name: Terminal | Set file permissions
   become: 'yes'
   file:
-    path: '{{ lookup(''env'', ''HOME'') }}/.oh-my-zsh/custom/themes/spaceship-prompt'
+    path: /home/{{ ansible_user }}/.oh-my-zsh/custom/themes/spaceship-prompt
     state: directory
     owner: '{{ ansible_user }}'
     group: '{{ ansible_user }}'
@@ -32,10 +33,8 @@
 - name: Terminal | ZSH Spaceship symbolic link
   become: 'yes'
   file:
-    src: >-
-      {{ lookup('env', 'HOME')
-      }}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme
-    dest: '{{ lookup(''env'', ''HOME'') }}/.oh-my-zsh/custom/themes/spaceship.zsh-theme'
+    src: /home/{{ ansible_user }}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme
+    dest: /home/{{ ansible_user }}/.oh-my-zsh/custom/themes/spaceship.zsh-theme
     state: link
     owner: '{{ ansible_user }}'
     group: '{{ ansible_user }}'
@@ -43,20 +42,25 @@
 - name: Terminal | Set Spaceship as the terminal theme
   become: 'yes'
   lineinfile:
-    path: '{{ lookup(''env'', ''HOME'') }}/.zshrc'
+    path: /home/{{ ansible_user }}/.zshrc
     regexp: ^ZSH_THEME=
     line: ZSH_THEME="spaceship"
     state: present
 
 - name: Terminal | Add plugins
   lineinfile:
-    path: '{{ lookup(''env'', ''HOME'') }}/.zshrc'
+    path: /home/{{ ansible_user }}/.zshrc
     regexp: ^plugins=
     line: 'plugins=({{ zsh_plugins | join('' '') }})'
     state: present
 
-- name: Terminal | Set default
+- name: Terminal | Set default shell
   become: yes
   user:
     name: "{{ ansible_user }}"
     shell: /bin/zsh
+
+- name: Terminal | Set default editor
+  alternatives:
+    name: editor
+    path: /usr/bin/vim

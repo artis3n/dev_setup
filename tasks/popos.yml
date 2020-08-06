@@ -1,0 +1,21 @@
+---
+
+- name: PopOS | Set up keyboard lights service
+  become: yes
+  template:
+    src: ../files/systemd/kbd-color.service.j2
+    dest: /etc/systemd/system/kbd-color.service
+  register: kbd_service
+
+- name: PopOS | Systemd daemon-reload
+  become: yes
+  systemd:
+    daemon-reload: yes
+  when: kbd_service.changed  # noqa 503
+
+- name: PopOS | Run keyboard lights service
+  become: yes
+  systemd:
+    name: kbd-color.service
+    state: started
+    enabled: yes

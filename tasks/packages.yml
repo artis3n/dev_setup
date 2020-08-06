@@ -13,18 +13,41 @@
     state: present
   with_items: '{{ apt_repos }}'
 
-- name: Packages | Apt | Upgrade packages
+- name: Packages | Apt | Upgrade packages - async
   become: yes
   apt:
     upgrade: full
     update_cache: 'yes'
+  async: 3600
+  poll: 0
+  register: apt_upgrade
+
+- name: Packages | Apt | Upgrade packages - poll
+  async_status:
+    jid: "{{ apt_upgrade.ansible_job_id }}"
+  register: apt_upgrade_result
+  until: apt_upgrade_result.finished
+  retries: 120
+  delay: 30
   notify: Clean up apt
 
-- name: Packages | Apt | Install packages - This will take a long time
+- name: Packages | Apt | Install packages - async
   become: yes
   apt:
     name: '{{ apt_packages }}'
     state: present
+  register: apt_install
+  async: 3600
+  poll: 0
+  notify: Clean up apt
+
+- name: Packages | Apt | Install packages - poll
+  async_status:
+    jid: "{{ apt_install.ansible_job_id }}"
+  register: apt_install_result
+  until: apt_install_result.finished
+  retries: 120
+  delay: 30
   notify: Clean up apt
 
 - name: Packages | Flatpak | Check for flathub
@@ -44,6 +67,5 @@
 - name: Packages | Flatpak | Install applications
   flatpak:
     name: "{{ item }}"
-    method: user
     state: present
   loop: "{{ flatpak_applications }}"

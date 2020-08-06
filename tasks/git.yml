@@ -24,22 +24,26 @@
       value: config --get-regexp alias
     - name: alias.save
       value: stash save
+
 - name: Git | Hub | Get latest version
   set_fact:
     hub_version: '{{ lookup(''artis3n.github.latest_release'', ''github/hub'') }}'
+
 - name: Git | Hub | Download
   get_url:
     url: >-
       https://github.com/github/hub/releases/download/{{ hub_version
       }}/hub-linux-amd64-{{ hub_version[1:] }}.tgz
     dest: '{{ install_dir }}/hub-linux-amd64-{{ hub_version[1:] }}.tgz'
+
 - name: Git | Hub | Unarchive
   unarchive:
     src: '{{ install_dir }}/hub-linux-amd64-{{ hub_version[1:] }}.tgz'
     dest: '{{ install_dir }}/'
     creates: '{{ install_dir }}/hub-linux-amd64-{{ hub_version[1:] }}/bin/hub'
+
 - name: Git | Hub | Add to local bin
   file:
     src: '{{ install_dir }}/hub-linux-amd64-{{ hub_version[1:] }}/bin/hub'
-    dest: '{{ lookup(''env'', ''HOME'') }}/.local/bin/hub'
+    dest: /home/{{ ansible_user }}/.local/bin/hub
     state: link

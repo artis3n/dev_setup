@@ -1,4 +1,5 @@
 roles:
   - src: gantsign.visual-studio-code
+  - src: artis3n.tailscale
 collections:
   - name: artis3n.github

@@ -1,6 +1,6 @@
 os_short: linux_amd64
 
-install_dir: '{{ ansible_env.HOME }}/.install_deps'
+install_dir: /home/{{ ansible_user }}/.install_deps
 
 email: dev@artis3nal.com
 handle: Artis3n
@@ -24,6 +24,7 @@ zsh_plugins:
 
 apt_dependencies:
   - python3-apt
+  - python3-pexpect
 apt_repos: []
 apt_packages:
   - aptitude
@@ -61,6 +62,7 @@ flatpak_applications:
   - org.gnome.gedit
   - org.signal.Signal
   - com.calibre_ebook.calibre
+  - us.zoom.Zoom
 
 jetbrains_toolbox: jetbrains-toolbox.tar.gz
 jetbrains_toolbox_url: 'https://data.services.jetbrains.com/products/download?platform=linux&code=TBA'

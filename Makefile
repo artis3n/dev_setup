@@ -25,15 +25,15 @@ clean:
 
 .PHONY: lint
 lint:
-	~/.local/bin/pipenv run ansible-lint -c .ansible-lint *.yml
+	~/.local/bin/pipenv run ansible-lint
 
 .PHONY: provision
 provision:
-	~/.local/bin/pipenv run ansible-playbook -i inventory main.yml --ask-become-pass
+	ANSIBLE_COLOR_DEBUG="magenta" ~/.local/bin/pipenv run ansible-playbook --vault-id .vault_pass -i inventory main.yml --ask-become-pass
 
 .PHONY: test
 test:
-	pipenv run molecule test
+	ANSIBLE_COLOR_DEBUG="magenta" pipenv run molecule test
 
 .PHONY: reset-run
 reset-run: clean install run

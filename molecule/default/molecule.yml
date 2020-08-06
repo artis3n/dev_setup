@@ -18,20 +18,11 @@ platforms:
     privileged: true
 provisioner:
   name: ansible
+  options:
+    vault-id: ../../.vault_pass
   inventory:
     host_vars:
       instance:
         ansible_user: root
 verifier:
   name: ansible
-scenario:
-  name: default
-  test_sequence:
-    - lint
-    - destroy
-    - syntax
-    - create
-    - converge
-    - idempotence
-    - verify
-    - destroy

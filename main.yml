@@ -1,17 +1,21 @@
 - name: All Tasks
   hosts: all
   connection: local
-  gather_facts: 'yes'
+  gather_facts: yes
   vars_files:
     - files/vars.yml
+  roles:
+    - role: artis3n.tailscale
+      vars:
+        tailscale_auth_key: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          32313231643962663130656134646639303633316464636262326334323161323232376230653433
+          3465633637663531333136663430646531393064623030630a383338396537383734343539363466
+          62373533616466633535323530376438323562363263363063373834303963393065363334653937
+          3363353464343333350a333965353431396163653437313731313364363439313432666236626430
+          33316636346631636264333734323935646533323736303966333036376362653439
   collections:
     - artis3n.github
-  roles:
-    - role: gantsign.visual-studio-code
-      users:
-        - username: '{{ ansible_user }}'
-          visual_studio_code_extensions:
-            - Shan.code-settings-sync
   tasks:
     - name: Setup | Scripts folder
       file:
@@ -39,6 +43,15 @@
     - import_tasks: tasks/docker.yml
       tags: docker
 
+    - name: Role | Install Visual Studio Code
+      import_role:
+        name: gantsign.visual-studio-code
+      vars:
+        users:
+        - username: '{{ ansible_user }}'
+          visual_studio_code_extensions:
+            - Shan.code-settings-sync
+
     - import_tasks: tasks/applications/jetbrains.yml
       tags:
         - applications
@@ -46,6 +59,9 @@
 
     - import_tasks: tasks/ssh.yml
       tags: ssh
+
+    - import_tasks: tasks/popos.yml
+      tags: popos
 
   handlers:
     - import_tasks: handlers/handlers.yml

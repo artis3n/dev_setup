@@ -8,19 +8,19 @@
 - name: Java | Install SDKMan
   command: 'bash {{ sdkman_script.dest }}'
   args:
-    creates: '{{ lookup(''env'', ''HOME'') }}/.sdkman/bin/sdkman-init.sh'
+    creates: '/home/{{ ansible_user }}/.sdkman/bin/sdkman-init.sh'
 
 - name: Java | Add to profile
   lineinfile:
-    path: '{{ lookup(''env'', ''HOME'') }}/.zshrc'
+    path: '/home/{{ ansible_user }}/.zshrc'
     line: "{{ item }}"
     state: present
   loop:
-    - 'export SDKMAN_DIR="{{ lookup(''env'', ''HOME'') }}/.sdkman"'
-    - '[[ -s "{{ lookup(''env'', ''HOME'') }}/.sdkman/bin/sdkman-init.sh" ]] && source "{{ lookup(''env'', ''HOME'') }}/.sdkman/bin/sdkman-init.sh"'
+    - 'export SDKMAN_DIR="/home/{{ ansible_user }}/.sdkman"'
+    - '[[ -s "/home/{{ ansible_user }}/.sdkman/bin/sdkman-init.sh" ]] && source "/home/{{ ansible_user }}/.sdkman/bin/sdkman-init.sh"'
 
 - name: Java | Install JDK
-  shell: "source {{ lookup('env', 'HOME') }}/.zshrc; sdk install java {{ sdkman_java_version | quote }}"
+  shell: "source /home/{{ ansible_user }}/.zshrc; sdk install java {{ sdkman_java_version | quote }}"
   args:
     executable: /bin/zsh
-    creates: '{{ lookup(''env'', ''HOME'') }}/.sdkman/candidates/java/{{ sdkman_java_version }}/bin/java'
+    creates: /home/{{ ansible_user }}/.sdkman/candidates/java/{{ sdkman_java_version }}/bin/java

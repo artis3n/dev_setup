@@ -70,6 +70,7 @@
     shell: /bin/zsh
 
 - name: Terminal | Set default editor
+  become: yes
   alternatives:
     name: editor
     path: /usr/bin/vim

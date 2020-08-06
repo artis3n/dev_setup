@@ -29,7 +29,7 @@ lint:
 
 .PHONY: provision
 provision:
-	ANSIBLE_COLOR_DEBUG="magenta" ~/.local/bin/pipenv run ansible-playbook --vault-id .vault_pass -i inventory main.yml --ask-become-pass
+	ANSIBLE_COLOR_DEBUG="magenta" ~/.local/bin/pipenv run ansible-playbook --vault-id .vault_pass -i inventory main.yml --ask-become-pass --force-handlers
 
 .PHONY: test
 test:

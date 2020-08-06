@@ -1,8 +1,8 @@
 os_short: linux_amd64
 
-install_dir: '{{ home_dir }}/.install_deps'
 default_home_dir: '/home/{{ ansible_user }}'
-home_dir: "{{ lookup('env', 'ANSIBLE_HOME_DIR') | default(default_home_dir) }}"
+home_dir: "{{ lookup('env', 'ANSIBLE_HOME_DIR') | default(default_home_dir, true) }}"
+install_dir: '{{ home_dir }}/.install_deps'
 
 email: dev@artis3nal.com
 handle: Artis3n
@@ -81,7 +81,7 @@ ssh_keypair:
 keyboard_color:
   left: a8383b
   center: aaa939
-  right: .inf
+  right: 2e4372
 
 docker_apt_dependencies:
   - apt-transport-https

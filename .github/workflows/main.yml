@@ -25,6 +25,7 @@ jobs:
           pipenv install --dev
           pipenv run ansible-galaxy install -r requirements.yml
           pipenv run ansible-galaxy collection install -r requirements.yml
+          echo "${{ secrets.VAULT_PASS }}" > .vault_pass
 
       - name: Molecule
         run: |

@@ -6,8 +6,6 @@ Type=oneshot
 ExecStartPre=/bin/sh -c "echo {{ keyboard_color.left }} > /sys/class/leds/system76::kbd_backlight/color_left"
 ExecStart=/bin/sh -c "echo {{ keyboard_color.center }} > /sys/class/leds/system76::kbd_backlight/color_center"
 ExecStartPost=/bin/sh -c "echo {{ keyboard_color.right }} > /sys/class/leds/system76::kbd_backlight/color_right"
-ExecStop="rm -f /sys/class/leds/system76::kbd_backlight/color*"
-RemainAfterExit=true
 
 [Install]
 WantedBy=multi-user.target

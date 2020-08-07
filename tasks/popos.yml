@@ -6,17 +6,12 @@
     src: ../files/systemd/kbd-color.service.j2
     dest: /etc/systemd/system/kbd-color.service
     mode: '0644'
-  register: kbd_service
-
-- name: PopOS | Systemd daemon-reload
-  become: yes
-  systemd:
-    daemon-reload: yes
-  when: kbd_service.changed  # noqa 503
+  notify: Run keyboard lights
 
 - name: PopOS | Run keyboard lights service
   become: yes
   systemd:
     name: kbd-color.service
-    started: yes
+    daemon-reload: yes
     enabled: yes
+  notify: Run keyboard lights

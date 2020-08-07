@@ -18,5 +18,5 @@
   become: yes
   systemd:
     name: kbd-color.service
-    state: started
+    started: yes
     enabled: yes

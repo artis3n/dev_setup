@@ -10,8 +10,8 @@ install:
 	if [ ! -f ~/.local/bin/pipenv ]; then pip3 install --user pipenv; fi;
 	if [ ! -d ~/.local/share/virtualenvs ]; then mkdir -p ~/.local/share/virtualenvs/; fi;
 	if [ ! $$(find ~/.local/share/virtualenvs/ -name "dev-setup*") ]; then ~/.local/bin/pipenv install; fi;
-	if [ ! -d ~/.ansible/roles/gantsign.visual-studio-code ]; then ~/.local/bin/pipenv run ansible-galaxy install gantsign.visual-studio-code; fi;
-	if [ ! -d ~/.ansible/collections/ansible_collections/artis3n/github ]; then ~/.local/bin/pipenv run ansible-galaxy collection install artis3n.github; fi;
+	~/.local/bin/pipenv run ansible-galaxy install -r requirements.yml
+	~/.local/bin/pipenv run ansible-galaxy collection install -r requirements.yml
 
 .PHONY: dev-install
 dev-install: install

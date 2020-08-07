@@ -23,6 +23,10 @@
       {{ '.*\s\sterraform_' + (terraform_version | regex_escape()) +
       '_linux_amd64\.zip' }}
 
+- name: test
+  debug:
+    var: terraform_shas_file
+
 - name: Terraform | Extract sha hash
   set_fact:
     terraform_sha_string: >-
@@ -41,8 +45,9 @@
 - name: Terraform | Unarchive
   unarchive:
     src: '{{ terraform_download.dest }}'
+    remote_src: yes
     dest: '{{ terraform_directory.path }}'
-    remote_src: 'yes'
+    creates: '{{ terraform_directory.path }}/terraform'
 
 - name: Terraform | Ensure local bin permissions
   become: 'yes'

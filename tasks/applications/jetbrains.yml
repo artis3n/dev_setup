@@ -10,8 +10,8 @@
 - name: Applications | Jetbrains Toolbox | Un-package
   unarchive:
     src: "{{ toolbox_app.dest }}"
-    dest: "{{ install_dir }}/"
     remote_src: yes
+    dest: "{{ install_dir }}/"
   when: toolbox_app.changed # noqa 503
 
 - name: Applications | Jetbrains Toolbox | Locate installer

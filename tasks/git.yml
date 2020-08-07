@@ -39,8 +39,17 @@
 - name: Git | Hub | Unarchive
   unarchive:
     src: '{{ install_dir }}/hub-linux-amd64-{{ hub_version[1:] }}.tgz'
+    remote_src: yes
     dest: '{{ install_dir }}/'
     creates: '{{ install_dir }}/hub-linux-amd64-{{ hub_version[1:] }}/bin/hub'
+
+- name: Git | Hub | Ensure local bin
+  file:
+    path: '{{ item }}'
+    state: directory
+  loop:
+    - '{{ home_dir }}/.local'
+    - '{{ home_dir }}/.local/bin'
 
 - name: Git | Hub | Add to local bin
   file:

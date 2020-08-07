@@ -28,3 +28,16 @@ provisioner:
     ANSIBLE_HOME_DIR: /root
 verifier:
   name: ansible
+scenario:
+  name: default
+  test_sequence:
+    - dependency
+    - lint
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - cleanup
+    - destroy

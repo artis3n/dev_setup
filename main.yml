@@ -18,7 +18,7 @@
 
     - import_tasks: tasks/terminal.yml
       tags: terminal
-    
+
     # - import_role:
     #     name: artis3n.tailscale
     #   vars:

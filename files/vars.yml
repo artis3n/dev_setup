@@ -24,10 +24,18 @@ zsh_plugins:
   - zsh-syntax-highlighting
   - zsh-autosuggestions
 
+zsh_custom_plugins:
+  - repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: '{{ home_dir }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting'
+  - repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: '{{ home_dir }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions'
+
 apt_dependencies:
+  - gnupg2
   - python3-apt
   - python3-pexpect
-apt_repos: []
+apt_repos:
+  - dysfunctionalprogramming/minisign
 apt_packages:
   - aptitude
   - apt-transport-https
@@ -38,19 +46,26 @@ apt_packages:
   - flatpak
   - fonts-powerline
   - git
-  - gnupg2
+  - gnome-tweak-tool
   - golang
   - jq
   - libssl-dev
+  - magic-wormhole
+  - minisign
   - nodejs
+  - nvme-cli
   - openssl
   - openvpn
   - postgresql
   - postgresql-contrib
+  - powertop
+  - redshift-gtk
   - rng-tools5
   - ruby-full
   - software-properties-common
   - texlive-full
+  - tlp
+  - tlp-rdw
   - vim
   - wget
   - zsh
@@ -66,6 +81,7 @@ flatpak_applications:
   - org.signal.Signal
   - com.calibre_ebook.calibre
   - us.zoom.Zoom
+  - net.xmind.ZEN
 
 jetbrains_toolbox: jetbrains-toolbox.tar.gz
 jetbrains_toolbox_url: 'https://data.services.jetbrains.com/products/download?platform=linux&code=TBA'
@@ -82,6 +98,8 @@ keyboard_color:
   left: a8383b
   center: aaa939
   right: 2e4372
+
+vmware_url: https://www.vmware.com/go/getworkstation-linux
 
 docker_apt_dependencies:
   - apt-transport-https

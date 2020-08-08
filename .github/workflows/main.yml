@@ -28,5 +28,4 @@ jobs:
           echo "${{ secrets.VAULT_PASS }}" > .vault_pass
 
       - name: Molecule
-        run: |
-          pipenv run molecule test --skip-tags github-notest
+        run: pipenv run molecule test

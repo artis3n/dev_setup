@@ -46,6 +46,7 @@ apt_packages:
   - flatpak
   - fonts-powerline
   - git
+  - git-lfs
   - gnome-tweak-tool
   - golang
   - jq

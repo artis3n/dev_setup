@@ -35,6 +35,11 @@
         - language
         - java
 
+    - import_tasks: tasks/ruby.yml
+      tags:
+        - language
+        - ruby
+
     - import_tasks: tasks/git.yml
       tags: git
 

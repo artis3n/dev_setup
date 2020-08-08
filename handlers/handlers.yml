@@ -11,6 +11,7 @@
   systemd:
     name: kbd-color.service
     state: started
+  tags: notest
 
 - name: Restart Docker
   become: yes

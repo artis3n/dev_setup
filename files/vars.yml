@@ -63,6 +63,7 @@ apt_packages:
   - rng-tools5
   - ruby-full
   - software-properties-common
+  - systemd
   - texlive-full
   - tlp
   - tlp-rdw
@@ -72,7 +73,6 @@ apt_packages:
 
 flatpak_applications:
   - com.bitwarden.desktop
-  - com.dropbox.Client
   - com.getpostman.Postman
   - com.slack.Slack
   - com.spotify.Client

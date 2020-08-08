@@ -1,6 +1,10 @@
 - name: Terraform | Get latest release
   set_fact:
-    terraform_version: '{{ lookup(''artis3n.github.latest_release'', ''hashicorp/terraform'')[1:] }}'
+    terraform_version: "{{ lookup('artis3n.github.latest_release', 'hashicorp/terraform')[1:] }}"
+
+- name: Terraform | Set archive path
+  set_fact:
+    terraform_archive_path: '{{ install_dir }}/terraform_{{ terraform_version }}.zip'
 
 - name: Terraform | Ensure directory
   file:
@@ -8,43 +12,20 @@
     state: directory
   register: terraform_directory
 
-- name: Terraform | Get hashes
-  get_url:
-    url: >-
-      https://releases.hashicorp.com/terraform/{{ terraform_version
-      }}/terraform_{{ terraform_version }}_SHA256SUMS
-    dest: '{{ terraform_directory.path }}/SHA256SUMS'
-  register: terraform_shas_file
-  changed_when: false
-
-- name: Terraform | Construct regex
-  set_fact:
-    terraform_sha_hash: >-
-      {{ '.*\s\sterraform_' + (terraform_version | regex_escape()) +
-      '_linux_amd64\.zip' }}
-
-- name: test
-  debug:
-    var: terraform_shas_file
-
-- name: Terraform | Extract sha hash
-  set_fact:
-    terraform_sha_string: >-
-      {{ lookup('file', terraform_shas_file.dest) |
-      regex_findall(terraform_sha_hash) | first }}
+- name: Terraform | Check for download
+  stat:
+    path: '{{ terraform_archive_path }}'
+  register: terraform_archive
 
 - name: Terraform | Download
   get_url:
-    url: >-
-      https://releases.hashicorp.com/terraform/{{ terraform_version
-      }}/terraform_{{ terraform_version }}_{{ os_short }}.zip
-    dest: '{{ install_dir }}/terraform_{{ terraform_version }}.zip'
-    checksum: 'sha256:{{ terraform_sha_string.split('' '')[0] }}'
-  register: terraform_download
+    url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_{{ os_short }}.zip
+    dest: '{{ terraform_archive_path }}'
+  when: not terraform_archive.stat.exists
 
 - name: Terraform | Unarchive
   unarchive:
-    src: '{{ terraform_download.dest }}'
+    src: '{{ terraform_archive_path }}'
     remote_src: yes
     dest: '{{ terraform_directory.path }}'
     creates: '{{ terraform_directory.path }}/terraform'

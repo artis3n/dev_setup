@@ -36,4 +36,4 @@ test:
 	ANSIBLE_COLOR_DEBUG="magenta" pipenv run molecule test
 
 .PHONY: reset-run
-reset-run: clean install run
+reset-run: clean install provision

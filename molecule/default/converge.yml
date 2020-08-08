@@ -33,15 +33,6 @@
     - import_tasks: ../../tasks/docker.yml
       tags: docker
 
-    - name: Role | Install Visual Studio Code
-      import_role:
-        name: gantsign.visual-studio-code
-      vars:
-        users:
-        - username: '{{ ansible_user }}'
-          visual_studio_code_extensions:
-            - Shan.code-settings-sync
-
     - import_tasks: ../../tasks/applications/jetbrains.yml
       tags:
         - applications

@@ -13,6 +13,6 @@
 
 - name: SSH | Set default key
   template:
-    src: files/ssh/config.j2
+    src: ../files/ssh/config.j2
     dest: '{{ home_dir }}/.ssh/config'
     backup: 'yes'

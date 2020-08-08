@@ -7,6 +7,8 @@
     dest: /etc/systemd/system/kbd-color.service
     mode: '0644'
   notify: Run keyboard lights
+  tags:
+    - notest
 
 - name: PopOS | Run keyboard lights service
   become: yes
@@ -16,4 +18,4 @@
     enabled: yes
   notify: Run keyboard lights
   tags:
-    - molecule-notest
+    - notest

@@ -15,4 +15,5 @@
     daemon-reload: yes
     enabled: yes
   notify: Run keyboard lights
-  tags: notest
+  tags:
+    - molecule-notest

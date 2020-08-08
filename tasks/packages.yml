@@ -1,0 +1,50 @@
+- name: Packages | Apt | Install dependencies
+  become: yes
+  apt:
+    name: '{{ apt_dependencies }}'
+    update_cache: 'yes'
+    state: present
+  notify: Clean up apt
+
+- name: Packages | Apt | Add repositories
+  become: yes
+  apt_repository:
+    repo: 'ppa:{{ item }}'
+    state: present
+  with_items: '{{ apt_repos }}'
+
+- name: Packages | Apt | Upgrade packages - Will take a long time
+  become: yes
+  apt:
+    upgrade: full
+    update_cache: 'yes'
+  notify: Clean up apt
+
+- name: Packages | Apt | Install packages - Will take a long time
+  become: yes
+  apt:
+    name: '{{ apt_packages }}'
+    state: present
+  register: apt_install
+  notify: Clean up apt
+
+- name: Packages | Flatpak | Check for flathub
+  shell: |
+    set -o pipefail
+    flatpak remotes | grep flathub
+  args:
+    executable: /bin/bash
+  changed_when: false
+  register: flathub_remote
+  failed_when: flathub_remote.rc > 1
+
+- name: Packages | Flatpak | Set up flathub
+  command: flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  when: flathub_remote.rc != 0
+
+- name: Packages | Flatpak | Install applications
+  flatpak:
+    name: "{{ item }}"
+    method: user
+    state: present
+  loop: "{{ flatpak_applications }}"

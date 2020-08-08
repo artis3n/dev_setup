@@ -1,0 +1,42 @@
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+    requirements-file: requirements.yml
+driver:
+  name: docker
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+platforms:
+  - name: instance
+    image: 'geerlingguy/docker-ubuntu2004-ansible:latest'
+    command: '/lib/systemd/systemd'
+    pre_build_image: true
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    privileged: true
+provisioner:
+  name: ansible
+  options:
+    vault-id: ../../.vault_pass
+  inventory:
+    host_vars:
+      instance:
+        ansible_user: root
+  env:
+    ANSIBLE_HOME_DIR: /root
+verifier:
+  name: ansible
+scenario:
+  name: default
+  test_sequence:
+    - dependency
+    - lint
+    - destroy
+    - syntax
+    - create
+    - converge
+    - idempotence
+    - destroy

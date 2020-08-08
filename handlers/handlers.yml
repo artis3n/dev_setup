@@ -1,7 +1,16 @@
 ---
 
-- name: Keybase Install
-  command: /usr/bin/run_keybase
+- name: Clean up apt
+  become: yes
+  apt:
+    autoremove: yes
+    autoclean: yes
+
+- name: Run keyboard lights
+  become: yes
+  systemd:
+    name: kbd-color.service
+    state: started
 
 - name: Restart Docker
   become: yes

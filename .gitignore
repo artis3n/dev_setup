@@ -1,8 +1,6 @@
-venv/
 .vscode
 .vault_pass
 .idea
 roles/
-.vagrant/
-files/secrets.yml
 collections/
+__pycache__

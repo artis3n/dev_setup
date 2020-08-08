@@ -1,95 +1,68 @@
----
 - name: All Tasks
   hosts: all
   connection: local
   gather_facts: yes
   vars_files:
     - files/vars.yml
-    - files/secrets.yml
-
+  collections:
+    - artis3n.github
   tasks:
     - name: Setup | Scripts folder
       file:
-        path: "{{ install_dir }}"
+        path: '{{ install_dir }}'
         state: directory
         mode: 0755
 
-    - import_tasks: tasks/apt.yml
-      become: yes
-      tags: apt
+    - import_tasks: tasks/packages.yml
+      tags: packages
 
     - import_tasks: tasks/terminal.yml
       tags: terminal
+
+    # - import_role:
+    #     name: artis3n.tailscale
+    #   vars:
+    #     tailscale_auth_key: !vault |
+    #       $ANSIBLE_VAULT;1.1;AES256
+    #       32313231643962663130656134646639303633316464636262326334323161323232376230653433
+    #       3465633637663531333136663430646531393064623030630a383338396537383734343539363466
+    #       62373533616466633535323530376438323562363263363063373834303963393065363334653937
+    #       3363353464343333350a333965353431396163653437313731313364363439313432666236626430
+    #       33316636346631636264333734323935646533323736303966333036376362653439
 
     - import_tasks: tasks/java.yml
       tags:
         - language
         - java
 
-    - import_tasks: tasks/node.yml
-      tags:
-        - language
-        - node
-
-    - import_tasks: tasks/ruby.yml
-      tags:
-        - language
-        - ruby
-
     - import_tasks: tasks/git.yml
       tags: git
-
-    - import_tasks: tasks/vagrant.yml
-      tags: vagrant
 
     - import_tasks: tasks/terraform.yml
       tags: terraform
 
-    - import_tasks: tasks/cloudgoat.yml
-      tags: cloudgoat
-
     - import_tasks: tasks/docker.yml
       tags: docker
+
+    - name: Role | Install Visual Studio Code
+      import_role:
+        name: gantsign.visual-studio-code
+      vars:
+        users:
+        - username: '{{ ansible_user }}'
+          visual_studio_code_extensions:
+            - Shan.code-settings-sync
 
     - import_tasks: tasks/applications/jetbrains.yml
       tags:
         - applications
         - jetbrains
 
-    - import_tasks: tasks/applications/vmware.yml
-      tags:
-        - applications
-        - vmware
-
-    - import_tasks: tasks/applications/calibre.yml
-      tags:
-        - applications
-        - calibre
-
-    - import_tasks: tasks/applications/keybase.yml
-      tags:
-        - applications
-        - keybase
-
-    - import_tasks: tasks/gpg.yml
-      tags: gpg
-
     - import_tasks: tasks/ssh.yml
       tags: ssh
 
-    - import_tasks: tasks/pentest.yml
-      tags: pentest
-
-    - import_tasks: tasks/wine.yml
-      tags: wine
-
-  roles:
-    - role: gantsign.visual-studio-code
-      users:
-        - username: "{{ lookup('env', 'USER') }}"
-          visual_studio_code_extensions:
-            - Shan.code-settings-sync
-    - role: artis3n.bitwarden_app
+    - import_tasks: tasks/popos.yml
+      tags: popos
 
   handlers:
     - import_tasks: handlers/handlers.yml

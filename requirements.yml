@@ -1,7 +1,5 @@
-- src: gantsign.visual-studio-code
-  users:
-    - username: "{{ lookup('env', 'USER') }}"
-      visual_studio_code_extensions:
-        - Shan.code-settings-sync
-
-- src: artis3n.bitwarden_app
+roles:
+  - src: gantsign.visual-studio-code
+  - src: artis3n.tailscale
+collections:
+  - name: artis3n.github

@@ -1,24 +1,26 @@
----
-
-- name: Java | Get Jabba install script
+- name: Java | Get SDKMan install script
   get_url:
-    url: https://github.com/shyiko/jabba/raw/master/install.sh
-    dest: "{{ install_dir }}/{{ jabba_install_script }}"
-    mode: 0764
-  register: jabba_script
+    url: 'https://get.sdkman.io'
+    dest: '{{ install_dir }}/{{ sdkman_install_script }}'
+    mode: 0755
+  register: sdkman_script
 
-- name: Java | Install Jabba
-  command: bash {{ jabba_script.dest }}
+- name: Java | Install SDKMan
+  command: 'bash {{ sdkman_script.dest }}'
   args:
-    creates: "{{ lookup('env', 'HOME') }}/.jabba/bin/jabba"
+    creates: '{{ home_dir }}/.sdkman/bin/sdkman-init.sh'
 
 - name: Java | Add to profile
   lineinfile:
-    path: "{{ lookup('env', 'HOME') }}/.zshrc"
-    line: "[ -s '/home/{{ lookup('env', 'USER') }}/.jabba/jabba.sh' ] && source '/home/{{ lookup('env', 'USER') }}/.jabba/jabba.sh'"
+    path: '{{ home_dir }}/.zshrc'
+    line: "{{ item }}"
     state: present
+  loop:
+    - 'export SDKMAN_DIR="{{ home_dir }}/.sdkman"'
+    - '[[ -s "{{ home_dir }}/.sdkman/bin/sdkman-init.sh" ]] && source "{{ home_dir }}/.sdkman/bin/sdkman-init.sh"'
 
 - name: Java | Install JDK
-  command: "{{ lookup('env', 'HOME') }}/.jabba/bin/jabba install openjdk@{{ java_version }}"
+  shell: "source {{ home_dir }}/.zshrc; sdk install java {{ sdkman_java_version | quote }}"
   args:
-    creates: "{{ lookup('env', 'HOME') }}/.jabba/jdk/openjdk@{{ java_version }}"
+    executable: /bin/zsh
+    creates: '{{ home_dir }}/.sdkman/candidates/java/{{ sdkman_java_version }}/bin/java'

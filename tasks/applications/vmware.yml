@@ -10,8 +10,6 @@
     url: "{{ vmware_url }}"
     dest: "{{ install_dir }}/vmware.bundle"
     mode: 0764
-  async: 1800
-  poll: 30
   when: not vmware_app.stat.exists
   register: vmware_installer
 

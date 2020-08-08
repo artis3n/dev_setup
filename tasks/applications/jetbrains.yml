@@ -10,8 +10,8 @@
 - name: Applications | Jetbrains Toolbox | Un-package
   unarchive:
     src: "{{ toolbox_app.dest }}"
-    dest: "{{ install_dir }}/"
     remote_src: yes
+    dest: "{{ install_dir }}/"
   when: toolbox_app.changed # noqa 503
 
 - name: Applications | Jetbrains Toolbox | Locate installer
@@ -28,4 +28,4 @@
   command: ./{{ toolbox_installer.stdout }}/jetbrains-toolbox
   args:
     chdir: "{{ install_dir }}"
-    creates: "{{ ansible_env.HOME }}/.local/share/applications/jetbrains-toolbox.desktop"
+    creates: '{{ home_dir }}/.local/share/applications/jetbrains-toolbox.desktop'

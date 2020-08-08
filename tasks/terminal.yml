@@ -1,36 +1,84 @@
----
-
 - name: Terminal | Install Oh My ZSH
   shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
   args:
-    creates: "{{ lookup('env', 'HOME') }}/.zshrc"
+    executable: /bin/bash
+    creates: '{{ home_dir }}/.zshrc'
 
 - name: Terminal | Set Spaceship version
   set_fact:
-    spaceship_version: "{{ lookup('artis3n.github_version.github_version', 'denysdovhan/spaceship-prompt') }}"
+    spaceship_version: "{{ lookup('artis3n.github.latest_release', 'denysdovhan/spaceship-prompt') }}"
 
 - name: Terminal | ZSH Spaceship theme
+  become: yes
   git:
-    repo: https://github.com/denysdovhan/spaceship-prompt.git
-    version: "{{ spaceship_version }}"
-    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/themes/spaceship-prompt"
+    repo: 'https://github.com/denysdovhan/spaceship-prompt.git'
+    version: '{{ spaceship_version }}'
+    dest: '{{ home_dir }}/.oh-my-zsh/custom/themes/spaceship-prompt'
+  register: spaceship_repo
+
+- name: Terminal | Set file permissions
+  become: yes
+  file:
+    path: '{{ home_dir }}/.oh-my-zsh/custom/themes/spaceship-prompt'
+    state: directory
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+    recurse: 'yes'
+  when: spaceship_repo.changed  # noqa 503
 
 - name: Terminal | ZSH Spaceship symbolic link
+  become: yes
   file:
-    src: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme"
-    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+    src: '{{ home_dir }}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme'
+    dest: '{{ home_dir }}/.oh-my-zsh/custom/themes/spaceship.zsh-theme'
     state: link
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
 
 - name: Terminal | Set Spaceship as the terminal theme
+  become: yes
   lineinfile:
-    path: "{{ lookup('env', 'HOME') }}/.zshrc"
-    regexp: "^ZSH_THEME="
+    path: '{{ home_dir }}/.zshrc'
+    regexp: ^ZSH_THEME=
     line: ZSH_THEME="spaceship"
     state: present
 
+- name: Terminal | Add custom plugins
+  git:
+    repo: '{{ item.repo }}'
+    dest: '{{ item.dest }}'
+    version: master
+  loop: '{{ zsh_custom_plugins }}'
+
 - name: Terminal | Add plugins
   lineinfile:
-    path: "{{ lookup('env', 'HOME') }}/.zshrc"
-    regexp: "^plugins="
-    line: "plugins=({{ zsh_plugins | join(' ') }})"
+    path: '{{ home_dir }}/.zshrc'
+    regexp: ^plugins=
+    line: 'plugins=({{ zsh_plugins | join('' '') }})'
     state: present
+
+- name: Terminal | Add Zsh properties
+  lineinfile:
+    path: '{{ home_dir }}/.zshrc'
+    regexp: ^{{ item.regex }}
+    line: '{{ item.line }}'
+    state: present
+  loop:
+    - regex: COMPLETION_WAITING_DOTS
+      line: COMPLETION_WAITING_DOTS='true'
+    - regex: DISABLE_UNTRACKED_FILES_DIRTY
+      line: DISABLE_UNTRACKED_FILES_DIRTY='true'
+    - regex: ~\/\.oh-my-zsh\/custom\/plugins\/zsh-autosuggestions\/zsh-autosuggestions\.zsh
+      line: source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+- name: Terminal | Set default shell
+  become: yes
+  user:
+    name: "{{ ansible_user }}"
+    shell: /bin/zsh
+
+- name: Terminal | Set default editor
+  become: yes
+  alternatives:
+    name: editor
+    path: /usr/bin/vim

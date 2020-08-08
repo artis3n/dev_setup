@@ -1,11 +1,11 @@
 - name: Docker | Install apt dependencies
-  become: 'yes'
+  become: yes
   apt:
     name: '{{ docker_apt_dependencies }}'
     state: present
 
 - name: Docker | Add apt-key
-  become: 'yes'
+  become: yes
   apt_key:
     url: '{{ docker_gpgkey_url }}'
     id: '{{ docker_gpgkey_fingerprint }}'
@@ -18,14 +18,14 @@
     state: present
 
 - name: Docker | Install
-  become: 'yes'
+  become: yes
   apt:
     name: '{{ docker_apt }}'
     state: present
   notify: Restart Docker
 
 - name: Docker | Run at boot
-  become: 'yes'
+  become: yes
   service:
     name: docker
     state: started
@@ -42,7 +42,7 @@
   failed_when: in_docker_group.rc > 1
 
 - name: Docker | Add user to Docker group
-  become: 'yes'
+  become: yes
   command: 'usermod -aG docker {{ ansible_user }}'
   when: in_docker_group.rc != 0
   notify: Docker user added

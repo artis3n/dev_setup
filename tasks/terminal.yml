@@ -6,12 +6,10 @@
 
 - name: Terminal | Set Spaceship version
   set_fact:
-    spaceship_version: >-
-      {{ lookup('artis3n.github.latest_release', 'denysdovhan/spaceship-prompt')
-      }}
+    spaceship_version: "{{ lookup('artis3n.github.latest_release', 'denysdovhan/spaceship-prompt') }}"
 
 - name: Terminal | ZSH Spaceship theme
-  become: 'yes'
+  become: yes
   git:
     repo: 'https://github.com/denysdovhan/spaceship-prompt.git'
     version: '{{ spaceship_version }}'
@@ -19,7 +17,7 @@
   register: spaceship_repo
 
 - name: Terminal | Set file permissions
-  become: 'yes'
+  become: yes
   file:
     path: '{{ home_dir }}/.oh-my-zsh/custom/themes/spaceship-prompt'
     state: directory
@@ -29,7 +27,7 @@
   when: spaceship_repo.changed  # noqa 503
 
 - name: Terminal | ZSH Spaceship symbolic link
-  become: 'yes'
+  become: yes
   file:
     src: '{{ home_dir }}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme'
     dest: '{{ home_dir }}/.oh-my-zsh/custom/themes/spaceship.zsh-theme'
@@ -38,7 +36,7 @@
     group: '{{ ansible_user }}'
 
 - name: Terminal | Set Spaceship as the terminal theme
-  become: 'yes'
+  become: yes
   lineinfile:
     path: '{{ home_dir }}/.zshrc'
     regexp: ^ZSH_THEME=

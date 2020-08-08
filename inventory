@@ -1,1 +1,5 @@
-local.machine ansible_host=127.0.0.1 ansible_user=artis3n
+oryx.local ansible_host=127.0.0.1 ansible_user=artis3n
+# lemur.local ansible_host=127.0.0.1 ansible_user=artis3n
+
+[vmware]
+oryx.local

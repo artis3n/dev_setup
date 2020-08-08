@@ -8,7 +8,7 @@
     mode: '0644'
   notify: Run keyboard lights
   tags:
-    - github-notest
+    - molecule-notest
 
 - name: PopOS | Run keyboard lights service
   become: yes
@@ -18,4 +18,4 @@
     enabled: yes
   notify: Run keyboard lights
   tags:
-    - github-notest
+    - molecule-notest

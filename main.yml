@@ -39,6 +39,9 @@
         - language
         - ruby
 
+    - import_tasks: tasks/node.yml
+      tags: node
+
     - import_tasks: tasks/git.yml
       tags: git
 
@@ -47,6 +50,9 @@
 
     - import_tasks: tasks/docker.yml
       tags: docker
+
+    - import_tasks: tasks/cloud.yml
+      tags: cloud
 
     - name: Role | Install Visual Studio Code
       import_role:

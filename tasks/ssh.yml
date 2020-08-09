@@ -1,3 +1,5 @@
+---
+
 - name: SSH | Ensure directory
   file:
     path: '{{ home_dir }}/.ssh'

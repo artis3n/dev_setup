@@ -1,3 +1,5 @@
+---
+
 - name: Terraform | Get latest release
   set_fact:
     terraform_version: "{{ lookup('artis3n.github.latest_release', 'hashicorp/terraform')[1:] }}"

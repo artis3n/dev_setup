@@ -1,0 +1,13 @@
+---
+
+- name: Dropbox | Download Docker deb
+  get_url:
+    url: '{{ dropbox_url }}'
+    dest: '{{ install_dir }}/dropbox.deb'
+  register: dropbox_download
+
+- name: Dropbox | Install Dropbox
+  become: yes
+  apt:
+    deb: '{{ dropbox_download.dest }}'
+    state: present

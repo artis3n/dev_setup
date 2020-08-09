@@ -48,3 +48,9 @@
     method: user
     state: present
   loop: "{{ flatpak_applications }}"
+
+- name: Packages | Snap | Install applications
+  become: yes
+  snap:
+    name: '{{ snap_apps }}'
+    state: present

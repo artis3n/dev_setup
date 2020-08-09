@@ -28,6 +28,10 @@ clean:
 lint:
 	~/.local/bin/pipenv run ansible-lint
 
+.PHONY: preprovision
+preprovision:
+	ANSIBLE_COLOR_DEBUG="magenta" ~/.local/bin/pipenv run ansible-playbook -i inventory pre.yml --ask-become-pass --force-handlers
+
 .PHONY: provision
 provision:
 	ANSIBLE_COLOR_DEBUG="magenta" ~/.local/bin/pipenv run ansible-playbook --vault-id .vault_pass -i inventory main.yml --ask-become-pass --force-handlers

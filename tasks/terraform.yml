@@ -35,11 +35,10 @@
 - name: Terraform | Ensure local bin permissions
   become: 'yes'
   file:
-    path: /usr/local
+    path: /usr/local/bin
     state: directory
     owner: '{{ ansible_user }}'
     group: '{{ ansible_user }}'
-    recurse: 'yes'
 
 - name: Terraform | Add to local bin
   file:

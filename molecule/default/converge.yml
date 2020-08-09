@@ -61,10 +61,5 @@
         - applications
         - vmware
 
-    - import_tasks: ../../tasks/applications/dropbox.yml
-      tags:
-        - applications
-        - dropbox
-
   handlers:
     - import_tasks: ../../handlers/handlers.yml

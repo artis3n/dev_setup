@@ -1,0 +1,19 @@
+- name: Pre Tasks
+  hosts: all
+  connection: local
+  gather_facts: yes
+  vars_files:
+    - files/vars.yml
+  tasks:
+    - name: Install Apt packages
+      become: yes
+      apt:
+        name: '{{ apt_pre_dependencies }}'
+        update_cache: yes
+        state: present
+      notify: Restart
+
+  handlers:
+    - name: Restart
+      debug:
+        msg: Pre-packages have been installed. Restart the machine, then run `make provision`.

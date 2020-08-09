@@ -2,7 +2,7 @@
   become: yes
   apt:
     name: '{{ apt_dependencies }}'
-    update_cache: 'yes'
+    update_cache: yes
     state: present
   notify: Clean up apt
 
@@ -13,11 +13,11 @@
     state: present
   with_items: '{{ apt_repos }}'
 
-- name: Packages | Apt | Upgrade packages - Will take a long time
+- name: Packages | Apt | Upgrade packages
   become: yes
   apt:
     upgrade: full
-    update_cache: 'yes'
+    update_cache: yes
   notify: Clean up apt
 
 - name: Packages | Apt | Install packages - Will take a long time
@@ -48,3 +48,10 @@
     method: user
     state: present
   loop: "{{ flatpak_applications }}"
+
+- name: Packages | Snap | Install applications
+  become: yes
+  snap:
+    name: '{{ snap_apps }}'
+    state: present
+  tags: molecule-notest

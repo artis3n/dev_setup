@@ -10,6 +10,7 @@ install:
 	if [ ! -f ~/.local/bin/pipenv ]; then pip3 install --user pipenv; fi;
 	if [ ! -d ~/.local/share/virtualenvs ]; then mkdir -p ~/.local/share/virtualenvs/; fi;
 	if [ ! $$(find ~/.local/share/virtualenvs/ -name "dev-setup*") ]; then ~/.local/bin/pipenv install; fi;
+	if [ ! -f .git/hooks/pre-commit ]; then pipenv run pre-commit install; fi;
 	~/.local/bin/pipenv run ansible-galaxy install -r requirements.yml
 	~/.local/bin/pipenv run ansible-galaxy collection install -r requirements.yml
 
@@ -27,13 +28,17 @@ clean:
 lint:
 	~/.local/bin/pipenv run ansible-lint
 
+.PHONY: preprovision
+preprovision:
+	~/.local/bin/pipenv run ansible-playbook -i inventory pre.yml --ask-become-pass --force-handlers
+
 .PHONY: provision
 provision:
-	ANSIBLE_COLOR_DEBUG="magenta" ~/.local/bin/pipenv run ansible-playbook --vault-id .vault_pass -i inventory main.yml --ask-become-pass --force-handlers
+	 ~/.local/bin/pipenv run ansible-playbook --vault-id .vault_pass -i inventory main.yml --ask-become-pass --force-handlers
 
 .PHONY: test
 test:
-	ANSIBLE_COLOR_DEBUG="magenta" pipenv run molecule test
+	pipenv run molecule test
 
 .PHONY: reset-run
 reset-run: clean install provision

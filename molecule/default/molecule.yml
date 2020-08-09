@@ -21,10 +21,15 @@ provisioner:
   name: ansible
   options:
     vault-id: ../../.vault_pass
+  groups:
+    - vmware
   inventory:
     host_vars:
       instance:
         ansible_user: root
+  config_options:
+    colors:
+      debug: magenta
   env:
     ANSIBLE_HOME_DIR: /root
 verifier:

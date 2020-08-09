@@ -1,0 +1,39 @@
+---
+
+- name: Node | Add apt-keys
+  become: yes
+  apt_key:
+    url: '{{ item }}'
+    state: present
+  loop: '{{ node_apt_keys }}'
+
+- name: Node | Add repositories
+  become: yes
+  apt_repository:
+    repo: '{{ item }}'
+    state: present
+  loop: '{{ node_apt_repos }}'
+
+- name: Node | Install Node
+  become: yes
+  apt:
+    name: '{{ node_apt_packages }}'
+    update_cache: yes
+    state: present
+
+- name: Node | Ensure global library permissions
+  become: yes
+  file:
+    path: '{{ item.name }}'
+    recurse: '{{ item.recurse }}'
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+  loop:
+    - { name: /usr/lib/node_modules, recurse: yes }
+    - { name: /usr/bin, recurse: no }
+
+- name: Node | Install global libraries
+  npm:
+    name: '{{ item }}'
+    global: yes
+  loop: '{{ npm_global_packages }}'

@@ -95,7 +95,6 @@ snap_apps:
 
 npm_global_packages:
   - pnpm
-  - terminalizer
   - yarn
 
 jetbrains_toolbox: jetbrains-toolbox.tar.gz

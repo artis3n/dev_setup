@@ -80,5 +80,8 @@
         - applications
         - vmware
 
+    - import_tasks: tasks/brew.yml
+      tags: brew
+
   handlers:
     - import_tasks: handlers/handlers.yml

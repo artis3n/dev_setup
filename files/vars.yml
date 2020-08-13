@@ -95,6 +95,9 @@ npm_global_packages:
   - pnpm
   - yarn
 
+homebrew_packages:
+  - terraform-docs
+
 jetbrains_toolbox: jetbrains-toolbox.tar.gz
 jetbrains_toolbox_url: 'https://data.services.jetbrains.com/products/download?platform=linux&code=TBA'
 

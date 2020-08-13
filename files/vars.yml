@@ -48,7 +48,6 @@ apt_packages:
   - firefox
   - flameshot
   - flatpak
-  - fonts-powerline
   - git
   - git-lfs
   - gnome-tweak-tool
@@ -62,7 +61,6 @@ apt_packages:
   - openvpn
   - postgresql
   - postgresql-contrib
-  - powerline
   - powertop
   - redshift-gtk
   - rng-tools5

@@ -1,0 +1,21 @@
+---
+
+- name: Brew | Install homebrew
+  shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  args:
+    creates: /home/linuxbrew/.linuxbrew/bin/brew
+  tags: molecule-notest
+
+- name: Brew | Add to path
+  lineinfile:
+    path: '{{ home_dir }}/.zshrc'
+    regexp: ^eval \$\(\/home\/linuxbrew\/\.linuxbrew\/bin\/brew shellenv\)
+    line: eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+    state: present
+
+- name: Brew | Install packages
+  homebrew:
+    name: '{{ homebrew_packages }}'
+    state: present
+    path: /home/linuxbrew/.linuxbrew/bin
+  tags: molecule-notest

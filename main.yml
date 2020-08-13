@@ -45,8 +45,8 @@
     - import_tasks: tasks/git.yml
       tags: git
 
-    - import_tasks: tasks/terraform.yml
-      tags: terraform
+    - import_tasks: tasks/hashicorp.yml
+      tags: hashicorp
 
     - import_tasks: tasks/docker.yml
       tags: docker
@@ -79,6 +79,9 @@
       tags:
         - applications
         - vmware
+
+    - import_tasks: tasks/brew.yml
+      tags: brew
 
   handlers:
     - import_tasks: handlers/handlers.yml

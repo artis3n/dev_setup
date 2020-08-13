@@ -21,6 +21,17 @@
     update_cache: yes
     state: present
 
+- name: Node | Ensure global library directories
+  become: yes
+  file:
+    path: '{{ item.name }}'
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+    mode: '{{ item.mode }}'
+    state: directory
+  loop:
+    - { name: /usr/pnpm-global, mode: '755' }
+
 - name: Node | Ensure global library permissions
   become: yes
   file:
@@ -31,6 +42,7 @@
   loop:
     - { name: /usr/lib/node_modules, recurse: yes }
     - { name: /usr/bin, recurse: no }
+    - { name: /usr/pnpm-global, recurse: no }
 
 - name: Node | Install global libraries
   npm:

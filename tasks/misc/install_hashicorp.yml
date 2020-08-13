@@ -1,0 +1,47 @@
+---
+
+- name: Hashicorp | {{ item | capitalize }} | Get latest release
+  set_fact:
+    hashicorp_version: "{{ lookup('artis3n.github.latest_release', 'hashicorp/' + item)[1:] }}"
+
+- name: Hashicorp | {{ item | capitalize }} | Set archive path
+  set_fact:
+    hashicorp_archive_path: '{{ install_dir }}/{{ item }}_{{ hashicorp_version }}.zip'
+
+- name: Hashicorp | {{ item | capitalize }} | Ensure directory
+  file:
+    path: '{{ install_dir }}/{{ item }}_{{ hashicorp_version }}'
+    state: directory
+  register: hashicorp_directory
+
+- name: Hashicorp | {{ item | capitalize }} | Check for download
+  stat:
+    path: '{{ hashicorp_archive_path }}'
+  register: hashicorp_archive
+
+- name: Hashicorp | {{ item | capitalize }} | Download
+  get_url:
+    url: https://releases.hashicorp.com/{{ item }}/{{ hashicorp_version }}/{{ item }}_{{ hashicorp_version }}_{{ os_short }}.zip
+    dest: '{{ hashicorp_archive_path }}'
+  when: not hashicorp_archive.stat.exists
+
+- name: Hashicorp | {{ item | capitalize }} | Unarchive
+  unarchive:
+    src: '{{ hashicorp_archive_path }}'
+    remote_src: yes
+    dest: '{{ hashicorp_directory.path }}'
+    creates: '{{ hashicorp_directory.path }}/{{ item }}'
+
+- name: Hashicorp | {{ item | capitalize }} | Ensure local bin permissions
+  become: 'yes'
+  file:
+    path: /usr/local/bin
+    state: directory
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+
+- name: Hashicorp | {{ item | capitalize }} | Add to local bin
+  file:
+    src: '{{ hashicorp_directory.path }}/{{ item }}'
+    dest: /usr/local/bin/{{ item }}
+    state: link

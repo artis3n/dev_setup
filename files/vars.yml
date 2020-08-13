@@ -65,6 +65,7 @@ apt_packages:
   - redshift-gtk
   - rng-tools5
   - ruby-full
+  - shellcheck
   - smartmontools
   - snapd
   - software-properties-common

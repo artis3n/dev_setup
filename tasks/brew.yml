@@ -4,6 +4,7 @@
   shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   args:
     creates: /home/linuxbrew/.linuxbrew/bin/brew
+  tags: molecule-notest
 
 - name: Brew | Add to path
   lineinfile:
@@ -17,3 +18,4 @@
     name: '{{ homebrew_packages }}'
     state: present
     path: /home/linuxbrew/.linuxbrew/bin
+  tags: molecule-notest

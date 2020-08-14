@@ -84,3 +84,11 @@
   alternatives:
     name: editor
     path: /usr/bin/vim
+
+- name: Terminal | Set file watcher limit
+  become: yes
+  sysctl:
+    name: fs.inotify.max_user_watches
+    value: '{{ file_watcher_limit }}'
+    state: present
+    reload: yes

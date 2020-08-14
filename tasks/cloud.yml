@@ -11,6 +11,7 @@
     src: '{{ awscli_archive.dest }}'
     remote_src: yes
     dest: '{{ install_dir }}'
+  register: new_awscli
 
 - name: Cloud | Install AWS CLI
   become: yes
@@ -18,3 +19,10 @@
   args:
     chdir: '{{ install_dir }}'
     creates: /usr/local/bin/aws
+
+- name: Cloud | Update AWS CLI
+  become: yes
+  command: sh ./aws/install --update
+  args:
+    chdir: '{{ install_dir }}'
+  when: new_awscli.changed  # noqa 503

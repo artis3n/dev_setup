@@ -154,3 +154,5 @@ hashicorp_apt_repos:
 hashicorp_apt_packages:
   - vault
   - terraform
+
+file_watcher_limit: 524288

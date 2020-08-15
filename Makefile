@@ -11,13 +11,13 @@ install:
 	if [ ! -d ~/.local/share/virtualenvs ]; then mkdir -p ~/.local/share/virtualenvs/; fi;
 	if [ ! $$(find ~/.local/share/virtualenvs/ -name "dev-setup*") ]; then ~/.local/bin/pipenv install; fi;
 	if [ ! -f /usr/bin/git ]; then sudo apt install -y git; fi;
-	if [ ! -f .git/hooks/pre-commit ]; then ~/.local/bin/pipenv run pre-commit install; fi;
 	~/.local/bin/pipenv run ansible-galaxy install -r requirements.yml
 	~/.local/bin/pipenv run ansible-galaxy collection install -r requirements.yml
 
 .PHONY: dev-install
 dev-install: install
 	~/.local/bin/pipenv install --dev;
+	-if [ ! -f .git/hooks/pre-commit ]; then ~/.local/bin/pipenv run pre-commit install; fi;
 
 .PHONY: clean
 clean:

@@ -17,17 +17,18 @@
     - '.bashrc'
 
 - name: Brew | Add taps
-  homebrew_tap:
-    name: '{{ item }}'
-    state: present
-  loop: '{{ homebrew_taps }}'
+  command: '{{ brew_executable }} tap {{ item.tap }}'
+  args:
+    creates: '{{ item.creates }}'
+  loop: '{{ brew_taps }}'
+  tags: molecule-notest
 
-- name: Brew | Add URL taps
-  homebrew_tap:
-    name: '{{ item.name }}'
-    url: '{{ item.url }}'
+- name: Brew | Install gcc
+  homebrew:
+    name: gcc
     state: present
-  loop: '{{ homebrew_url_taps }}'
+    path: /home/linuxbrew/.linuxbrew/bin
+  tags: molecule-notest
 
 - name: Brew | Install packages
   homebrew:

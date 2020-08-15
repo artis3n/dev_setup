@@ -97,10 +97,9 @@ npm_global_packages:
   - pnpm
   - yarn
 
-homebrew_taps: []
-
-homebrew_url_taps:
-  - { name: 'filippo.io/age', url: 'https://filippo.io/age' }
+brew_executable: /home/linuxbrew/.linuxbrew/bin/brew
+brew_taps:
+  - { tap: 'filippo.io/age https://filippo/io/age', creates: '/home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/filippo.io' }
 
 homebrew_packages:
   - age

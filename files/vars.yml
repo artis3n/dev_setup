@@ -80,7 +80,6 @@ apt_packages:
 
 flatpak_applications:
   - com.bitwarden.desktop
-  - com.visualstudio.code
   - com.getpostman.Postman
   - com.slack.Slack
   - com.spotify.Client
@@ -97,7 +96,12 @@ npm_global_packages:
   - pnpm
   - yarn
 
+brew_executable: /home/linuxbrew/.linuxbrew/bin/brew
+brew_taps:
+  - { tap: 'filippo.io/age https://filippo.io/age', creates: '/home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/filippo.io' }
+
 homebrew_packages:
+  - age
   - terraform-docs
 
 jetbrains_toolbox: jetbrains-toolbox.tar.gz

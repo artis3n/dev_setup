@@ -8,10 +8,27 @@
 
 - name: Brew | Add to path
   lineinfile:
-    path: '{{ home_dir }}/.zshrc'
+    path: '{{ home_dir }}/{{ item }}'
     regexp: ^eval \$\(\/home\/linuxbrew\/\.linuxbrew\/bin\/brew shellenv\)
     line: eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
     state: present
+  loop:
+    - '.zshrc'
+    - '.bashrc'
+
+- name: Brew | Add taps
+  command: '{{ brew_executable }} tap {{ item.tap }}'
+  args:
+    creates: '{{ item.creates }}'
+  loop: '{{ brew_taps }}'
+  tags: molecule-notest
+
+- name: Brew | Install gcc
+  homebrew:
+    name: gcc
+    state: present
+    path: /home/linuxbrew/.linuxbrew/bin
+  tags: molecule-notest
 
 - name: Brew | Install packages
   homebrew:

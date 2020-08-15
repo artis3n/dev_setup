@@ -97,7 +97,13 @@ npm_global_packages:
   - pnpm
   - yarn
 
+homebrew_taps: []
+
+homebrew_url_taps:
+  - { name: 'filippo.io/age', url: 'https://filippo.io/age' }
+
 homebrew_packages:
+  - age
   - terraform-docs
 
 jetbrains_toolbox: jetbrains-toolbox.tar.gz

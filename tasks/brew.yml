@@ -8,10 +8,26 @@
 
 - name: Brew | Add to path
   lineinfile:
-    path: '{{ home_dir }}/.zshrc'
+    path: '{{ home_dir }}/{{ item }}'
     regexp: ^eval \$\(\/home\/linuxbrew\/\.linuxbrew\/bin\/brew shellenv\)
     line: eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
     state: present
+  loop:
+    - '.zshrc'
+    - '.bashrc'
+
+- name: Brew | Add taps
+  homebrew_tap:
+    name: '{{ item }}'
+    state: present
+  loop: '{{ homebrew_taps }}'
+
+- name: Brew | Add URL taps
+  homebrew_tap:
+    name: '{{ item.name }}'
+    url: '{{ item.url }}'
+    state: present
+  loop: '{{ homebrew_url_taps }}'
 
 - name: Brew | Install packages
   homebrew:

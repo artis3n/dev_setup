@@ -80,6 +80,7 @@ apt_packages:
 
 flatpak_applications:
   - com.bitwarden.desktop
+  - com.visualstudio.code
   - com.getpostman.Postman
   - com.slack.Slack
   - com.spotify.Client
@@ -155,4 +156,4 @@ hashicorp_apt_packages:
   - vault
   - terraform
 
-file_watcher_limit: 524288
+file_watcher_limit: '524288'

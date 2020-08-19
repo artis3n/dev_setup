@@ -63,6 +63,7 @@ apt_packages:
   - postgresql-contrib
   - powertop
   - redshift-gtk
+  - remmina
   - rng-tools5
   - ruby-full
   - shellcheck
@@ -95,6 +96,30 @@ snap_apps:
 npm_global_packages:
   - pnpm
   - yarn
+
+git_global_configs:
+  - name: user.email
+    value: '{{ email }}'
+  - name: user.name
+    value: '{{ handle }}'
+  - name: push.default
+    value: simple
+  - name: alias.ci
+    value: commit
+  - name: alias.s
+    value: status
+  - name: alias.br
+    value: branch
+  - name: alias.co
+    value: checkout
+  - name: alias.get
+    value: pull --prune
+  - name: alias.list
+    value: config --get-regexp alias
+  - name: alias.save
+    value: stash save
+  - name: init.defaultBranch
+    value: main
 
 brew_executable: /home/linuxbrew/.linuxbrew/bin/brew
 brew_taps:

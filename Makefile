@@ -1,4 +1,4 @@
-#!/usr/bin/make
+#!/usr/bin/env make
 
 .PHONY: all
 all: dev-install
@@ -31,11 +31,15 @@ lint:
 
 .PHONY: preprovision
 preprovision:
-	~/.local/bin/pipenv run ansible-playbook -i inventory pre.yml --ask-become-pass --force-handlers
+	~/.local/bin/pipenv run ansible-playbook --limit lemur -i inventory pre.yml --ask-become-pass --force-handlers
 
-.PHONY: provision
-provision:
-	 ~/.local/bin/pipenv run ansible-playbook --vault-id .vault_pass -i inventory main.yml --ask-become-pass --force-handlers
+.PHONY: provision-oryx
+provision-oryx:
+	 ~/.local/bin/pipenv run ansible-playbook --limit oryx --vault-id .vault_pass -i inventory main.yml --ask-become-pass --force-handlers
+
+.PHONY: provision-lemur
+provision-lemur:
+	~/.local/bin/pipenv run ansible-playbook --limit lemur --vault-id .vault_pass -i inventory main.yml --ask-become-pass --force-handlers
 
 .PHONY: test
 test:

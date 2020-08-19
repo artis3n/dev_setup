@@ -63,6 +63,7 @@ apt_packages:
   - postgresql-contrib
   - powertop
   - redshift-gtk
+  - remmina
   - rng-tools5
   - ruby-full
   - shellcheck

@@ -66,6 +66,7 @@ apt_packages:
   - remmina
   - rng-tools5
   - ruby-full
+  - simplescreenrecorder
   - shellcheck
   - smartmontools
   - snapd
@@ -74,6 +75,7 @@ apt_packages:
   - texlive-full
   - tlp
   - tlp-rdw
+  - ubuntu-restricted-extras
   - vim
   - wget
   - xz-utils

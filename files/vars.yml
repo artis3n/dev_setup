@@ -7,6 +7,13 @@ install_dir: '{{ home_dir }}/.install_deps'
 email: dev@artis3nal.com
 handle: Artis3n
 
+gopath: /home/{{ ansible_user }}/go
+terminal_exports:
+  - export: PATH
+    value: '{{ gopath }}/bin:$PATH'
+  - export: GOPATH
+    value: '{{ gopath }}'
+
 zsh_plugins:
   - git
   - docker
@@ -42,6 +49,7 @@ apt_repos:
 apt_packages:
   - aptitude
   - apt-transport-https
+  - asciinema
   - build-essential
   - ca-certificates
   - curl

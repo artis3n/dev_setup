@@ -73,6 +73,14 @@
     - regex: ~\/\.oh-my-zsh\/custom\/plugins\/zsh-autosuggestions\/zsh-autosuggestions\.zsh
       line: source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+- name: Terminal | export variables
+  lineinfile:
+    path: '{{ home_dir }}/.zshrc'
+    regexp: ^export {{ item.export }}=
+    line: 'export {{ item.export }}={{ item.value }}'
+    state: present
+  loop: '{{ terminal_exports }}'
+
 - name: Terminal | Set default shell
   become: yes
   user:

@@ -1,4 +1,5 @@
 roles:
-  - src: artis3n.tailscale
+  - name: artis3n.tailscale
+  - name: artis3n.docker
 collections:
   - name: artis3n.github

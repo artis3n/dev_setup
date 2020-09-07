@@ -157,22 +157,6 @@ keyboard_color:
 
 vmware_url: https://www.vmware.com/go/getworkstation-linux
 
-docker_apt_dependencies:
-  - apt-transport-https
-  - ca-certificates
-  - software-properties-common
-  - gnupg-agent
-  - curl
-docker_gpgkey_url: https://download.docker.com/linux/ubuntu/gpg
-docker_gpgkey_fingerprint: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
-docker_apt_arch: amd64
-docker_apt_repo: >-
-  deb [arch={{ docker_apt_arch }}] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
-docker_apt:
-  - docker-ce
-  - docker-ce-cli
-  - containerd.io
-
 # Latest version comes from https://linux.dropbox.com/packages/ubuntu/
 dropbox_url: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb
 

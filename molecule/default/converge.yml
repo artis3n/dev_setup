@@ -38,7 +38,8 @@
     - import_tasks: ../../tasks/hashicorp.yml
       tags: hashicorp
 
-    - import_tasks: ../../tasks/docker.yml
+    - import_role:
+        name: artis3n.docker
       tags: docker
 
     - import_tasks: ../../tasks/cloud.yml

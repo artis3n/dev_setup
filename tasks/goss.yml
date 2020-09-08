@@ -5,4 +5,5 @@
     set -o pipefail
     curl -fsSL https://goss.rocks/install | sh
   args:
+    executable: /bin/bash
     creates: /usr/local/bin/goss

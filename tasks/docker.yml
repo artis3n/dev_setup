@@ -4,6 +4,7 @@
   pip:
     name: '{{ docker_pip_dependencies }}'
     state: present
+    executable: /usr/bin/pip3
 
 - name: Docker | Goss | Install
   shell: |

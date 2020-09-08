@@ -1,0 +1,27 @@
+---
+
+- name: Docker | Ensure pip dependencies
+  pip:
+    name: '{{ docker_pip_dependencies }}'
+    state: present
+    executable: /usr/bin/pip3
+
+- name: Docker | Goss | Install
+  shell: |
+    set -o pipefail
+    curl -fsSL https://goss.rocks/install | sh
+  args:
+    executable: /bin/bash
+    creates: /usr/local/bin/goss
+
+- name: Docker | Download images
+  docker_image:
+    name: '{{ item.name }}'
+    source: pull
+    state: present
+    tag: '{{ item.tag }}'
+  loop: '{{ docker_pull_images }}'
+
+- name: Docker | Prune images
+  docker_prune:
+    images: yes

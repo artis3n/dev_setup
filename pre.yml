@@ -13,6 +13,9 @@
         state: present
       notify: Restart
 
+    - import_role:
+        name: artis3n.docker
+
   handlers:
     - name: Restart
       debug:

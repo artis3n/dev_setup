@@ -14,6 +14,12 @@ terminal_exports:
   - export: GOPATH
     value: '{{ gopath }}'
 
+docker_pull_images:
+  - name: ghcr.io/artis3n/pgmodeler
+    tag: latest
+  - name: artis3n/kali
+    tag: latest
+
 zsh_plugins:
   - git
   - docker
@@ -178,5 +184,8 @@ hashicorp_apt_repos:
 hashicorp_apt_packages:
   - vault
   - terraform
+
+docker_pip_dependencies:
+  - docker
 
 file_watcher_limit: '524288'

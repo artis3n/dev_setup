@@ -45,8 +45,8 @@
     - import_tasks: ../../tasks/cloud.yml
       tags: cloud
 
-    - import_tasks: ../../tasks/goss.yml
-      tags: goss
+    - import_tasks: ../../tasks/docker.yml
+      tags: docker
 
     - import_tasks: ../../tasks/applications/jetbrains.yml
       tags:

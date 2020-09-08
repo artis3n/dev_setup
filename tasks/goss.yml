@@ -1,0 +1,8 @@
+---
+
+- name: Goss | Install
+  shell: |
+    set -o pipefail
+    curl -fsSL https://goss.rocks/install | sh
+  args:
+    creates: /usr/local/bin/goss

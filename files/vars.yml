@@ -143,6 +143,7 @@ brew_taps:
 
 homebrew_packages:
   - age
+  - dive
   - terraform-docs
 
 jetbrains_toolbox: jetbrains-toolbox.tar.gz

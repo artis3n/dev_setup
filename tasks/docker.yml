@@ -6,6 +6,15 @@
     state: present
     executable: /usr/bin/pip3
 
+- name: Docker | Dive | Get latest release
+  set_fact:
+    dive_version: "{{ lookup('artis3n.github.latest_release', 'wagoodman/dive') }}"
+
+- name: Docker | Install dive
+  become: yes
+  apt:
+    deb: https://github.com/wagoodman/dive/releases/download/{{ dive_version }}/dive_{{ dive_version[1:] }}_linux_amd64.deb
+
 - name: Docker | Goss | Install
   shell: |
     set -o pipefail

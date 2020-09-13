@@ -10,7 +10,7 @@ handle: Artis3n
 gopath: /home/{{ ansible_user }}/go
 terminal_exports:
   - export: PATH
-    value: '{{ gopath }}/bin:$PATH'
+    value: '$PATH:{{ gopath }}/bin'
   - export: GOPATH
     value: '{{ gopath }}'
 

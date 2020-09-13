@@ -9,7 +9,7 @@ install:
 	if [ ! -f /usr/bin/pip3 ]; then sudo apt update && sudo apt install -y python3-pip; fi;
 	if [ ! -f ~/.local/bin/pipenv ]; then pip3 install --user pipenv; fi;
 	if [ ! -d ~/.local/share/virtualenvs ]; then mkdir -p ~/.local/share/virtualenvs/; fi;
-	if [ ! $$(find ~/.local/share/virtualenvs/ -name "dev-setup*") ]; then ~/.local/bin/pipenv install; fi;
+	if [ ! $$(find ~/.local/share/virtualenvs/ -name "dev-setup*") ]; then ~/.local/bin/pipenv install --dev; fi;
 	if [ ! -f /usr/bin/git ]; then sudo apt install -y git; fi;
 	~/.local/bin/pipenv run ansible-galaxy install -r requirements.yml
 	~/.local/bin/pipenv run ansible-galaxy collection install -r requirements.yml

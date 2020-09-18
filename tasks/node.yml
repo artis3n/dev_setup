@@ -49,3 +49,11 @@
     name: '{{ item }}'
     global: yes
   loop: '{{ npm_global_packages }}'
+
+- name: Deno | Install
+  shell: |
+    set -o pipefail
+    curl -fsSL https://deno.land/x/install/install.sh | sh
+  args:
+    executable: /bin/bash
+    creates: '{{ deno_bin }}/deno'

@@ -51,8 +51,13 @@ apt_dependencies:
   - gnupg2
   - python3-apt
   - python3-pexpect
+  - software-properties-common
+apt_keys:
+  - server: keyserver.ubuntu.com
+    keyid: C99B11DEB97541F0
 apt_repos:
-  - dysfunctionalprogramming/minisign
+  - ppa:dysfunctionalprogramming/minisign
+  - deb https://cli.github.com/packages {{ ansible_distribution_release }} main
 apt_packages:
   - aptitude
   - apt-transport-https
@@ -63,6 +68,7 @@ apt_packages:
   - firefox
   - flameshot
   - flatpak
+  - gh
   - git
   - git-lfs
   - gnome-tweak-tool

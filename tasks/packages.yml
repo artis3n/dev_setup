@@ -6,10 +6,18 @@
     state: present
   notify: Clean up apt
 
+- name: Packages | Apt | Add keys
+  become: yes
+  apt_key:
+    keyserver: '{{ item.server }}'
+    id: '{{ item.keyid }}'
+    state: present
+  loop: '{{ apt_keys }}'
+
 - name: Packages | Apt | Add repositories
   become: yes
   apt_repository:
-    repo: 'ppa:{{ item }}'
+    repo: '{{ item }}'
     state: present
   with_items: '{{ apt_repos }}'
 

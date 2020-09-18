@@ -7,10 +7,11 @@ install_dir: '{{ home_dir }}/.install_deps'
 email: dev@artis3nal.com
 handle: Artis3n
 
-gopath: /home/{{ ansible_user }}/go
+gopath: '{{ home_dir }}/go'
+deno_bin: '{{ home_dir }}/.deno/bin'
 terminal_exports:
   - export: PATH
-    value: '$PATH:{{ gopath }}/bin'
+    value: '$PATH:{{ deno_bin }}:{{ gopath }}/bin'
   - export: GOPATH
     value: '{{ gopath }}'
 

@@ -11,7 +11,7 @@
     src: '{{ awscli_archive.dest }}'
     remote_src: yes
     dest: '{{ install_dir }}'
-    mode: 0644
+    mode: 0755
   register: new_awscli
 
 - name: Cloud | Install AWS CLI

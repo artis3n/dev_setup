@@ -31,8 +31,8 @@
     src: '{{ hashicorp_archive_path }}'
     remote_src: yes
     dest: '{{ hashicorp_directory.path }}'
+    mode: 0755
     creates: '{{ hashicorp_directory.path }}/{{ item }}'
-    mode: '0745'
 
 - name: Hashicorp | {{ item | capitalize }} | Ensure local bin permissions
   become: 'yes'

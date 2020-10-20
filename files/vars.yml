@@ -147,9 +147,11 @@ git_global_configs:
 brew_executable: /home/linuxbrew/.linuxbrew/bin/brew
 brew_taps:
   - { tap: 'filippo.io/age https://filippo.io/age', creates: '/home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/filippo.io' }
+  - { tap: 'instrumenta/instrumenta', creates: '/home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/instrumenta' }
 
 homebrew_packages:
   - age
+  - conftest
   - dive
   - terraform-docs
 
@@ -192,6 +194,8 @@ hashicorp_apt_repos:
 hashicorp_apt_packages:
   - vault
   - terraform
+  - packer
+hashicorp_binary_packages: []
 
 docker_pip_dependencies:
   - docker

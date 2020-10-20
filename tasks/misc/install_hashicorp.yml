@@ -12,6 +12,7 @@
   file:
     path: '{{ install_dir }}/{{ item }}_{{ hashicorp_version }}'
     state: directory
+    mode: 0755
   register: hashicorp_directory
 
 - name: Hashicorp | {{ item | capitalize }} | Check for download
@@ -31,6 +32,7 @@
     remote_src: yes
     dest: '{{ hashicorp_directory.path }}'
     creates: '{{ hashicorp_directory.path }}/{{ item }}'
+    mode: '0745'
 
 - name: Hashicorp | {{ item | capitalize }} | Ensure local bin permissions
   become: 'yes'
@@ -39,6 +41,7 @@
     state: directory
     owner: '{{ ansible_user }}'
     group: '{{ ansible_user }}'
+    mode: 0755
 
 - name: Hashicorp | {{ item | capitalize }} | Add to local bin
   file:

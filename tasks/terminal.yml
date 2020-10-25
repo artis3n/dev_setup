@@ -26,7 +26,6 @@
     owner: '{{ ansible_user }}'
     group: '{{ ansible_user }}'
     recurse: 'yes'
-    mode: 0644
   when: spaceship_repo.changed  # noqa 503
 
 - name: Terminal | ZSH Spaceship symbolic link

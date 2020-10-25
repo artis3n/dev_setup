@@ -8,6 +8,5 @@
     owner: '{{ ansible_user }}'
     group: '{{ ansible_user }}'
     state: '{{ item.state }}'
-    mode: 0644
   loop:
     - { name: '/var/lib/gems', state: 'directory' }

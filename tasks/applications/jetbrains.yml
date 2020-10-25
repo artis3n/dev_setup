@@ -12,7 +12,6 @@
     src: "{{ toolbox_app.dest }}"
     remote_src: yes
     dest: "{{ install_dir }}/"
-    mode: 0755
   when: toolbox_app.changed # noqa 503
 
 - name: Applications | Jetbrains Toolbox | Locate installer

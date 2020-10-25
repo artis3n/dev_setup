@@ -30,7 +30,7 @@
     mode: '{{ item.mode }}'
     state: directory
   loop:
-    - { name: /usr/pnpm-global, mode: '755' }
+    - { name: /usr/pnpm-global, mode: 0755 }
 
 - name: Node | Ensure global library permissions
   become: yes

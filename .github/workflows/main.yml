@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
         distros:
           - geerlingguy/docker-ubuntu2004-ansible:latest

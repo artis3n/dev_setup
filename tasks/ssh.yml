@@ -4,7 +4,7 @@
   file:
     path: '{{ home_dir }}/.ssh'
     state: directory
-    mode: 0755
+    mode: 0700
 
 - name: SSH | Generate key
   openssh_keypair:
@@ -19,4 +19,4 @@
     src: ../files/ssh/config.j2
     dest: '{{ home_dir }}/.ssh/config'
     backup: yes
-    mode: 0664
+    mode: 0600

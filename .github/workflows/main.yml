@@ -1,15 +1,20 @@
 name: Ansible
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
+
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        distros:
+          - geerlingguy/docker-ubuntu2004-ansible:latest
+          - ghcr.io/artis3n/docker-ubuntu2010-ansible:latest
+
     steps:
       - uses: actions/checkout@v2
 
@@ -29,3 +34,5 @@ jobs:
 
       - name: Molecule
         run: pipenv run molecule test
+        env:
+          MOLECULE_DISTRO: "${{ matrix.distros }}"

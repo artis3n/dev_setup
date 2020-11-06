@@ -8,11 +8,11 @@ driver:
 lint: |
   set -e
   yamllint .
-  ansible-lint
+  ansible-lint -c .ansible-lint
 platforms:
   - name: instance
-    image: 'geerlingguy/docker-ubuntu2004-ansible:latest'
-    command: '/lib/systemd/systemd'
+    image: ${MOLECULE_DISTRO:-ghcr.io/artis3n/docker-ubuntu2010-ansible:latest}
+    command: ${MOLECULE_DOCKER_COMMAND:-/lib/systemd/systemd}
     pre_build_image: true
     volumes:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
@@ -20,7 +20,7 @@ platforms:
 provisioner:
   name: ansible
   options:
-    vault-id: ../../.vault_pass
+    vault-id: ${VAULT_ID_PATH:-../../.vault_pass}
   groups:
     - vmware
   inventory:

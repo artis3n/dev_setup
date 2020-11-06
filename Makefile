@@ -27,7 +27,7 @@ clean:
 
 .PHONY: lint
 lint:
-	~/.local/bin/pipenv run ansible-lint
+	~/.local/bin/pipenv run ansible-lint -c .ansible-lint
 
 .PHONY: preprovision
 preprovision:

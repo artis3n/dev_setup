@@ -23,5 +23,4 @@
 
 - name: Hashicorp | Install binary packages
   include_tasks: misc/install_hashicorp.yml
-  loop:
-    - packer
+  loop: '{{ hashicorp_binary_packages }}'

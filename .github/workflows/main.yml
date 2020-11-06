@@ -48,3 +48,4 @@ jobs:
         run: pipenv run molecule test
         env:
           MOLECULE_DISTRO: "${{ matrix.distros }}"
+          VAULT_ID_PATH: ".vault_pass"

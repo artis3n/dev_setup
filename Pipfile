@@ -4,7 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [packages]
-ansible = "~=2.9"
+ansible = "~=2.10"
 
 [dev-packages]
 pre-commit = "~=2.8.2"

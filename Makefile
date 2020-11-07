@@ -12,7 +12,6 @@ install:
 	if [ ! $$(find ~/.local/share/virtualenvs/ -name "dev-setup*") ]; then ~/.local/bin/pipenv install --dev; fi;
 	if [ ! -f /usr/bin/git ]; then sudo apt install -y git; fi;
 	~/.local/bin/pipenv run ansible-galaxy install -r requirements.yml
-	~/.local/bin/pipenv run ansible-galaxy collection install -r requirements.yml
 
 .PHONY: dev-install
 dev-install: install
@@ -43,7 +42,7 @@ provision-lemur:
 
 .PHONY: test
 test:
-	pipenv run molecule test
+	VAULT_ID_PATH=./.vault_pass pipenv run molecule test
 
 .PHONY: reset-run
 reset-run: clean install provision

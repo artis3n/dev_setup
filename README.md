@@ -9,5 +9,7 @@
 make install
 make preprovision
 # Restart the computer
-make provision
+make provision-oryx
+# or
+make provision-lemur
 ```

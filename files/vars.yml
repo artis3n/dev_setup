@@ -120,6 +120,9 @@ npm_global_packages:
   - pnpm
   - yarn
 
+pip_packages:
+  - pre-commit
+
 git_global_configs:
   - name: user.email
     value: '{{ email }}'
@@ -143,6 +146,8 @@ git_global_configs:
     value: stash save
   - name: init.defaultBranch
     value: main
+  - name: pull.rebase
+    value: false
 
 brew_executable: /home/linuxbrew/.linuxbrew/bin/brew
 brew_taps:

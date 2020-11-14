@@ -1,0 +1,5 @@
+---
+- name: Install packages
+  pip:
+    name: "{{ pip_packages }}"
+    state: present

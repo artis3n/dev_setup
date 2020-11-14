@@ -32,6 +32,9 @@
     - import_tasks: ../../tasks/node.yml
       tags: node
 
+    - import_tasks: ../../tasks/python.yml
+      tags: python
+
     - import_tasks: ../../tasks/git.yml
       tags: git
 

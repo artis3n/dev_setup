@@ -13,7 +13,6 @@ jobs:
       fail-fast: false
       matrix:
         distros:
-          - geerlingguy/docker-ubuntu2004-ansible:latest
           - ghcr.io/artis3n/docker-ubuntu2010-ansible:latest
 
     steps:

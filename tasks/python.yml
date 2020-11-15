@@ -1,5 +1,6 @@
 ---
-- name: Install packages
+- name: Python | Install packages
   pip:
     name: "{{ pip_packages }}"
+    executable: /usr/bin/pip
     state: present

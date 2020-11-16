@@ -42,7 +42,7 @@ provision-lemur:
 
 .PHONY: test
 test:
-	VAULT_ID_PATH=./.vault_pass pipenv run molecule test
+	pipenv run molecule test
 
 .PHONY: reset-run
 reset-run: clean install provision

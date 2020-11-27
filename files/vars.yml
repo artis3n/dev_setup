@@ -83,6 +83,7 @@ apt_packages:
   - postgresql
   - postgresql-contrib
   - powertop
+  - p7zip
   - redshift-gtk
   - remmina
   - rng-tools5
@@ -92,6 +93,7 @@ apt_packages:
   - smartmontools
   - snapd
   - software-properties-common
+  - steghide
   - systemd
   - texlive-full
   - tlp
@@ -115,6 +117,7 @@ flatpak_applications:
 
 snap_apps:
   - hey-mail
+  - p3x-onenote
 
 npm_global_packages:
   - pnpm

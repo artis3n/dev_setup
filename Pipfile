@@ -9,11 +9,7 @@ ansible = "~=2.9"
 [dev-packages]
 ansible-lint = "~=4.3.6"
 docker = "~=4.3.1"
-molecule = {extras = ["docker,lint"], version = "*"}
+molecule = {extras = ["docker,lint"], version = "~=3.2.0"}
 
 [requires]
 python_version = "3.8"
-
-# Molecule apparently refuses to install at 3.1.5, I _have_ to use the pre-release version
-[pipenv]
-allow_prereleases = true

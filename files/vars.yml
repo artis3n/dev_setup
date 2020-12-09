@@ -159,6 +159,7 @@ brew_taps:
 
 homebrew_packages:
   - age
+  - bats-core
   - conftest
   - dive
   - terraform-docs

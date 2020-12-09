@@ -20,7 +20,7 @@ platforms:
 provisioner:
   name: ansible
   options:
-    vault-id: ../../.vault_pass
+    vault-id: .vault_pass
   groups:
     - vmware
   inventory:

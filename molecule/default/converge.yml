@@ -19,6 +19,11 @@
     - import_tasks: ../../tasks/terminal.yml
       tags: terminal
 
+    - import_tasks: ../../tasks/golang.yml
+      tags:
+        - language
+        - golang
+
     - import_tasks: ../../tasks/java.yml
       tags:
         - language

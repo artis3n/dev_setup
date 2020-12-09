@@ -1,0 +1,5 @@
+- name: Go | Ensure GOPATH
+  file:
+    path: '{{ gopath }}'
+    state: directory
+    mode: 0755

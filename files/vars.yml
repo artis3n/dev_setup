@@ -18,8 +18,8 @@ terminal_exports:
 docker_pull_images:
   - name: ghcr.io/artis3n/pgmodeler
     tag: latest
-  - name: artis3n/kali
-    tag: latest
+  # - name: artis3n/kali
+  #   tag: latest
 
 zsh_plugins:
   - git

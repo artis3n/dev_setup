@@ -21,9 +21,6 @@
     state: present
     tag: '{{ item.tag }}'
   loop: '{{ docker_pull_images }}'
-  # Images take up too much space inside the container
-  tags:
-    - molecule-notest
 
 - name: Docker | Prune images
   docker_prune:

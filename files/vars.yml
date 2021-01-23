@@ -55,12 +55,10 @@ apt_dependencies:
 apt_keys:
   - server: keyserver.ubuntu.com
     keyid: C99B11DEB97541F0
-apt_keys_urls:
-  - https://api.bintray.com/users/sobolevn/keys/gpg/public.key
+apt_keys_urls: []
 apt_repos:
   - ppa:dysfunctionalprogramming/minisign
   - deb https://cli.github.com/packages {{ ansible_distribution_release }} main
-  - deb https://dl.bintray.com/sobolevn/deb git-secret main
 apt_packages:
   - aptitude
   - apt-transport-https
@@ -74,7 +72,6 @@ apt_packages:
   - gh
   - git
   - git-lfs
-  - git-secret
   - gnome-tweak-tool
   - golang
   - jq

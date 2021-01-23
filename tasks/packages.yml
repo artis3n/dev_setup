@@ -14,12 +14,19 @@
     state: present
   loop: '{{ apt_keys }}'
 
+- name: Packages | Apt | Add keys (url)
+  become: yes
+  apt_key:
+    url: '{{ item }}'
+    state: present
+  loop: '{{ apt_keys_urls }}'
+
 - name: Packages | Apt | Add repositories
   become: yes
   apt_repository:
     repo: '{{ item }}'
     state: present
-  with_items: '{{ apt_repos }}'
+  loop: '{{ apt_repos }}'
 
 - name: Packages | Apt | Upgrade packages
   become: yes

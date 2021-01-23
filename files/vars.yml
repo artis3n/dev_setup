@@ -18,8 +18,8 @@ terminal_exports:
 docker_pull_images:
   - name: ghcr.io/artis3n/pgmodeler
     tag: latest
-  - name: artis3n/kali
-    tag: latest
+  # - name: artis3n/kali
+  #   tag: latest
 
 zsh_plugins:
   - git
@@ -55,6 +55,7 @@ apt_dependencies:
 apt_keys:
   - server: keyserver.ubuntu.com
     keyid: C99B11DEB97541F0
+apt_keys_urls: []
 apt_repos:
   - ppa:dysfunctionalprogramming/minisign
   - deb https://cli.github.com/packages {{ ansible_distribution_release }} main
@@ -156,10 +157,12 @@ brew_executable: /home/linuxbrew/.linuxbrew/bin/brew
 brew_taps:
   - { tap: 'filippo.io/age https://filippo.io/age', creates: '/home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/filippo.io' }
   - { tap: 'instrumenta/instrumenta', creates: '/home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/instrumenta' }
+  - { tap: 'codeclimate/formulae', creates: '/home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/codeclimate' }
 
 homebrew_packages:
   - age
   - bats-core
+  - codeclimate
   - conftest
   - dive
   - terraform-docs
@@ -185,7 +188,7 @@ vmware_url: https://www.vmware.com/go/getworkstation-linux
 # Latest version comes from https://linux.dropbox.com/packages/ubuntu/
 dropbox_url: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb
 
-nodejs_version: 14.x
+nodejs_version: 15.x
 node_apt_packages:
   - nodejs
 node_apt_keys:

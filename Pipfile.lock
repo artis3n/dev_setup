@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "fc07d14eaa04d4d524b254ec6a3877cfaf4fef2ee1f8efa46a7026e52d649d6c"
+            "sha256": "edaec06ecc4341d5b007ad8919932b2657ce8366e2a2e047eaa85864eb53c0f7"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -494,11 +494,11 @@
                 "lint"
             ],
             "hashes": [
-                "sha256:4e6198a00cce070438dc64037a9df6c6590161c6dc9c8142bb956064a29fb1d0",
-                "sha256:dd6e23b0f3a39e9fabe6913b3149619f118f7135b05413966dd6f5c53e1efee3"
+                "sha256:9e360073598d45ec86036d84084fc6493dfc4270fd7600ee9ebe0ce03a0af6e5",
+                "sha256:d96ef3f895250f16142ed51591558d54a67a1546e05ccff386be0320de44973c"
             ],
             "index": "pypi",
-            "version": "==3.2.0"
+            "version": "==3.2.2"
         },
         "molecule-docker": {
             "hashes": [

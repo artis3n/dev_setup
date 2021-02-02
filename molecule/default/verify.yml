@@ -1,0 +1,15 @@
+- name: Verify
+  hosts: all
+  gather_facts: 'yes'
+  vars_files:
+    - ../../files/vars.yml
+  tasks:
+    - name: Verify AWS Session Manager Plugin installation
+      command: session-manager-plugin
+      changed_when: false
+      register: session_manager_plugin
+
+    - name: Assertions
+      assert:
+        that:
+          - session_manager_plugin.stdout == "\nThe Session Manager plugin is installed successfully. Use the AWS CLI to start a session.\n"

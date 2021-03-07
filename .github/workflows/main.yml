@@ -30,7 +30,7 @@ jobs:
           echo "${{ secrets.VAULT_PASS }}" > .vault_pass
 
       - name: Use Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v2.1.4
         with:
           path: ~/.cache/pipenv
           key: ${{ runner.os }}-pipenv-${{ hashfiles('**/Pipfile.lock') }}

@@ -2,25 +2,25 @@
 
 - name: Hashicorp | Add apt-keys
   become: yes
-  apt_key:
+  ansible.builtin.apt_key:
     url: '{{ item }}'
     state: present
   loop: '{{ hashicorp_apt_keys }}'
 
 - name: Hashicorp | Add repositories
   become: yes
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: '{{ item }}'
     state: present
   loop: '{{ hashicorp_apt_repos }}'
 
 - name: Hashicorp | Install packages
   become: yes
-  apt:
+  ansible.builtin.apt:
     name: '{{ hashicorp_apt_packages }}'
     update_cache: yes
     state: present
 
 - name: Hashicorp | Install binary packages
-  include_tasks: misc/install_hashicorp.yml
+  ansible.builtin.include_tasks: misc/install_hashicorp.yml
   loop: '{{ hashicorp_binary_packages }}'

@@ -1,13 +1,13 @@
 ---
 
 - name: Cloud | Download AWS CLI
-  get_url:
+  ansible.builtin.get_url:
     url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
     dest: '{{ install_dir }}/awscliv2.zip'
   register: awscli_archive
 
 - name: Cloud | Unarchive AWS CLI
-  unarchive:
+  ansible.builtin.unarchive:
     src: '{{ awscli_archive.dest }}'
     remote_src: yes
     dest: '{{ install_dir }}'
@@ -15,14 +15,14 @@
 
 - name: Cloud | Install AWS CLI
   become: yes
-  command: sh ./aws/install
+  ansible.builtin.command: sh ./aws/install
   args:
     chdir: '{{ install_dir }}'
     creates: /usr/local/bin/aws
 
 - name: Cloud | Update AWS CLI
   become: yes
-  command: sh ./aws/install --update
+  ansible.builtin.command: sh ./aws/install --update
   args:
     chdir: '{{ install_dir }}'
   when: new_awscli.changed  # noqa 503

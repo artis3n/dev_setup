@@ -21,9 +21,7 @@ dev-install: install
 
 .PHONY: clean
 clean:
-	-~/.local/bin/pipenv --rm
-	rm -rf ~/.ansible/roles/
-	rm -rf ~/.ansible/collections/ansible_collections/artis3n/github
+	~/.local/bin/pipenv --rm
 
 .PHONY: lint
 lint:

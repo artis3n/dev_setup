@@ -1,12 +1,12 @@
 ---
 
 - name: Applications | VMWare | Check for program
-  stat:
+  ansible.builtin.stat:
     path: /usr/bin/vmware
   register: vmware_app
 
 - name: Applications | VMWare | Download
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ vmware_url }}"
     dest: "{{ install_dir }}/vmware.bundle"
     mode: 0764
@@ -15,7 +15,7 @@
 
 - name: Applications | VMWare | Install
   become: yes
-  command: bash {{ vmware_installer.dest }}
+  ansible.builtin.command: bash {{ vmware_installer.dest }}
   args:
     creates: /usr/bin/vmware
   when: not vmware_app.stat.exists

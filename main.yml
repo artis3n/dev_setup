@@ -8,71 +8,71 @@
     - artis3n.github
   tasks:
     - name: Setup | Scripts folder
-      file:
+      ansible.builtin.file:
         path: '{{ install_dir }}'
         state: directory
         mode: 0755
 
-    - import_tasks: tasks/packages.yml
+    - ansible.builtin.import_tasks: tasks/packages.yml
       tags: packages
 
-    - import_tasks: tasks/terminal.yml
+    - ansible.builtin.import_tasks: tasks/terminal.yml
       tags: terminal
 
-    - import_tasks: tasks/golang.yml
+    - ansible.builtin.import_tasks: tasks/golang.yml
       tags:
         - language
         - golang
 
-    - import_tasks: tasks/java.yml
+    - ansible.builtin.import_tasks: tasks/java.yml
       tags:
         - language
         - java
 
-    - import_tasks: tasks/ruby.yml
+    - ansible.builtin.import_tasks: tasks/ruby.yml
       tags:
         - language
         - ruby
 
-    - import_tasks: tasks/node.yml
+    - ansible.builtin.import_tasks: tasks/node.yml
       tags: node
 
-    - import_tasks: tasks/python.yml
+    - ansible.builtin.import_tasks: tasks/python.yml
       tags: python
 
-    - import_tasks: tasks/git.yml
+    - ansible.builtin.import_tasks: tasks/git.yml
       tags: git
 
-    - import_tasks: tasks/hashicorp.yml
+    - ansible.builtin.import_tasks: tasks/hashicorp.yml
       tags: hashicorp
 
-    - import_tasks: tasks/cloud.yml
+    - ansible.builtin.import_tasks: tasks/cloud.yml
       tags: cloud
 
-    - import_tasks: tasks/docker.yml
+    - ansible.builtin.import_tasks: tasks/docker.yml
       tags: docker
 
-    - import_tasks: tasks/applications/jetbrains.yml
+    - ansible.builtin.import_tasks: tasks/applications/jetbrains.yml
       tags:
         - applications
         - jetbrains
 
-    - import_tasks: tasks/ssh.yml
+    - ansible.builtin.import_tasks: tasks/ssh.yml
       tags: ssh
 
-    - import_tasks: tasks/popos.yml
+    - ansible.builtin.import_tasks: tasks/popos.yml
       tags: popos
 
-    - import_tasks: tasks/applications/vmware.yml
+    - ansible.builtin.import_tasks: tasks/applications/vmware.yml
       when: "'vmware' in group_names"
       tags:
         - applications
         - vmware
 
-    - import_tasks: tasks/brew.yml
+    - ansible.builtin.import_tasks: tasks/brew.yml
       tags: brew
 
-    - import_role:
+    - ansible.builtin.import_role:
         name: artis3n.tailscale
       vars:
         tailscale_auth_key: !vault |
@@ -84,4 +84,4 @@
           33316636346631636264333734323935646533323736303966333036376362653439
 
   handlers:
-    - import_tasks: handlers/handlers.yml
+    - ansible.builtin.import_tasks: handlers/handlers.yml

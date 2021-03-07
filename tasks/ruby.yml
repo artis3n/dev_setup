@@ -2,7 +2,7 @@
 
 - name: Ruby | Set lib permissions
   become: yes
-  file:
+  ansible.builtin.file:
     path: '{{ item.name }}'
     recurse: yes
     owner: '{{ ansible_user }}'

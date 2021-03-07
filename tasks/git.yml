@@ -1,5 +1,5 @@
 - name: Git | Set config
-  git_config:
+  community.general.git_config:
     name: '{{ item.name }}'
     value: '{{ item.value }}'
     scope: global

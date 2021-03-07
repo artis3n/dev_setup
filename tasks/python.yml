@@ -1,14 +1,14 @@
 ---
 - name: Python | Symlink to Python 3
   become: yes
-  file:
+  ansible.builtin.file:
     src: /usr/bin/python3
     path: /usr/bin/python
     state: link
     mode: 0755
 
 - name: Python | Install packages
-  pip:
+  ansible.builtin.pip:
     name: "{{ pip_packages }}"
     executable: /usr/bin/pip
     state: present

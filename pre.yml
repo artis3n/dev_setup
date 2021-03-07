@@ -7,16 +7,16 @@
   tasks:
     - name: Install Apt packages
       become: yes
-      apt:
+      ansible.builtin.apt:
         name: '{{ apt_pre_dependencies }}'
         update_cache: yes
         state: present
       notify: Restart
 
-    - import_role:
+    - ansible.builtin.import_role:
         name: artis3n.docker
 
   handlers:
     - name: Restart
-      debug:
+      ansible.builtin.debug:
         msg: Pre-packages have been installed. Restart the machine, then run `make provision`.

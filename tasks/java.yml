@@ -1,17 +1,17 @@
 - name: Java | Get SDKMan install script
-  get_url:
+  ansible.builtin.get_url:
     url: 'https://get.sdkman.io'
     dest: '{{ install_dir }}/{{ sdkman_install_script }}'
     mode: 0755
   register: sdkman_script
 
 - name: Java | Install SDKMan
-  command: 'bash {{ sdkman_script.dest }}'
+  ansible.builtin.command: 'bash {{ sdkman_script.dest }}'
   args:
     creates: '{{ home_dir }}/.sdkman/bin/sdkman-init.sh'
 
 - name: Java | Add to profile
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: '{{ home_dir }}/.zshrc'
     line: "{{ item }}"
     state: present
@@ -20,7 +20,7 @@
     - '[[ -s "{{ home_dir }}/.sdkman/bin/sdkman-init.sh" ]] && source "{{ home_dir }}/.sdkman/bin/sdkman-init.sh"'
 
 - name: Java | Install JDK
-  shell: "source {{ home_dir }}/.zshrc; sdk install java {{ sdkman_java_version | quote }}"
+  ansible.builtin.shell: "source {{ home_dir }}/.zshrc; sdk install java {{ sdkman_java_version | quote }}"
   args:
     executable: /bin/zsh
     creates: '{{ home_dir }}/.sdkman/candidates/java/{{ sdkman_java_version }}/bin/java'

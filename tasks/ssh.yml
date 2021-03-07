@@ -1,13 +1,13 @@
 ---
 
 - name: SSH | Ensure directory
-  file:
+  ansible.builtin.file:
     path: '{{ home_dir }}/.ssh'
     state: directory
     mode: 0700
 
 - name: SSH | Generate key
-  openssh_keypair:
+  community.crypto.openssh_keypair:
     path: '{{ home_dir }}/.ssh/{{ ssh_keypair.filename }}'
     comment: '{{ ssh_keypair.comment }}'
     state: present
@@ -15,7 +15,7 @@
   register: gen_ssh_key
 
 - name: SSH | Set default key
-  template:
+  ansible.builtin.template:
     src: ../files/ssh/config.j2
     dest: '{{ home_dir }}/.ssh/config'
     backup: yes

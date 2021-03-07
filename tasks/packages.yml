@@ -1,6 +1,6 @@
 - name: Packages | Apt | Install dependencies
   become: yes
-  apt:
+  ansible.builtin.apt:
     name: '{{ apt_dependencies }}'
     update_cache: yes
     state: present
@@ -8,7 +8,7 @@
 
 - name: Packages | Apt | Add keys
   become: yes
-  apt_key:
+  ansible.builtin.apt_key:
     keyserver: '{{ item.server }}'
     id: '{{ item.keyid }}'
     state: present
@@ -16,28 +16,28 @@
 
 - name: Packages | Apt | Add keys (url)
   become: yes
-  apt_key:
+  ansible.builtin.apt_key:
     url: '{{ item }}'
     state: present
   loop: '{{ apt_keys_urls }}'
 
 - name: Packages | Apt | Add repositories
   become: yes
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: '{{ item }}'
     state: present
   loop: '{{ apt_repos }}'
 
 - name: Packages | Apt | Upgrade packages
   become: yes
-  apt:
+  ansible.builtin.apt:
     upgrade: full
     update_cache: yes
   notify: Clean up apt
 
 - name: Packages | Apt | Install packages - Will take a long time
   become: yes
-  apt:
+  ansible.builtin.apt:
     name: '{{ apt_packages }}'
     state: present
   register: apt_install
@@ -45,14 +45,14 @@
 
 - name: Packages | Apt | Install deb from URL
   become: yes
-  apt:
+  ansible.builtin.apt:
     deb: '{{ item }}'
     state: present
   loop: '{{ apt_deb_urls }}'
   notify: Clean up apt
 
 - name: Packages | Flatpak | Check for flathub
-  shell: |
+  ansible.builtin.shell: |
     set -o pipefail
     flatpak remotes | grep flathub
   args:
@@ -62,11 +62,11 @@
   failed_when: flathub_remote.rc > 1
 
 - name: Packages | Flatpak | Set up flathub
-  command: flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  ansible.builtin.command: flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
   when: flathub_remote.rc != 0
 
 - name: Packages | Flatpak | Install applications
-  flatpak:
+  community.general.flatpak:
     name: "{{ item }}"
     method: user
     state: present
@@ -74,7 +74,7 @@
 
 - name: Packages | Snap | Install applications
   become: yes
-  snap:
+  community.general.snap:
     name: '{{ snap_apps }}'
     state: present
   tags: molecule-notest

@@ -1,6 +1,7 @@
 roles:
-  - name: artis3n.tailscale
   - name: artis3n.docker
+  - name: artis3n.tailscale
 collections:
   - name: artis3n.github
+  - name: community.crypto
   - name: community.general

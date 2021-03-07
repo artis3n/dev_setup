@@ -1,21 +1,21 @@
 ---
 
 - name: Applications | Jetbrains Toolbox | Download
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ jetbrains_toolbox_url }}"
     dest: "{{ install_dir }}/{{ jetbrains_toolbox }}"
     mode: 0644
   register: toolbox_app
 
 - name: Applications | Jetbrains Toolbox | Un-package
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ toolbox_app.dest }}"
     remote_src: yes
     dest: "{{ install_dir }}/"
   when: toolbox_app.changed # noqa 503
 
 - name: Applications | Jetbrains Toolbox | Locate installer
-  shell: |
+  ansible.builtin.shell: |
     set -o pipefail
     find . -maxdepth 1 -type d -name "jetbrains-toolbox-*" -print | head -n1
   args:
@@ -25,7 +25,7 @@
   register: toolbox_installer
 
 - name: Applications | Jetbrains Toolbox | Install
-  command: ./{{ toolbox_installer.stdout }}/jetbrains-toolbox
+  ansible.builtin.command: ./{{ toolbox_installer.stdout }}/jetbrains-toolbox
   args:
     chdir: "{{ install_dir }}"
     creates: '{{ home_dir }}/.local/share/applications/jetbrains-toolbox.desktop'

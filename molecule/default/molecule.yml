@@ -20,7 +20,7 @@ platforms:
 provisioner:
   name: ansible
   options:
-    vault-id: .vault_pass
+    vault-id: ${VAULT_ID:-.vault_pass}
   groups:
     - vmware
   inventory:
@@ -44,4 +44,5 @@ scenario:
     - create
     - converge
     - idempotence
+    - verify
     - destroy

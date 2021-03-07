@@ -1,21 +1,21 @@
 ---
 
 - name: Docker | Ensure pip dependencies
-  pip:
+  ansible.builtin.pip:
     name: '{{ docker_pip_dependencies }}'
     state: present
     executable: /usr/bin/pip3
 
 - name: Docker | Goss | Install
-  shell: |
-    set -o pipefail
-    curl -fsSL https://goss.rocks/install | sh
-  args:
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      curl -fsSL https://goss.rocks/install | sh
     executable: /bin/bash
     creates: /usr/local/bin/goss
 
 - name: Docker | Download images
-  docker_image:
+  community.general.docker_image:
     name: '{{ item.name }}'
     source: pull
     state: present
@@ -23,5 +23,5 @@
   loop: '{{ docker_pull_images }}'
 
 - name: Docker | Prune images
-  docker_prune:
+  community.general.docker_prune:
     images: yes

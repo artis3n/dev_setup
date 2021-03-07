@@ -43,6 +43,14 @@
   register: apt_install
   notify: Clean up apt
 
+- name: Packages | Apt | Install deb from URL
+  become: yes
+  apt:
+    deb: '{{ item }}'
+    state: present
+  loop: '{{ apt_deb_urls }}'
+  notify: Clean up apt
+
 - name: Packages | Flatpak | Check for flathub
   shell: |
     set -o pipefail

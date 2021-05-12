@@ -8,6 +8,7 @@ ansible = "*"
 
 [dev-packages]
 molecule = {extras = ["docker,lint"], version = "*"}
+pre-commit = "*"
 
 [requires]
 python_version = "3.8"

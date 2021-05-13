@@ -1,3 +1,6 @@
+nodejs_version: 16.x
+sdkman_java_version: '16.0.1.hs-adpt'
+
 os_short: linux_amd64
 
 default_home_dir: '/home/{{ ansible_user }}'
@@ -60,6 +63,7 @@ apt_repos:
   - ppa:dysfunctionalprogramming/minisign
   - deb https://cli.github.com/packages {{ ansible_distribution_release }} main
 apt_packages:
+  # - age # Ubuntu 21.04+
   - aptitude
   - apt-transport-https
   - asciinema
@@ -120,7 +124,6 @@ flatpak_applications:
   - org.citra_emu.citra
 
 snap_apps:
-  - hey-mail
   - p3x-onenote
 
 npm_global_packages:
@@ -157,12 +160,9 @@ git_global_configs:
     value: 'false'
 
 brew_executable: /home/linuxbrew/.linuxbrew/bin/brew
-brew_taps:
-  - { tap: 'filippo.io/age https://filippo.io/age', creates: '/home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/filippo.io' }
-  - { tap: 'instrumenta/instrumenta', creates: '/home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/instrumenta' }
+brew_taps: []
 
 homebrew_packages:
-  - age
   - bats-core
   - conftest
   - dive
@@ -172,12 +172,11 @@ jetbrains_toolbox: jetbrains-toolbox.tar.gz
 jetbrains_toolbox_url: 'https://data.services.jetbrains.com/products/download?platform=linux&code=TBA'
 
 sdkman_install_script: sdkman.sh
-sdkman_java_version: '14.0.2.hs-adpt'
 
 ssh_keypair:
   filename: id_ed25519
   type: ed25519
-  comment: dev@artis3nal.com
+  comment: "{{ email }}"
 
 keyboard_color:
   left: a8383b
@@ -189,7 +188,6 @@ vmware_url: https://www.vmware.com/go/getworkstation-linux
 # Latest version comes from https://linux.dropbox.com/packages/ubuntu/
 dropbox_url: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb
 
-nodejs_version: 15.x
 node_apt_packages:
   - nodejs
 node_apt_keys:

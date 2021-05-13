@@ -24,15 +24,16 @@
   tags: molecule-notest
 
 - name: Brew | Install gcc
-  ansible.builtin.homebrew:
+  community.general.homebrew:
     name: gcc
     state: present
     path: /home/linuxbrew/.linuxbrew/bin
   tags: molecule-notest
 
 - name: Brew | Install packages
-  ansible.builtin.homebrew:
+  community.general.homebrew:
     name: '{{ homebrew_packages }}'
     state: present
+    update_homebrew: true
     path: /home/linuxbrew/.linuxbrew/bin
   tags: molecule-notest

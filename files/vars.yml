@@ -109,7 +109,6 @@ apt_packages:
   - ubuntu-restricted-extras
   - vim
   - wget
-  - xattr
   - xz-utils
   - zsh
 apt_deb_urls:

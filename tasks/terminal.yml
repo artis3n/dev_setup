@@ -11,7 +11,7 @@
     spaceship_version: "{{ lookup('artis3n.github.latest_release', 'denysdovhan/spaceship-prompt') }}"
 
 - name: Terminal | ZSH Spaceship theme
-  become: yes
+  become: true
   ansible.builtin.git:
     repo: 'https://github.com/denysdovhan/spaceship-prompt.git'
     version: '{{ spaceship_version }}'
@@ -19,7 +19,7 @@
   register: spaceship_repo
 
 - name: Terminal | Set file permissions
-  become: yes
+  become: true
   ansible.builtin.file:
     path: '{{ home_dir }}/.oh-my-zsh/custom/themes/spaceship-prompt'
     state: directory
@@ -29,7 +29,7 @@
   when: spaceship_repo.changed  # noqa 503
 
 - name: Terminal | ZSH Spaceship symbolic link
-  become: yes
+  become: true
   ansible.builtin.file:
     src: '{{ home_dir }}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme'
     dest: '{{ home_dir }}/.oh-my-zsh/custom/themes/spaceship.zsh-theme'
@@ -38,7 +38,7 @@
     group: '{{ ansible_user }}'
 
 - name: Terminal | Set Spaceship as the terminal theme
-  become: yes
+  become: true
   ansible.builtin.lineinfile:
     path: '{{ home_dir }}/.zshrc'
     regexp: ^ZSH_THEME=
@@ -73,7 +73,7 @@
     - regex: ~\/\.oh-my-zsh\/custom\/plugins\/zsh-autosuggestions\/zsh-autosuggestions\.zsh
       line: source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-- name: Terminal | export variables
+- name: Terminal | Export variables
   ansible.builtin.lineinfile:
     path: '{{ home_dir }}/.zshrc'
     regexp: ^export {{ item.export }}=
@@ -81,22 +81,30 @@
     state: present
   loop: '{{ terminal_exports }}'
 
+- name: Terminal | Set aliases
+  ansible.builtin.lineinfile:
+    path: '{{ home_dir }}/.zshrc'
+    regexp: ^alias {{ item.alias }}=
+    line: alias {{ item.alias }}={{ item.value }}
+    state: present
+  loop: '{{ terminal_aliases }}'
+
 - name: Terminal | Set default shell
-  become: yes
+  become: true
   ansible.builtin.user:
     name: "{{ ansible_user }}"
     shell: /bin/zsh
 
 - name: Terminal | Set default editor
-  become: yes
+  become: true
   ansible.builtin.alternatives:
     name: editor
     path: /usr/bin/vim
 
 - name: Terminal | Set file watcher limit
-  become: yes
+  become: true
   ansible.builtin.sysctl:
     name: fs.inotify.max_user_watches
     value: '{{ file_watcher_limit }}'
     state: present
-    reload: yes
+    reload: true

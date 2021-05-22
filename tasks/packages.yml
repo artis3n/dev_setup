@@ -1,13 +1,13 @@
 - name: Packages | Apt | Install dependencies
-  become: yes
+  become: true
   ansible.builtin.apt:
     name: '{{ apt_dependencies }}'
-    update_cache: yes
+    update_cache: true
     state: present
   notify: Clean up apt
 
 - name: Packages | Apt | Add keys
-  become: yes
+  become: true
   ansible.builtin.apt_key:
     keyserver: '{{ item.server }}'
     id: '{{ item.keyid }}'
@@ -15,28 +15,28 @@
   loop: '{{ apt_keys }}'
 
 - name: Packages | Apt | Add keys (url)
-  become: yes
+  become: true
   ansible.builtin.apt_key:
     url: '{{ item }}'
     state: present
   loop: '{{ apt_keys_urls }}'
 
 - name: Packages | Apt | Add repositories
-  become: yes
+  become: true
   ansible.builtin.apt_repository:
     repo: '{{ item }}'
     state: present
   loop: '{{ apt_repos }}'
 
 - name: Packages | Apt | Upgrade packages
-  become: yes
+  become: true
   ansible.builtin.apt:
     upgrade: full
-    update_cache: yes
+    update_cache: true
   notify: Clean up apt
 
 - name: Packages | Apt | Install packages - Will take a long time
-  become: yes
+  become: true
   ansible.builtin.apt:
     name: '{{ apt_packages }}'
     state: present
@@ -44,7 +44,7 @@
   notify: Clean up apt
 
 - name: Packages | Apt | Install deb from URL
-  become: yes
+  become: true
   ansible.builtin.apt:
     deb: '{{ item }}'
     state: present
@@ -73,8 +73,9 @@
   loop: "{{ flatpak_applications }}"
 
 - name: Packages | Snap | Install applications
-  become: yes
+  become: true
   community.general.snap:
     name: '{{ snap_apps }}'
     state: present
-  tags: molecule-notest
+  tags:
+    - molecule-notest

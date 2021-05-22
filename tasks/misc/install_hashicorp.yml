@@ -28,12 +28,12 @@
 - name: Hashicorp | {{ item | capitalize }} | Unarchive
   ansible.builtin.unarchive:
     src: '{{ hashicorp_archive_path }}'
-    remote_src: yes
+    remote_src: true
     dest: '{{ hashicorp_directory.path }}'
     creates: '{{ hashicorp_directory.path }}/{{ item }}'
 
 - name: Hashicorp | {{ item | capitalize }} | Ensure local bin permissions
-  become: 'yes'
+  become: true
   ansible.builtin.file:
     path: /usr/local/bin
     state: directory

@@ -17,12 +17,15 @@ terminal_exports:
     value: '$PATH:{{ deno_bin }}:{{ gopath }}/bin'
   - export: GOPATH
     value: '{{ gopath }}'
+terminal_aliases:
+  - alias: docker-ignore
+    value: '"attr -s com.dropbox.ignored -V 1"'
+  - alias: docker-watch
+    value: '"attr -r com.dropbox.ignored"'
 
 docker_pull_images:
   - name: ghcr.io/artis3n/pgmodeler
     tag: latest
-  # - name: artis3n/kali
-  #   tag: latest
 
 zsh_plugins:
   - git
@@ -106,6 +109,7 @@ apt_packages:
   - ubuntu-restricted-extras
   - vim
   - wget
+  - xattr
   - xz-utils
   - zsh
 apt_deb_urls:

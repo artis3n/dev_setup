@@ -1,6 +1,6 @@
 ---
 - name: Python | Symlink to Python 3
-  become: yes
+  become: true
   ansible.builtin.file:
     src: /usr/bin/python3
     path: /usr/bin/python

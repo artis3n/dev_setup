@@ -18,5 +18,5 @@
   ansible.builtin.template:
     src: ../files/ssh/config.j2
     dest: '{{ home_dir }}/.ssh/config'
-    backup: yes
+    backup: true
     mode: 0600

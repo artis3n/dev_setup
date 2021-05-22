@@ -10,9 +10,9 @@
 - name: Applications | Jetbrains Toolbox | Un-package
   ansible.builtin.unarchive:
     src: "{{ toolbox_app.dest }}"
-    remote_src: yes
+    remote_src: true
     dest: "{{ install_dir }}/"
-  when: toolbox_app.changed # noqa 503
+  when: toolbox_app.changed  # noqa 503
 
 - name: Applications | Jetbrains Toolbox | Locate installer
   ansible.builtin.shell: |
@@ -21,7 +21,7 @@
   args:
     executable: /bin/bash
     chdir: "{{ install_dir }}"
-  changed_when: false
+  changed_when: true
   register: toolbox_installer
 
 - name: Applications | Jetbrains Toolbox | Install

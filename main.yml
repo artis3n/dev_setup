@@ -1,7 +1,7 @@
 - name: All Tasks
   hosts: all
   connection: local
-  gather_facts: yes
+  gather_facts: true
   vars_files:
     - files/vars.yml
   collections:

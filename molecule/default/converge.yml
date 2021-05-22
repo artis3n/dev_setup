@@ -46,7 +46,8 @@
     - import_tasks: ../../tasks/hashicorp.yml
       tags: hashicorp
 
-    - import_role:
+    - name: Docker
+      import_role:
         name: artis3n.docker
       tags: docker
 

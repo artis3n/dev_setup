@@ -9,19 +9,19 @@
 - name: Cloud | Unarchive AWS CLI
   ansible.builtin.unarchive:
     src: '{{ awscli_archive.dest }}'
-    remote_src: yes
+    remote_src: true
     dest: '{{ install_dir }}'
   register: new_awscli
 
 - name: Cloud | Install AWS CLI
-  become: yes
+  become: true
   ansible.builtin.command: sh ./aws/install
   args:
     chdir: '{{ install_dir }}'
     creates: /usr/local/bin/aws
 
 - name: Cloud | Update AWS CLI
-  become: yes
+  become: true
   ansible.builtin.command: sh ./aws/install --update
   args:
     chdir: '{{ install_dir }}'

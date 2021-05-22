@@ -1,21 +1,23 @@
 ---
 
 - name: PopOS | Set up keyboard lights service
-  become: yes
+  become: true
   ansible.builtin.template:
     src: ../files/systemd/kbd-color.service.j2
     dest: /etc/systemd/system/kbd-color.service
     mode: '0644'
   notify: Run keyboard lights
-  tags: molecule-notest
+  tags:
+    - molecule-notest
   when: "'lights' in group_names"
 
 - name: PopOS | Run keyboard lights service
-  become: yes
+  become: true
   ansible.builtin.systemd:
     name: kbd-color.service
-    daemon-reload: yes
-    enabled: yes
+    daemon-reload: true
+    enabled: true
   notify: Run keyboard lights
-  tags: molecule-notest
+  tags:
+    - molecule-notest
   when: "'lights' in group_names"

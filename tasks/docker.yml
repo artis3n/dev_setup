@@ -24,4 +24,4 @@
 
 - name: Docker | Prune images
   community.general.docker_prune:
-    images: yes
+    images: true

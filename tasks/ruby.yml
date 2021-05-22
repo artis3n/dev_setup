@@ -1,12 +1,10 @@
 ---
 
 - name: Ruby | Set lib permissions
-  become: yes
+  become: true
   ansible.builtin.file:
-    path: '{{ item.name }}'
-    recurse: yes
+    path: /var/lib/gems/
+    recurse: true
     owner: '{{ ansible_user }}'
     group: '{{ ansible_user }}'
-    state: '{{ item.state }}'
-  loop:
-    - { name: '/var/lib/gems', state: 'directory' }
+    state: directory

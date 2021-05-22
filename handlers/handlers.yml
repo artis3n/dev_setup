@@ -1,13 +1,13 @@
 ---
 
 - name: Clean up apt
-  become: yes
+  become: true
   apt:
-    autoremove: yes
-    autoclean: yes
+    autoremove: true
+    autoclean: true
 
 - name: Run keyboard lights
-  become: yes
+  become: true
   systemd:
     name: kbd-color.service
     state: started

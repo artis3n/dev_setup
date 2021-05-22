@@ -14,7 +14,7 @@
   register: vmware_installer
 
 - name: Applications | VMWare | Install
-  become: yes
+  become: true
   ansible.builtin.command: bash {{ vmware_installer.dest }}
   args:
     creates: /usr/bin/vmware

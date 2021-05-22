@@ -1,28 +1,28 @@
 ---
 
 - name: Node | Add apt-keys
-  become: yes
+  become: true
   ansible.builtin.apt_key:
     url: '{{ item }}'
     state: present
   loop: '{{ node_apt_keys }}'
 
 - name: Node | Add repositories
-  become: yes
+  become: true
   ansible.builtin.apt_repository:
     repo: '{{ item }}'
     state: present
   loop: '{{ node_apt_repos }}'
 
 - name: Node | Install Node
-  become: yes
+  become: true
   ansible.builtin.apt:
     name: '{{ node_apt_packages }}'
-    update_cache: yes
+    update_cache: true
     state: present
 
 - name: Node | Ensure global library directories
-  become: yes
+  become: true
   ansible.builtin.file:
     path: '{{ item.name }}'
     owner: '{{ ansible_user }}'
@@ -30,24 +30,28 @@
     mode: '{{ item.mode }}'
     state: directory
   loop:
-    - { name: /usr/pnpm-global, mode: '0755' }
+    - name: /usr/pnpm-global
+      mode: '0755'
 
 - name: Node | Ensure global library permissions
-  become: yes
+  become: true
   ansible.builtin.file:
     path: '{{ item.name }}'
     recurse: '{{ item.recurse }}'
     owner: '{{ ansible_user }}'
     group: '{{ ansible_user }}'
   loop:
-    - { name: /usr/lib/node_modules, recurse: yes }
-    - { name: /usr/bin, recurse: no }
-    - { name: /usr/pnpm-global, recurse: no }
+    - name: /usr/lib/node_modules
+      recurse: true
+    - name: /usr/bin
+      recurse: false
+    - name: /usr/pnpm-global
+      recurse: false
 
 - name: Node | Install global libraries
   community.general.npm:
     name: '{{ item }}'
-    global: yes
+    global: true
   loop: '{{ npm_global_packages }}'
 
 - name: Deno | Install

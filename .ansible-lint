@@ -1,2 +1,6 @@
 skip_list:
   - experimental
+exclude_paths:
+  - ../../../.ansible/roles/
+  - .pre-commit-config.yaml
+  - .github/

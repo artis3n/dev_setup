@@ -18,9 +18,9 @@ terminal_exports:
   - export: GOPATH
     value: '{{ gopath }}'
 terminal_aliases:
-  - alias: docker-ignore
+  - alias: dropbox-ignore
     value: '"attr -s com.dropbox.ignored -V 1"'
-  - alias: docker-watch
+  - alias: dropbox-watch
     value: '"attr -r com.dropbox.ignored"'
 
 docker_pull_images:

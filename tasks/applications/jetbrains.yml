@@ -21,7 +21,7 @@
   args:
     executable: /bin/bash
     chdir: "{{ install_dir }}"
-  changed_when: true
+  changed_when: false
   register: toolbox_installer
 
 - name: Applications | Jetbrains Toolbox | Install

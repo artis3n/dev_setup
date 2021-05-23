@@ -70,6 +70,7 @@ apt_packages:
   - aptitude
   - apt-transport-https
   - asciinema
+  - attr
   - build-essential
   - ca-certificates
   - curl

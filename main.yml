@@ -8,8 +8,11 @@
     - artis3n.github
   tasks:
     - name: Setup | Scripts folder
+      become: true
       ansible.builtin.file:
         path: '{{ install_dir }}'
+        owner: '{{ ansible_user }}'
+        group: '{{ ansible_user }}'
         state: directory
         mode: 0755
 
@@ -75,13 +78,7 @@
     - ansible.builtin.import_role:
         name: artis3n.tailscale
       vars:
-        tailscale_auth_key: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          32313231643962663130656134646639303633316464636262326334323161323232376230653433
-          3465633637663531333136663430646531393064623030630a383338396537383734343539363466
-          62373533616466633535323530376438323562363263363063373834303963393065363334653937
-          3363353464343333350a333965353431396163653437313731313364363439313432666236626430
-          33316636346631636264333734323935646533323736303966333036376362653439
+        tailscale_auth_key: '{{ TAILSCALE_AUTH_KEY }}'
 
   handlers:
     - ansible.builtin.import_tasks: handlers/handlers.yml

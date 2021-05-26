@@ -33,11 +33,11 @@ preprovision:
 
 .PHONY: provision-oryx
 provision-oryx:
-	 ~/.local/bin/pipenv run ansible-playbook --limit oryx --vault-id .vault_pass -i inventory main.yml --ask-become-pass --force-handlers
+	 ~/.local/bin/pipenv run ansible-playbook --limit oryx -i inventory --extra-vars "TAILSCALE_AUTH_KEY=$TAILSCALE_AUTH_KEY" main.yml --ask-become-pass --force-handlers
 
 .PHONY: provision-lemur
 provision-lemur:
-	~/.local/bin/pipenv run ansible-playbook --limit lemur --vault-id .vault_pass -i inventory main.yml --ask-become-pass --force-handlers
+	~/.local/bin/pipenv run ansible-playbook --limit lemur -i inventory --extra-vars "TAILSCALE_AUTH_KEY=$TAILSCALE_AUTH_KEY" main.yml --ask-become-pass --force-handlers
 
 .PHONY: test
 test:

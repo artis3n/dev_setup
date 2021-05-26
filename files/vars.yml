@@ -128,7 +128,10 @@ flatpak_applications:
   - org.citra_emu.citra
 
 snap_apps:
-  - p3x-onenote
+  - name: certbot
+    classic: true
+  - name: p3x-onenote
+    classic: false
 
 npm_global_packages:
   - pnpm

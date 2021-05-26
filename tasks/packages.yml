@@ -62,7 +62,8 @@
   failed_when: flathub_remote.rc > 1
 
 - name: Packages | Flatpak | Set up flathub
-  ansible.builtin.command: flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  ansible.builtin.command:
+    cmd: flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
   when: flathub_remote.rc != 0
 
 - name: Packages | Flatpak | Install applications
@@ -72,10 +73,20 @@
     state: present
   loop: "{{ flatpak_applications }}"
 
+- name: Packages | Snap | Install core
+  become: true
+  ansible.builtin.shell:
+    cmd: snap install core && touch {{ install_dir }}/.snap-core
+    creates: '{{ install_dir }}/.snap-core'
+  tags:
+    - molecule-notest
+
 - name: Packages | Snap | Install applications
   become: true
   community.general.snap:
-    name: '{{ snap_apps }}'
+    name: '{{ item.name }}'
+    classic: '{{ item.classic }}'
     state: present
+  loop: '{{ snap_apps }}'
   tags:
     - molecule-notest

@@ -41,4 +41,4 @@ provision-lemur:
 
 .PHONY: test
 test:
-	VAULT_ID='.vault_pass' pipenv run molecule test
+	pipenv run molecule test

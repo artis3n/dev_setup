@@ -1,81 +1,102 @@
 - name: Converge
   hosts: all
-  gather_facts: 'yes'
+  gather_facts: true
   vars_files:
     - ../../files/vars.yml
-  collections:
-    - artis3n.github
   tasks:
     - name: Setup | Scripts folder
-      file:
+      ansible.builtin.file:
         path: '{{ install_dir }}'
         state: directory
         mode: 0755
 
-    - import_tasks: ../../tasks/packages.yml
-      become: 'yes'
+    - name: Packages
+      ansible.builtin.import_tasks: ../../tasks/packages.yml
+      become: true
       tags: apt
 
-    - import_tasks: ../../tasks/terminal.yml
+    - name: Terminal
+      ansible.builtin.import_tasks: ../../tasks/terminal.yml
       tags: terminal
 
-    - import_tasks: ../../tasks/golang.yml
+    - name: Go
+      ansible.builtin.import_tasks: ../../tasks/golang.yml
       tags:
         - language
         - golang
 
-    - import_tasks: ../../tasks/java.yml
+    - name: Java
+      ansible.builtin.import_tasks: ../../tasks/java.yml
       tags:
         - language
         - java
 
-    - import_tasks: ../../tasks/ruby.yml
+    - name: Ruby
+      ansible.builtin.import_tasks: ../../tasks/ruby.yml
       tags:
         - language
         - ruby
 
-    - import_tasks: ../../tasks/node.yml
+    - name: Node
+      ansible.builtin.import_tasks: ../../tasks/node.yml
       tags: node
 
-    - import_tasks: ../../tasks/python.yml
+    - name: Python
+      ansible.builtin.import_tasks: ../../tasks/python.yml
       tags: python
 
-    - import_tasks: ../../tasks/git.yml
+    - name: Git
+      ansible.builtin.import_tasks: ../../tasks/git.yml
       tags: git
 
-    - import_tasks: ../../tasks/hashicorp.yml
+    - name: Hashicorp
+      ansible.builtin.import_tasks: ../../tasks/hashicorp.yml
       tags: hashicorp
 
-    - name: Docker
-      import_role:
+    - name: Import Docker
+      ansible.builtin.import_role:
         name: artis3n.docker
       tags: docker
 
-    - import_tasks: ../../tasks/cloud.yml
+    - name: Cloud
+      ansible.builtin.import_tasks: ../../tasks/cloud.yml
       tags: cloud
 
-    - import_tasks: ../../tasks/docker.yml
+    - name: Docker
+      ansible.builtin.import_tasks: ../../tasks/docker.yml
       tags: docker
 
-    - import_tasks: ../../tasks/applications/jetbrains.yml
+    - name: VSCode
+      ansible.builtin.import_tasks: ../../tasks/applications/vscode.yml
+      tags:
+        - applications
+        - vscode
+
+    - name: Jetbrains
+      ansible.builtin.import_tasks: ../../tasks/applications/jetbrains.yml
       tags:
         - applications
         - jetbrains
 
-    - import_tasks: ../../tasks/ssh.yml
+    - name: SSH
+      ansible.builtin.import_tasks: ../../tasks/ssh.yml
       tags: ssh
 
-    - import_tasks: ../../tasks/popos.yml
+    - name: PopOS
+      ansible.builtin.import_tasks: ../../tasks/popos.yml
       tags: popos
 
-    - import_tasks: ../../tasks/applications/vmware.yml
+    - name: VMWare
+      ansible.builtin.import_tasks: ../../tasks/applications/vmware.yml
       when: "'vmware' in group_names"
       tags:
         - applications
         - vmware
 
-    - import_tasks: ../../tasks/brew.yml
+    - name: Homebrew
+      ansible.builtin.import_tasks: ../../tasks/brew.yml
       tags: brew
 
   handlers:
-    - import_tasks: ../../handlers/handlers.yml
+    - name: Handlers
+      ansible.builtin.import_tasks: ../../handlers/handlers.yml

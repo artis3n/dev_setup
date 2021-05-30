@@ -9,10 +9,10 @@ install:
 	if [ ! -f /usr/bin/pip3 ]; then sudo apt update && sudo apt install -y python3-pip; fi;
 	if [ ! -f ~/.local/bin/pipenv ]; then pip3 install --user pipenv; fi;
 	if [ ! -d ~/.local/share/virtualenvs ]; then mkdir -p ~/.local/share/virtualenvs/; fi;
-	if [ ! $$(find ~/.local/share/virtualenvs/ -name "dev_setup*") ]; then ~/.local/bin/pipenv install --dev; fi;
+	if [ ! $$(find ~/.local/share/virtualenvs/ -name "dev_setup*") ]; then ~/.local/bin/pipenv install; fi;
 	if [ ! -f /usr/bin/git ]; then sudo apt install -y git; fi;
-	~/.local/bin/pipenv run ansible-galaxy role install --force -r requirements.yml
-	~/.local/bin/pipenv run ansible-galaxy collection install --force -r requirements.yml
+	~/.local/bin/pipenv run ansible-galaxy role install --force --role-file requirements.yml
+	~/.local/bin/pipenv run ansible-galaxy collection install --upgrade --requirements-file requirements.yml
 
 .PHONY: dev-install
 dev-install: install
@@ -41,4 +41,4 @@ provision-lemur:
 
 .PHONY: test
 test:
-	VAULT_ID='.vault_pass' pipenv run molecule test
+	pipenv run molecule test

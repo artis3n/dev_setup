@@ -4,8 +4,6 @@
   gather_facts: true
   vars_files:
     - files/vars.yml
-  collections:
-    - artis3n.github
   tasks:
     - name: Setup | Scripts folder
       become: true
@@ -54,6 +52,11 @@
 
     - ansible.builtin.import_tasks: tasks/docker.yml
       tags: docker
+
+    - ansible.builtin.import_tasks: tasks/applications/vscode.yml
+      tags:
+        - applications
+        - vscode
 
     - ansible.builtin.import_tasks: tasks/applications/jetbrains.yml
       tags:

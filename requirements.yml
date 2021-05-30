@@ -1,6 +1,7 @@
 roles:
   - name: artis3n.docker
   - name: artis3n.tailscale
+  - name: gantsign.visual-studio-code
 collections:
   - name: artis3n.github
   - name: community.crypto

@@ -126,7 +126,6 @@ flatpak_applications:
   - us.zoom.Zoom
   - net.xmind.ZEN
   - org.citra_emu.citra
-  - com.visualstudio.code
 
 snap_apps:
   - name: certbot

@@ -1,0 +1,8 @@
+---
+
+- name: VSCode | Install And Configure
+  ansible.builtin.import_role:
+    name: gantsign.visual-studio-code
+  vars:
+    users:
+      - username: "${{ ansible_user }}"

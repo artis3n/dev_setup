@@ -24,7 +24,6 @@ provisioner:
     host_vars:
       instance:
         ansible_user: root
-        TAILSCALE_AUTH_KEY: ${TAILSCALE_AUTH_KEY}
   config_options:
     colors:
       debug: magenta

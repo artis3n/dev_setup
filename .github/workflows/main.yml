@@ -46,4 +46,3 @@ jobs:
         run: pipenv run molecule test
         env:
           MOLECULE_DISTRO: "${{ matrix.distros }}"
-          TAILSCALE_AUTH_KEY: "${{ secrets.TAILSCALE_EPHEMERAL_AUTH_KEY }}"

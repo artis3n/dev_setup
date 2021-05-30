@@ -97,8 +97,9 @@
       ansible.builtin.import_tasks: ../../tasks/brew.yml
       tags: brew
 
-    - ansible.builtin.import_role:
-      name: artis3n.tailscale
+    - name: Tailscale
+      ansible.builtin.import_role:
+        name: artis3n.tailscale
       vars:
         tailscale_auth_key: '{{ TAILSCALE_AUTH_KEY }}'
 

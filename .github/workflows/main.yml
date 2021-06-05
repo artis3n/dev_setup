@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         distros:
-          - ghcr.io/artis3n/docker-ubuntu2010-ansible:latest
+          - ghcr.io/artis3n/docker-ubuntu2104-ansible:latest
 
     steps:
       - uses: actions/checkout@v2

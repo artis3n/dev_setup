@@ -19,6 +19,11 @@ dev-install: install
 	~/.local/bin/pipenv install --dev;
 	-if [ ! -f .git/hooks/pre-commit ]; then ~/.local/bin/pipenv run pre-commit install; fi;
 
+.PHONY: update
+update:
+	pipenv update --dev
+	pipenv run pre-commit update
+
 .PHONY: clean
 clean:
 	~/.local/bin/pipenv --rm

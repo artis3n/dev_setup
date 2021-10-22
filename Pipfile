@@ -7,7 +7,7 @@ verify_ssl = true
 ansible = "*"
 
 [dev-packages]
-molecule = {extras = ["docker,lint"], version = "*"}
+molecule = {extras = ["docker"], version = "*"}
 ansible-lint = "*"
 
 [requires]

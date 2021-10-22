@@ -22,7 +22,7 @@ dev-install: install
 .PHONY: update
 update:
 	pipenv update --dev
-	pipenv run pre-commit update
+	pipenv run pre-commit autoupdate
 
 .PHONY: clean
 clean:

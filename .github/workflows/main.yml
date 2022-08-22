@@ -29,7 +29,7 @@ jobs:
           pip install pipenv
 
       - name: Use Cache
-        uses: actions/cache@v2.1.6
+        uses: actions/cache@v3.0.8
         with:
           path: ~/.local/share/virtualenvs
           key: ${{ runner.os }}-pipenv-${{ hashfiles('Pipfile.lock') }}
